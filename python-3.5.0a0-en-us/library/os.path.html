@@ -1,0 +1,510 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>11.2. os.path — Common pathname manipulations &mdash; Python 3.5.0a0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.5.0a0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.5.0a0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="Python 3.5.0a0 documentation" href="../index.html" />
+    <link rel="up" title="11. File and Directory Access" href="filesys.html" />
+    <link rel="next" title="11.3. fileinput — Iterate over lines from multiple input streams" href="fileinput.html" />
+    <link rel="prev" title="11.1. pathlib — Object-oriented filesystem paths" href="pathlib.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/version_switch.js"></script>
+    
+ 
+
+  </head>
+  <body>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="fileinput.html" title="11.3. fileinput — Iterate over lines from multiple input streams"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pathlib.html" title="11.1. pathlib — Object-oriented filesystem paths"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" >The Python Standard Library</a> &raquo;</li>
+          <li><a href="filesys.html" accesskey="U">11. File and Directory Access</a> &raquo;</li> 
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-os.path">
+<span id="os-path-common-pathname-manipulations"></span><h1>11.2. <a class="reference internal" href="#module-os.path" title="os.path: Operations on pathnames."><tt class="xref py py-mod docutils literal"><span class="pre">os.path</span></tt></a> &#8212; Common pathname manipulations<a class="headerlink" href="#module-os.path" title="Permalink to this headline">¶</a></h1>
+<p id="index-0">This module implements some useful functions on pathnames. To read or
+write files see <a class="reference internal" href="functions.html#open" title="open"><tt class="xref py py-func docutils literal"><span class="pre">open()</span></tt></a>, and for accessing the filesystem see the
+<a class="reference internal" href="os.html#module-os" title="os: Miscellaneous operating system interfaces."><tt class="xref py py-mod docutils literal"><span class="pre">os</span></tt></a> module. The path parameters can be passed as either strings,
+or bytes. Applications are encouraged to represent file names as
+(Unicode) character strings. Unfortunately, some file names may not be
+representable as strings on Unix, so applications that need to support
+arbitrary file names on Unix should use bytes objects to represent
+path names. Vice versa, using bytes objects cannot represent all file
+names on Windows (in the standard <tt class="docutils literal"><span class="pre">mbcs</span></tt> encoding), hence Windows
+applications should use string objects to access all files.</p>
+<p>Unlike a unix shell, Python does not do any <em>automatic</em> path expansions.
+Functions such as <a class="reference internal" href="#os.path.expanduser" title="os.path.expanduser"><tt class="xref py py-func docutils literal"><span class="pre">expanduser()</span></tt></a> and <a class="reference internal" href="#os.path.expandvars" title="os.path.expandvars"><tt class="xref py py-func docutils literal"><span class="pre">expandvars()</span></tt></a> can be invoked
+explicitly when an application desires shell-like path expansion.  (See also
+the <a class="reference internal" href="glob.html#module-glob" title="glob: Unix shell style pathname pattern expansion."><tt class="xref py py-mod docutils literal"><span class="pre">glob</span></tt></a> module.)</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">The <a class="reference internal" href="pathlib.html#module-pathlib" title="pathlib: Object-oriented filesystem paths"><tt class="xref py py-mod docutils literal"><span class="pre">pathlib</span></tt></a> module offers high-level path objects.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All of these functions accept either only bytes or only string objects as
+their parameters.  The result is an object of the same type, if a path or
+file name is returned.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Since different operating systems have different path name conventions, there
+are several versions of this module in the standard library.  The
+<a class="reference internal" href="#module-os.path" title="os.path: Operations on pathnames."><tt class="xref py py-mod docutils literal"><span class="pre">os.path</span></tt></a> module is always the path module suitable for the operating
+system Python is running on, and therefore usable for local paths.  However,
+you can also import and use the individual modules if you want to manipulate
+a path that is <em>always</em> in one of the different formats.  They all have the
+same interface:</p>
+<ul class="last simple">
+<li><tt class="xref py py-mod docutils literal"><span class="pre">posixpath</span></tt> for UNIX-style paths</li>
+<li><tt class="xref py py-mod docutils literal"><span class="pre">ntpath</span></tt> for Windows paths</li>
+<li><a class="reference internal" href="macpath.html#module-macpath" title="macpath: Mac OS 9 path manipulation functions."><tt class="xref py py-mod docutils literal"><span class="pre">macpath</span></tt></a> for old-style MacOS paths</li>
+</ul>
+</div>
+<dl class="function">
+<dt id="os.path.abspath">
+<tt class="descclassname">os.path.</tt><tt class="descname">abspath</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.abspath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a normalized absolutized version of the pathname <em>path</em>. On most
+platforms, this is equivalent to calling the function <a class="reference internal" href="#os.path.normpath" title="os.path.normpath"><tt class="xref py py-func docutils literal"><span class="pre">normpath()</span></tt></a> as
+follows: <tt class="docutils literal"><span class="pre">normpath(join(os.getcwd(),</span> <span class="pre">path))</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.basename">
+<tt class="descclassname">os.path.</tt><tt class="descname">basename</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.basename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the base name of pathname <em>path</em>.  This is the second element of the
+pair returned by passing <em>path</em> to the function <a class="reference internal" href="#os.path.split" title="os.path.split"><tt class="xref py py-func docutils literal"><span class="pre">split()</span></tt></a>.  Note that
+the result of this function is different
+from the Unix <strong class="program">basename</strong> program; where <strong class="program">basename</strong> for
+<tt class="docutils literal"><span class="pre">'/foo/bar/'</span></tt> returns <tt class="docutils literal"><span class="pre">'bar'</span></tt>, the <a class="reference internal" href="#os.path.basename" title="os.path.basename"><tt class="xref py py-func docutils literal"><span class="pre">basename()</span></tt></a> function returns an
+empty string (<tt class="docutils literal"><span class="pre">''</span></tt>).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.commonprefix">
+<tt class="descclassname">os.path.</tt><tt class="descname">commonprefix</tt><big>(</big><em>list</em><big>)</big><a class="headerlink" href="#os.path.commonprefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the longest path prefix (taken character-by-character) that is a prefix
+of all paths in  <em>list</em>.  If <em>list</em> is empty, return the empty string (<tt class="docutils literal"><span class="pre">''</span></tt>).
+Note that this may return invalid paths because it works a character at a time.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.dirname">
+<tt class="descclassname">os.path.</tt><tt class="descname">dirname</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.dirname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the directory name of pathname <em>path</em>.  This is the first element of
+the pair returned by passing <em>path</em> to the function <a class="reference internal" href="#os.path.split" title="os.path.split"><tt class="xref py py-func docutils literal"><span class="pre">split()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.exists">
+<tt class="descclassname">os.path.</tt><tt class="descname">exists</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if <em>path</em> refers to an existing path or an open
+file descriptor.  Returns <tt class="docutils literal"><span class="pre">False</span></tt> for broken symbolic links.  On
+some platforms, this function may return <tt class="docutils literal"><span class="pre">False</span></tt> if permission is
+not granted to execute <a class="reference internal" href="os.html#os.stat" title="os.stat"><tt class="xref py py-func docutils literal"><span class="pre">os.stat()</span></tt></a> on the requested file, even
+if the <em>path</em> physically exists.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.3: </span><em>path</em> can now be an integer: <tt class="docutils literal"><span class="pre">True</span></tt> is returned if it is an
+ open file descriptor, <tt class="docutils literal"><span class="pre">False</span></tt> otherwise.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.lexists">
+<tt class="descclassname">os.path.</tt><tt class="descname">lexists</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.lexists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if <em>path</em> refers to an existing path. Returns <tt class="docutils literal"><span class="pre">True</span></tt> for
+broken symbolic links.   Equivalent to <a class="reference internal" href="#os.path.exists" title="os.path.exists"><tt class="xref py py-func docutils literal"><span class="pre">exists()</span></tt></a> on platforms lacking
+<a class="reference internal" href="os.html#os.lstat" title="os.lstat"><tt class="xref py py-func docutils literal"><span class="pre">os.lstat()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.expanduser">
+<tt class="descclassname">os.path.</tt><tt class="descname">expanduser</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.expanduser" title="Permalink to this definition">¶</a></dt>
+<dd><p>On Unix and Windows, return the argument with an initial component of <tt class="docutils literal"><span class="pre">~</span></tt> or
+<tt class="docutils literal"><span class="pre">~user</span></tt> replaced by that <em>user</em>&#8216;s home directory.</p>
+<p id="index-1">On Unix, an initial <tt class="docutils literal"><span class="pre">~</span></tt> is replaced by the environment variable <span class="target" id="index-2"></span><tt class="xref std std-envvar docutils literal"><span class="pre">HOME</span></tt>
+if it is set; otherwise the current user&#8217;s home directory is looked up in the
+password directory through the built-in module <a class="reference internal" href="pwd.html#module-pwd" title="pwd: The password database (getpwnam() and friends). (Unix)"><tt class="xref py py-mod docutils literal"><span class="pre">pwd</span></tt></a>. An initial <tt class="docutils literal"><span class="pre">~user</span></tt>
+is looked up directly in the password directory.</p>
+<p>On Windows, <span class="target" id="index-3"></span><tt class="xref std std-envvar docutils literal"><span class="pre">HOME</span></tt> and <span class="target" id="index-4"></span><tt class="xref std std-envvar docutils literal"><span class="pre">USERPROFILE</span></tt> will be used if set,
+otherwise a combination of <span class="target" id="index-5"></span><tt class="xref std std-envvar docutils literal"><span class="pre">HOMEPATH</span></tt> and <span class="target" id="index-6"></span><tt class="xref std std-envvar docutils literal"><span class="pre">HOMEDRIVE</span></tt> will be
+used.  An initial <tt class="docutils literal"><span class="pre">~user</span></tt> is handled by stripping the last directory component
+from the created user path derived above.</p>
+<p>If the expansion fails or if the path does not begin with a tilde, the path is
+returned unchanged.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.expandvars">
+<tt class="descclassname">os.path.</tt><tt class="descname">expandvars</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.expandvars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the argument with environment variables expanded.  Substrings of the form
+<tt class="docutils literal"><span class="pre">$name</span></tt> or <tt class="docutils literal"><span class="pre">${name}</span></tt> are replaced by the value of environment variable
+<em>name</em>.  Malformed variable names and references to non-existing variables are
+left unchanged.</p>
+<p>On Windows, <tt class="docutils literal"><span class="pre">%name%</span></tt> expansions are supported in addition to <tt class="docutils literal"><span class="pre">$name</span></tt> and
+<tt class="docutils literal"><span class="pre">${name}</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.getatime">
+<tt class="descclassname">os.path.</tt><tt class="descname">getatime</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.getatime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the time of last access of <em>path</em>.  The return value is a number giving
+the number of seconds since the epoch (see the  <a class="reference internal" href="time.html#module-time" title="time: Time access and conversions."><tt class="xref py py-mod docutils literal"><span class="pre">time</span></tt></a> module).  Raise
+<a class="reference internal" href="exceptions.html#OSError" title="OSError"><tt class="xref py py-exc docutils literal"><span class="pre">OSError</span></tt></a> if the file does not exist or is inaccessible.</p>
+<p>If <a class="reference internal" href="os.html#os.stat_float_times" title="os.stat_float_times"><tt class="xref py py-func docutils literal"><span class="pre">os.stat_float_times()</span></tt></a> returns <tt class="docutils literal"><span class="pre">True</span></tt>, the result is a floating point
+number.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.getmtime">
+<tt class="descclassname">os.path.</tt><tt class="descname">getmtime</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.getmtime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the time of last modification of <em>path</em>.  The return value is a number
+giving the number of seconds since the epoch (see the  <a class="reference internal" href="time.html#module-time" title="time: Time access and conversions."><tt class="xref py py-mod docutils literal"><span class="pre">time</span></tt></a> module).
+Raise <a class="reference internal" href="exceptions.html#OSError" title="OSError"><tt class="xref py py-exc docutils literal"><span class="pre">OSError</span></tt></a> if the file does not exist or is inaccessible.</p>
+<p>If <a class="reference internal" href="os.html#os.stat_float_times" title="os.stat_float_times"><tt class="xref py py-func docutils literal"><span class="pre">os.stat_float_times()</span></tt></a> returns <tt class="docutils literal"><span class="pre">True</span></tt>, the result is a floating point
+number.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.getctime">
+<tt class="descclassname">os.path.</tt><tt class="descname">getctime</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.getctime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the system&#8217;s ctime which, on some systems (like Unix) is the time of the
+last metadata change, and, on others (like Windows), is the creation time for <em>path</em>.
+The return value is a number giving the number of seconds since the epoch (see
+the  <a class="reference internal" href="time.html#module-time" title="time: Time access and conversions."><tt class="xref py py-mod docutils literal"><span class="pre">time</span></tt></a> module).  Raise <a class="reference internal" href="exceptions.html#OSError" title="OSError"><tt class="xref py py-exc docutils literal"><span class="pre">OSError</span></tt></a> if the file does not exist or
+is inaccessible.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.getsize">
+<tt class="descclassname">os.path.</tt><tt class="descname">getsize</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.getsize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the size, in bytes, of <em>path</em>.  Raise <a class="reference internal" href="exceptions.html#OSError" title="OSError"><tt class="xref py py-exc docutils literal"><span class="pre">OSError</span></tt></a> if the file does
+not exist or is inaccessible.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.isabs">
+<tt class="descclassname">os.path.</tt><tt class="descname">isabs</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.isabs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if <em>path</em> is an absolute pathname.  On Unix, that means it
+begins with a slash, on Windows that it begins with a (back)slash after chopping
+off a potential drive letter.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.isfile">
+<tt class="descclassname">os.path.</tt><tt class="descname">isfile</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.isfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if <em>path</em> is an existing regular file.  This follows symbolic
+links, so both <a class="reference internal" href="#os.path.islink" title="os.path.islink"><tt class="xref py py-func docutils literal"><span class="pre">islink()</span></tt></a> and <a class="reference internal" href="#os.path.isfile" title="os.path.isfile"><tt class="xref py py-func docutils literal"><span class="pre">isfile()</span></tt></a> can be true for the same path.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.isdir">
+<tt class="descclassname">os.path.</tt><tt class="descname">isdir</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.isdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if <em>path</em> is an existing directory.  This follows symbolic
+links, so both <a class="reference internal" href="#os.path.islink" title="os.path.islink"><tt class="xref py py-func docutils literal"><span class="pre">islink()</span></tt></a> and <a class="reference internal" href="#os.path.isdir" title="os.path.isdir"><tt class="xref py py-func docutils literal"><span class="pre">isdir()</span></tt></a> can be true for the same path.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.islink">
+<tt class="descclassname">os.path.</tt><tt class="descname">islink</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.islink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if <em>path</em> refers to a directory entry that is a symbolic link.
+Always <tt class="docutils literal"><span class="pre">False</span></tt> if symbolic links are not supported by the python runtime.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.ismount">
+<tt class="descclassname">os.path.</tt><tt class="descname">ismount</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.ismount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if pathname <em>path</em> is a <em class="dfn">mount point</em>: a point in a
+file system where a different file system has been mounted.  On POSIX, the
+function checks whether <em>path</em>&#8216;s parent, <tt class="file docutils literal"><span class="pre">path/..</span></tt>, is on a different
+device than <em>path</em>, or whether <tt class="file docutils literal"><span class="pre">path/..</span></tt> and <em>path</em> point to the same
+i-node on the same device &#8212; this should detect mount points for all Unix
+and POSIX variants.  On Windows, a drive letter root and a share UNC are
+always mount points, and for any other path <tt class="docutils literal"><span class="pre">GetVolumePathName</span></tt> is called
+to see if it is different from the input path.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4: </span>Support for detecting non-root mount points on Windows.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.join">
+<tt class="descclassname">os.path.</tt><tt class="descname">join</tt><big>(</big><em>path1</em><span class="optional">[</span>, <em>path2</em><span class="optional">[</span>, <em>...</em><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#os.path.join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join one or more path components intelligently.  If any component is an absolute
+path, all previous components (on Windows, including the previous drive letter,
+if there was one) are thrown away, and joining continues.  The return value is
+the concatenation of <em>path1</em>, and optionally <em>path2</em>, etc., with exactly one
+directory separator (<tt class="docutils literal"><span class="pre">os.sep</span></tt>) following each non-empty part except the last.
+(This means that an empty last part will result in a path that ends with a
+separator.)  Note that on Windows, since there is a current directory for
+each drive, <tt class="docutils literal"><span class="pre">os.path.join(&quot;c:&quot;,</span> <span class="pre">&quot;foo&quot;)</span></tt> represents a path relative to the
+current directory on drive <tt class="file docutils literal"><span class="pre">C:</span></tt> (<tt class="file docutils literal"><span class="pre">c:foo</span></tt>), not <tt class="file docutils literal"><span class="pre">c:\foo</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.normcase">
+<tt class="descclassname">os.path.</tt><tt class="descname">normcase</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.normcase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize the case of a pathname.  On Unix and Mac OS X, this returns the
+path unchanged; on case-insensitive filesystems, it converts the path to
+lowercase.  On Windows, it also converts forward slashes to backward slashes.
+Raise a TypeError if the type of <em>path</em> is not <tt class="docutils literal"><span class="pre">str</span></tt> or <tt class="docutils literal"><span class="pre">bytes</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.normpath">
+<tt class="descclassname">os.path.</tt><tt class="descname">normpath</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.normpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize a pathname by collapsing redundant separators and up-level
+references so that <tt class="docutils literal"><span class="pre">A//B</span></tt>, <tt class="docutils literal"><span class="pre">A/B/</span></tt>, <tt class="docutils literal"><span class="pre">A/./B</span></tt> and <tt class="docutils literal"><span class="pre">A/foo/../B</span></tt> all
+become <tt class="docutils literal"><span class="pre">A/B</span></tt>.  This string manipulation may change the meaning of a path
+that contains symbolic links.  On Windows, it converts forward slashes to
+backward slashes. To normalize case, use <a class="reference internal" href="#os.path.normcase" title="os.path.normcase"><tt class="xref py py-func docutils literal"><span class="pre">normcase()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.realpath">
+<tt class="descclassname">os.path.</tt><tt class="descname">realpath</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.realpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the canonical path of the specified filename, eliminating any symbolic
+links encountered in the path (if they are supported by the operating system).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.relpath">
+<tt class="descclassname">os.path.</tt><tt class="descname">relpath</tt><big>(</big><em>path</em>, <em>start=os.curdir</em><big>)</big><a class="headerlink" href="#os.path.relpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a relative filepath to <em>path</em> either from the current directory or
+from an optional <em>start</em> directory.  This is a path computation:  the
+filesystem is not accessed to confirm the existence or nature of <em>path</em> or
+<em>start</em>.</p>
+<p><em>start</em> defaults to <a class="reference internal" href="os.html#os.curdir" title="os.curdir"><tt class="xref py py-attr docutils literal"><span class="pre">os.curdir</span></tt></a>.</p>
+<p>Availability: Unix, Windows.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.samefile">
+<tt class="descclassname">os.path.</tt><tt class="descname">samefile</tt><big>(</big><em>path1</em>, <em>path2</em><big>)</big><a class="headerlink" href="#os.path.samefile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if both pathname arguments refer to the same file or directory.
+This is determined by the device number and i-node number and raises an
+exception if a <a class="reference internal" href="os.html#os.stat" title="os.stat"><tt class="xref py py-func docutils literal"><span class="pre">os.stat()</span></tt></a> call on either pathname fails.</p>
+<p>Availability: Unix, Windows.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.2: </span>Added Windows support.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4: </span>Windows now uses the same implementation as all other platforms.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.sameopenfile">
+<tt class="descclassname">os.path.</tt><tt class="descname">sameopenfile</tt><big>(</big><em>fp1</em>, <em>fp2</em><big>)</big><a class="headerlink" href="#os.path.sameopenfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if the file descriptors <em>fp1</em> and <em>fp2</em> refer to the same file.</p>
+<p>Availability: Unix, Windows.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.2: </span>Added Windows support.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.samestat">
+<tt class="descclassname">os.path.</tt><tt class="descname">samestat</tt><big>(</big><em>stat1</em>, <em>stat2</em><big>)</big><a class="headerlink" href="#os.path.samestat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if the stat tuples <em>stat1</em> and <em>stat2</em> refer to the same file.
+These structures may have been returned by <a class="reference internal" href="os.html#os.fstat" title="os.fstat"><tt class="xref py py-func docutils literal"><span class="pre">os.fstat()</span></tt></a>,
+<a class="reference internal" href="os.html#os.lstat" title="os.lstat"><tt class="xref py py-func docutils literal"><span class="pre">os.lstat()</span></tt></a>, or <a class="reference internal" href="os.html#os.stat" title="os.stat"><tt class="xref py py-func docutils literal"><span class="pre">os.stat()</span></tt></a>.  This function implements the
+underlying comparison used by <a class="reference internal" href="#os.path.samefile" title="os.path.samefile"><tt class="xref py py-func docutils literal"><span class="pre">samefile()</span></tt></a> and <a class="reference internal" href="#os.path.sameopenfile" title="os.path.sameopenfile"><tt class="xref py py-func docutils literal"><span class="pre">sameopenfile()</span></tt></a>.</p>
+<p>Availability: Unix, Windows.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4: </span>Added Windows support.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.split">
+<tt class="descclassname">os.path.</tt><tt class="descname">split</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split the pathname <em>path</em> into a pair, <tt class="docutils literal"><span class="pre">(head,</span> <span class="pre">tail)</span></tt> where <em>tail</em> is the
+last pathname component and <em>head</em> is everything leading up to that.  The
+<em>tail</em> part will never contain a slash; if <em>path</em> ends in a slash, <em>tail</em>
+will be empty.  If there is no slash in <em>path</em>, <em>head</em> will be empty.  If
+<em>path</em> is empty, both <em>head</em> and <em>tail</em> are empty.  Trailing slashes are
+stripped from <em>head</em> unless it is the root (one or more slashes only).  In
+all cases, <tt class="docutils literal"><span class="pre">join(head,</span> <span class="pre">tail)</span></tt> returns a path to the same location as <em>path</em>
+(but the strings may differ).  Also see the functions <a class="reference internal" href="#os.path.dirname" title="os.path.dirname"><tt class="xref py py-func docutils literal"><span class="pre">dirname()</span></tt></a> and
+<a class="reference internal" href="#os.path.basename" title="os.path.basename"><tt class="xref py py-func docutils literal"><span class="pre">basename()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.splitdrive">
+<tt class="descclassname">os.path.</tt><tt class="descname">splitdrive</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.splitdrive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split the pathname <em>path</em> into a pair <tt class="docutils literal"><span class="pre">(drive,</span> <span class="pre">tail)</span></tt> where <em>drive</em> is either
+a mount point or the empty string.  On systems which do not use drive
+specifications, <em>drive</em> will always be the empty string.  In all cases, <tt class="docutils literal"><span class="pre">drive</span>
+<span class="pre">+</span> <span class="pre">tail</span></tt> will be the same as <em>path</em>.</p>
+<p>On Windows, splits a pathname into drive/UNC sharepoint and relative path.</p>
+<p>If the path contains a drive letter, drive will contain everything
+up to and including the colon.
+e.g. <tt class="docutils literal"><span class="pre">splitdrive(&quot;c:/dir&quot;)</span></tt> returns <tt class="docutils literal"><span class="pre">(&quot;c:&quot;,</span> <span class="pre">&quot;/dir&quot;)</span></tt></p>
+<p>If the path contains a UNC path, drive will contain the host name
+and share, up to but not including the fourth separator.
+e.g. <tt class="docutils literal"><span class="pre">splitdrive(&quot;//host/computer/dir&quot;)</span></tt> returns <tt class="docutils literal"><span class="pre">(&quot;//host/computer&quot;,</span> <span class="pre">&quot;/dir&quot;)</span></tt></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.splitext">
+<tt class="descclassname">os.path.</tt><tt class="descname">splitext</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.splitext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split the pathname <em>path</em> into a pair <tt class="docutils literal"><span class="pre">(root,</span> <span class="pre">ext)</span></tt>  such that <tt class="docutils literal"><span class="pre">root</span> <span class="pre">+</span> <span class="pre">ext</span> <span class="pre">==</span>
+<span class="pre">path</span></tt>, and <em>ext</em> is empty or begins with a period and contains at most one
+period. Leading periods on the basename are  ignored; <tt class="docutils literal"><span class="pre">splitext('.cshrc')</span></tt>
+returns  <tt class="docutils literal"><span class="pre">('.cshrc',</span> <span class="pre">'')</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="os.path.splitunc">
+<tt class="descclassname">os.path.</tt><tt class="descname">splitunc</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#os.path.splitunc" title="Permalink to this definition">¶</a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 3.1: </span>Use <em>splitdrive</em> instead.</p>
+</div>
+<p>Split the pathname <em>path</em> into a pair <tt class="docutils literal"><span class="pre">(unc,</span> <span class="pre">rest)</span></tt> so that <em>unc</em> is the UNC
+mount point (such as <tt class="docutils literal"><span class="pre">r'\\host\mount'</span></tt>), if present, and <em>rest</em> the rest of
+the path (such as  <tt class="docutils literal"><span class="pre">r'\path\file.ext'</span></tt>).  For paths containing drive letters,
+<em>unc</em> will always be the empty string.</p>
+<p>Availability:  Windows.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="os.path.supports_unicode_filenames">
+<tt class="descclassname">os.path.</tt><tt class="descname">supports_unicode_filenames</tt><a class="headerlink" href="#os.path.supports_unicode_filenames" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">True</span></tt> if arbitrary Unicode strings can be used as file names (within limitations
+imposed by the file system).</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pathlib.html"
+                        title="previous chapter">11.1. <tt class="docutils literal"><span class="pre">pathlib</span></tt> &#8212; Object-oriented filesystem paths</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="fileinput.html"
+                        title="next chapter">11.3. <tt class="docutils literal"><span class="pre">fileinput</span></tt> &#8212; Iterate over lines from multiple input streams</a></p>
+<h3>This Page</h3>
+<ul class="this-page-menu">
+  <li><a href="../bugs.html">Report a Bug</a></li>
+  <li><a href="../_sources/library/os.path.txt"
+         rel="nofollow">Show Source</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="fileinput.html" title="11.3. fileinput — Iterate over lines from multiple input streams"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pathlib.html" title="11.1. pathlib — Object-oriented filesystem paths"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" >The Python Standard Library</a> &raquo;</li>
+          <li><a href="filesys.html" >11. File and Directory Access</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 1990-2014, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="http://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jun 23, 2014.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+    </div>
+
+  </body>
+</html>

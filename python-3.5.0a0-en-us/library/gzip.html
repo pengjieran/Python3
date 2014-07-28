@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>13.2. gzip — Support for gzip files &mdash; Python 3.5.0a0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.5.0a0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.5.0a0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="Python 3.5.0a0 documentation" href="../index.html" />
+    <link rel="up" title="13. Data Compression and Archiving" href="archiving.html" />
+    <link rel="next" title="13.3. bz2 — Support for bzip2 compression" href="bz2.html" />
+    <link rel="prev" title="13.1. zlib — Compression compatible with gzip" href="zlib.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/version_switch.js"></script>
+    
+ 
+
+  </head>
+  <body>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bz2.html" title="13.3. bz2 — Support for bzip2 compression"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="zlib.html" title="13.1. zlib — Compression compatible with gzip"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" >The Python Standard Library</a> &raquo;</li>
+          <li><a href="archiving.html" accesskey="U">13. Data Compression and Archiving</a> &raquo;</li> 
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-gzip">
+<span id="gzip-support-for-gzip-files"></span><h1>13.2. <a class="reference internal" href="#module-gzip" title="gzip: Interfaces for gzip compression and decompression using file objects."><tt class="xref py py-mod docutils literal"><span class="pre">gzip</span></tt></a> &#8212; Support for <strong class="program">gzip</strong> files<a class="headerlink" href="#module-gzip" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="http://hg.python.org/cpython/file/default/Lib/gzip.py">Lib/gzip.py</a></p>
+<hr class="docutils" />
+<p>This module provides a simple interface to compress and decompress files just
+like the GNU programs <strong class="program">gzip</strong> and <strong class="program">gunzip</strong> would.</p>
+<p>The data compression is provided by the <a class="reference internal" href="zlib.html#module-zlib" title="zlib: Low-level interface to compression and decompression routines compatible with gzip."><tt class="xref py py-mod docutils literal"><span class="pre">zlib</span></tt></a> module.</p>
+<p>The <a class="reference internal" href="#module-gzip" title="gzip: Interfaces for gzip compression and decompression using file objects."><tt class="xref py py-mod docutils literal"><span class="pre">gzip</span></tt></a> module provides the <a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a> class, as well as the
+<a class="reference internal" href="#gzip.open" title="gzip.open"><tt class="xref py py-func docutils literal"><span class="pre">open()</span></tt></a>, <a class="reference internal" href="#gzip.compress" title="gzip.compress"><tt class="xref py py-func docutils literal"><span class="pre">compress()</span></tt></a> and <a class="reference internal" href="#gzip.decompress" title="gzip.decompress"><tt class="xref py py-func docutils literal"><span class="pre">decompress()</span></tt></a> convenience functions.
+The <a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a> class reads and writes <strong class="program">gzip</strong>-format files,
+automatically compressing or decompressing the data so that it looks like an
+ordinary <a class="reference internal" href="../glossary.html#term-file-object"><em class="xref std std-term">file object</em></a>.</p>
+<p>Note that additional file formats which can be decompressed by the
+<strong class="program">gzip</strong> and <strong class="program">gunzip</strong> programs, such  as those produced by
+<strong class="program">compress</strong> and <strong class="program">pack</strong>, are not supported by this module.</p>
+<p>The module defines the following items:</p>
+<dl class="function">
+<dt id="gzip.open">
+<tt class="descclassname">gzip.</tt><tt class="descname">open</tt><big>(</big><em>filename</em>, <em>mode='rb'</em>, <em>compresslevel=9</em>, <em>encoding=None</em>, <em>errors=None</em>, <em>newline=None</em><big>)</big><a class="headerlink" href="#gzip.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a gzip-compressed file in binary or text mode, returning a <a class="reference internal" href="../glossary.html#term-file-object"><em class="xref std std-term">file
+object</em></a>.</p>
+<p>The <em>filename</em> argument can be an actual filename (a <a class="reference internal" href="stdtypes.html#str" title="str"><tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></a> or
+<a class="reference internal" href="functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> object), or an existing file object to read from or write to.</p>
+<p>The <em>mode</em> argument can be any of <tt class="docutils literal"><span class="pre">'r'</span></tt>, <tt class="docutils literal"><span class="pre">'rb'</span></tt>, <tt class="docutils literal"><span class="pre">'a'</span></tt>, <tt class="docutils literal"><span class="pre">'ab'</span></tt>,
+<tt class="docutils literal"><span class="pre">'w'</span></tt>, <tt class="docutils literal"><span class="pre">'wb'</span></tt>, <tt class="docutils literal"><span class="pre">'x'</span></tt> or <tt class="docutils literal"><span class="pre">'xb'</span></tt> for binary mode, or <tt class="docutils literal"><span class="pre">'rt'</span></tt>,
+<tt class="docutils literal"><span class="pre">'at'</span></tt>, <tt class="docutils literal"><span class="pre">'wt'</span></tt>, or <tt class="docutils literal"><span class="pre">'xt'</span></tt> for text mode. The default is <tt class="docutils literal"><span class="pre">'rb'</span></tt>.</p>
+<p>The <em>compresslevel</em> argument is an integer from 0 to 9, as for the
+<a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a> constructor.</p>
+<p>For binary mode, this function is equivalent to the <a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a>
+constructor: <tt class="docutils literal"><span class="pre">GzipFile(filename,</span> <span class="pre">mode,</span> <span class="pre">compresslevel)</span></tt>. In this case, the
+<em>encoding</em>, <em>errors</em> and <em>newline</em> arguments must not be provided.</p>
+<p>For text mode, a <a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a> object is created, and wrapped in an
+<a class="reference internal" href="io.html#io.TextIOWrapper" title="io.TextIOWrapper"><tt class="xref py py-class docutils literal"><span class="pre">io.TextIOWrapper</span></tt></a> instance with the specified encoding, error
+handling behavior, and line ending(s).</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.3: </span>Added support for <em>filename</em> being a file object, support for text mode,
+and the <em>encoding</em>, <em>errors</em> and <em>newline</em> arguments.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4: </span>Added support for the <tt class="docutils literal"><span class="pre">'x'</span></tt>, <tt class="docutils literal"><span class="pre">'xb'</span></tt> and <tt class="docutils literal"><span class="pre">'xt'</span></tt> modes.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="gzip.GzipFile">
+<em class="property">class </em><tt class="descclassname">gzip.</tt><tt class="descname">GzipFile</tt><big>(</big><em>filename=None</em>, <em>mode=None</em>, <em>compresslevel=9</em>, <em>fileobj=None</em>, <em>mtime=None</em><big>)</big><a class="headerlink" href="#gzip.GzipFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for the <a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a> class, which simulates most of the
+methods of a <a class="reference internal" href="../glossary.html#term-file-object"><em class="xref std std-term">file object</em></a>, with the exception of the <tt class="xref py py-meth docutils literal"><span class="pre">truncate()</span></tt>
+method.  At least one of <em>fileobj</em> and <em>filename</em> must be given a non-trivial
+value.</p>
+<p>The new class instance is based on <em>fileobj</em>, which can be a regular file, a
+<a class="reference internal" href="io.html#io.BytesIO" title="io.BytesIO"><tt class="xref py py-class docutils literal"><span class="pre">io.BytesIO</span></tt></a> object, or any other object which simulates a file.  It
+defaults to <tt class="docutils literal"><span class="pre">None</span></tt>, in which case <em>filename</em> is opened to provide a file
+object.</p>
+<p>When <em>fileobj</em> is not <tt class="docutils literal"><span class="pre">None</span></tt>, the <em>filename</em> argument is only used to be
+included in the <strong class="program">gzip</strong> file header, which may include the original
+filename of the uncompressed file.  It defaults to the filename of <em>fileobj</em>, if
+discernible; otherwise, it defaults to the empty string, and in this case the
+original filename is not included in the header.</p>
+<p>The <em>mode</em> argument can be any of <tt class="docutils literal"><span class="pre">'r'</span></tt>, <tt class="docutils literal"><span class="pre">'rb'</span></tt>, <tt class="docutils literal"><span class="pre">'a'</span></tt>, <tt class="docutils literal"><span class="pre">'ab'</span></tt>, <tt class="docutils literal"><span class="pre">'w'</span></tt>,
+<tt class="docutils literal"><span class="pre">'wb'</span></tt>, <tt class="docutils literal"><span class="pre">'x'</span></tt>, or <tt class="docutils literal"><span class="pre">'xb'</span></tt>, depending on whether the file will be read or
+written.  The default is the mode of <em>fileobj</em> if discernible; otherwise, the
+default is <tt class="docutils literal"><span class="pre">'rb'</span></tt>.</p>
+<p>Note that the file is always opened in binary mode. To open a compressed file
+in text mode, use <a class="reference internal" href="#gzip.open" title="gzip.open"><tt class="xref py py-func docutils literal"><span class="pre">open()</span></tt></a> (or wrap your <a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a> with an
+<a class="reference internal" href="io.html#io.TextIOWrapper" title="io.TextIOWrapper"><tt class="xref py py-class docutils literal"><span class="pre">io.TextIOWrapper</span></tt></a>).</p>
+<p>The <em>compresslevel</em> argument is an integer from <tt class="docutils literal"><span class="pre">0</span></tt> to <tt class="docutils literal"><span class="pre">9</span></tt> controlling
+the level of compression; <tt class="docutils literal"><span class="pre">1</span></tt> is fastest and produces the least
+compression, and <tt class="docutils literal"><span class="pre">9</span></tt> is slowest and produces the most compression. <tt class="docutils literal"><span class="pre">0</span></tt>
+is no compression. The default is <tt class="docutils literal"><span class="pre">9</span></tt>.</p>
+<p>The <em>mtime</em> argument is an optional numeric timestamp to be written to
+the stream when compressing.  All <strong class="program">gzip</strong> compressed streams are
+required to contain a timestamp.  If omitted or <tt class="docutils literal"><span class="pre">None</span></tt>, the current
+time is used.  This module ignores the timestamp when decompressing;
+however, some programs, such as <strong class="program">gunzip</strong>, make use of it.
+The format of the timestamp is the same as that of the return value of
+<tt class="docutils literal"><span class="pre">time.time()</span></tt> and of the <tt class="docutils literal"><span class="pre">st_mtime</span></tt> attribute of the object returned
+by <tt class="docutils literal"><span class="pre">os.stat()</span></tt>.</p>
+<p>Calling a <a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a> object&#8217;s <tt class="xref py py-meth docutils literal"><span class="pre">close()</span></tt> method does not close
+<em>fileobj</em>, since you might wish to append more material after the compressed
+data.  This also allows you to pass a <a class="reference internal" href="io.html#io.BytesIO" title="io.BytesIO"><tt class="xref py py-class docutils literal"><span class="pre">io.BytesIO</span></tt></a> object opened for
+writing as <em>fileobj</em>, and retrieve the resulting memory buffer using the
+<a class="reference internal" href="io.html#io.BytesIO" title="io.BytesIO"><tt class="xref py py-class docutils literal"><span class="pre">io.BytesIO</span></tt></a> object&#8217;s <a class="reference internal" href="io.html#io.BytesIO.getvalue" title="io.BytesIO.getvalue"><tt class="xref py py-meth docutils literal"><span class="pre">getvalue()</span></tt></a> method.</p>
+<p><a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a> supports the <a class="reference internal" href="io.html#io.BufferedIOBase" title="io.BufferedIOBase"><tt class="xref py py-class docutils literal"><span class="pre">io.BufferedIOBase</span></tt></a> interface,
+including iteration and the <a class="reference internal" href="../reference/compound_stmts.html#with"><tt class="xref std std-keyword docutils literal"><span class="pre">with</span></tt></a> statement.  Only the
+<tt class="xref py py-meth docutils literal"><span class="pre">truncate()</span></tt> method isn&#8217;t implemented.</p>
+<p><a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a> also provides the following method:</p>
+<dl class="method">
+<dt id="gzip.GzipFile.peek">
+<tt class="descname">peek</tt><big>(</big><span class="optional">[</span><em>n</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#gzip.GzipFile.peek" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read <em>n</em> uncompressed bytes without advancing the file position.
+At most one single read on the compressed stream is done to satisfy
+the call.  The number of bytes returned may be more or less than
+requested.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">While calling <a class="reference internal" href="#gzip.GzipFile.peek" title="gzip.GzipFile.peek"><tt class="xref py py-meth docutils literal"><span class="pre">peek()</span></tt></a> does not change the file position of
+the <a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a>, it may change the position of the underlying
+file object (e.g. if the <a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a> was constructed with the
+<em>fileobj</em> parameter).</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.2.</span></p>
+</div>
+</dd></dl>
+
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.1: </span>Support for the <a class="reference internal" href="../reference/compound_stmts.html#with"><tt class="xref std std-keyword docutils literal"><span class="pre">with</span></tt></a> statement was added, along with the
+<em>mtime</em> argument.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.2: </span>Support for zero-padded and unseekable files was added.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.3: </span>The <a class="reference internal" href="io.html#io.BufferedIOBase.read1" title="io.BufferedIOBase.read1"><tt class="xref py py-meth docutils literal"><span class="pre">io.BufferedIOBase.read1()</span></tt></a> method is now implemented.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4: </span>Added support for the <tt class="docutils literal"><span class="pre">'x'</span></tt> and <tt class="docutils literal"><span class="pre">'xb'</span></tt> modes.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="gzip.compress">
+<tt class="descclassname">gzip.</tt><tt class="descname">compress</tt><big>(</big><em>data</em>, <em>compresslevel=9</em><big>)</big><a class="headerlink" href="#gzip.compress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compress the <em>data</em>, returning a <a class="reference internal" href="functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> object containing
+the compressed data.  <em>compresslevel</em> has the same meaning as in
+the <a class="reference internal" href="#gzip.GzipFile" title="gzip.GzipFile"><tt class="xref py py-class docutils literal"><span class="pre">GzipFile</span></tt></a> constructor above.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="gzip.decompress">
+<tt class="descclassname">gzip.</tt><tt class="descname">decompress</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#gzip.decompress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decompress the <em>data</em>, returning a <a class="reference internal" href="functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> object containing the
+uncompressed data.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.2.</span></p>
+</div>
+</dd></dl>
+
+<div class="section" id="examples-of-usage">
+<span id="gzip-usage-examples"></span><h2>13.2.1. Examples of usage<a class="headerlink" href="#examples-of-usage" title="Permalink to this headline">¶</a></h2>
+<p>Example of how to read a compressed file:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">gzip</span>
+<span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;/home/joe/file.txt.gz&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">file_content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Example of how to create a compressed GZIP file:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">gzip</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">b</span><span class="s">&quot;Lots of content here&quot;</span>
+<span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;/home/joe/file.txt.gz&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example of how to GZIP compress an existing file:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">gzip</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/home/joe/file.txt&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_in</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;/home/joe/file.txt.gz&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_out</span><span class="p">:</span>
+        <span class="n">f_out</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">f_in</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example of how to GZIP compress a binary string:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">gzip</span>
+<span class="n">s_in</span> <span class="o">=</span> <span class="n">b</span><span class="s">&quot;Lots of content here&quot;</span>
+<span class="n">s_out</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">s_in</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt>Module <a class="reference internal" href="zlib.html#module-zlib" title="zlib: Low-level interface to compression and decompression routines compatible with gzip."><tt class="xref py py-mod docutils literal"><span class="pre">zlib</span></tt></a></dt>
+<dd>The basic data compression module needed to support the <strong class="program">gzip</strong> file
+format.</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">13.2. <tt class="docutils literal"><span class="pre">gzip</span></tt> &#8212; Support for <strong class="program">gzip</strong> files</a><ul>
+<li><a class="reference internal" href="#examples-of-usage">13.2.1. Examples of usage</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="zlib.html"
+                        title="previous chapter">13.1. <tt class="docutils literal"><span class="pre">zlib</span></tt> &#8212; Compression compatible with <strong class="program">gzip</strong></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bz2.html"
+                        title="next chapter">13.3. <tt class="docutils literal"><span class="pre">bz2</span></tt> &#8212; Support for <strong class="program">bzip2</strong> compression</a></p>
+<h3>This Page</h3>
+<ul class="this-page-menu">
+  <li><a href="../bugs.html">Report a Bug</a></li>
+  <li><a href="../_sources/library/gzip.txt"
+         rel="nofollow">Show Source</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bz2.html" title="13.3. bz2 — Support for bzip2 compression"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="zlib.html" title="13.1. zlib — Compression compatible with gzip"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" >The Python Standard Library</a> &raquo;</li>
+          <li><a href="archiving.html" >13. Data Compression and Archiving</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 1990-2014, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="http://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jun 03, 2014.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+    </div>
+
+  </body>
+</html>

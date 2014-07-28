@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5. Additional Tools and Scripts &mdash; Python 3.5.0a0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.5.0a0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.5.0a0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="Python 3.5.0a0 documentation" href="../index.html" />
+    <link rel="up" title="Python Setup and Usage" href="index.html" />
+    <link rel="next" title="The Python Language Reference" href="../reference/index.html" />
+    <link rel="prev" title="4. Using Python on a Macintosh" href="mac.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/version_switch.js"></script>
+    
+ 
+
+  </head>
+  <body>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../reference/index.html" title="The Python Language Reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mac.html" title="4. Using Python on a Macintosh"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" accesskey="U">Python Setup and Usage</a> &raquo;</li> 
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="additional-tools-and-scripts">
+<span id="tools-and-scripts"></span><h1>5. Additional Tools and Scripts<a class="headerlink" href="#additional-tools-and-scripts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pyvenv-creating-virtual-environments">
+<span id="scripts-pyvenv"></span><h2>5.1. pyvenv - Creating virtual environments<a class="headerlink" href="#pyvenv-creating-virtual-environments" title="Permalink to this headline">¶</a></h2>
+<p>Creation of <a class="reference internal" href="../library/venv.html#venv-def"><em>virtual environments</em></a> is done by executing the
+<tt class="docutils literal"><span class="pre">pyvenv</span></tt> script:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="n">pyvenv</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">new</span><span class="o">/</span><span class="n">virtual</span><span class="o">/</span><span class="n">environment</span>
+</pre></div>
+</div>
+<p>Running this command creates the target directory (creating any parent
+directories that don&#8217;t exist already) and places a <tt class="docutils literal"><span class="pre">pyvenv.cfg</span></tt> file in it
+with a <tt class="docutils literal"><span class="pre">home</span></tt> key pointing to the Python installation the command was run
+from.  It also creates a <tt class="docutils literal"><span class="pre">bin</span></tt> (or <tt class="docutils literal"><span class="pre">Scripts</span></tt> on Windows) subdirectory
+containing a copy of the <tt class="docutils literal"><span class="pre">python</span></tt> binary (or binaries, in the case of
+Windows).  It also creates an (initially empty) <tt class="docutils literal"><span class="pre">lib/pythonX.Y/site-packages</span></tt>
+subdirectory (on Windows, this is <tt class="docutils literal"><span class="pre">Lib\site-packages</span></tt>).</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="http://packaging.python.org/en/latest/tutorial.html#creating-and-using-virtual-environments">Python Packaging User Guide: Creating and using virtual environments</a></p>
+</div>
+<p>On Windows, you may have to invoke the <tt class="docutils literal"><span class="pre">pyvenv</span></tt> script as follows, if you
+don&#8217;t have the relevant PATH and PATHEXT settings:</p>
+<div class="highlight-none"><div class="highlight"><pre>c:\Temp&gt;c:\Python33\python c:\Python33\Tools\Scripts\pyvenv.py myenv
+</pre></div>
+</div>
+<p>or equivalently:</p>
+<div class="highlight-none"><div class="highlight"><pre>c:\Temp&gt;c:\Python33\python -m venv myenv
+</pre></div>
+</div>
+<p>The command, if run with <tt class="docutils literal"><span class="pre">-h</span></tt>, will show the available options:</p>
+<div class="highlight-none"><div class="highlight"><pre>usage: pyvenv [-h] [--system-site-packages] [--symlinks] [--clear]
+              [--upgrade] [--without-pip] ENV_DIR [ENV_DIR ...]
+
+Creates virtual Python environments in one or more target directories.
+
+positional arguments:
+  ENV_DIR             A directory to create the environment in.
+
+optional arguments:
+  -h, --help             show this help message and exit
+  --system-site-packages Give access to the global site-packages dir to the
+                         virtual environment.
+  --symlinks             Try to use symlinks rather than copies, when symlinks
+                         are not the default for the platform.
+  --copies               Try to use copies rather than symlinks, even when
+                         symlinks are the default for the platform.
+  --clear                Delete the environment directory if it already exists.
+                         If not specified and the directory exists, an error is
+                         raised.
+  --upgrade              Upgrade the environment directory to use this version
+                         of Python, assuming Python has been upgraded in-place.
+  --without-pip          Skips installing or upgrading pip in the virtual
+                         environment (pip is bootstrapped by default)
+</pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4: </span>Installs pip by default, added the <tt class="docutils literal"><span class="pre">--without-pip</span></tt>  and <tt class="docutils literal"><span class="pre">--copies</span></tt>
+options</p>
+</div>
+<p>If the target directory already exists an error will be raised, unless
+the <tt class="docutils literal"><span class="pre">--clear</span></tt> or <tt class="docutils literal"><span class="pre">--upgrade</span></tt> option was provided.</p>
+<p>The created <tt class="docutils literal"><span class="pre">pyvenv.cfg</span></tt> file also includes the
+<tt class="docutils literal"><span class="pre">include-system-site-packages</span></tt> key, set to <tt class="docutils literal"><span class="pre">true</span></tt> if <tt class="docutils literal"><span class="pre">venv</span></tt> is
+run with the <tt class="docutils literal"><span class="pre">--system-site-packages</span></tt> option, <tt class="docutils literal"><span class="pre">false</span></tt> otherwise.</p>
+<p>Unless the <tt class="docutils literal"><span class="pre">--without-pip</span></tt> option is given, <a class="reference internal" href="../library/ensurepip.html#module-ensurepip" title="ensurepip: Bootstrapping the ``pip`` installer into an existing Python installation or virtual environment."><tt class="xref py py-mod docutils literal"><span class="pre">ensurepip</span></tt></a> will be
+invoked to bootstrap <tt class="docutils literal"><span class="pre">pip</span></tt> into the virtual environment.</p>
+<p>Multiple paths can be given to <tt class="docutils literal"><span class="pre">pyvenv</span></tt>, in which case an identical
+virtualenv will be created, according to the given options, at each
+provided path.</p>
+<p>Once a venv has been created, it can be &#8220;activated&#8221; using a script in the
+venv&#8217;s binary directory. The invocation of the script is platform-specific:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="24%" />
+<col width="58%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Platform</th>
+<th class="head">Shell</th>
+<th class="head">Command to activate virtual environment</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Posix</td>
+<td>bash/zsh</td>
+<td>$ source &lt;venv&gt;/bin/activate</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>fish</td>
+<td>$ . &lt;venv&gt;/bin/activate.fish</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>csh/tcsh</td>
+<td>$ source &lt;venv&gt;/bin/activate.csh</td>
+</tr>
+<tr class="row-odd"><td>Windows</td>
+<td>cmd.exe</td>
+<td>C:&gt; &lt;venv&gt;/Scripts/activate.bat</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>PowerShell</td>
+<td>PS C:&gt; &lt;venv&gt;/Scripts/Activate.ps1</td>
+</tr>
+</tbody>
+</table>
+<p>You don&#8217;t specifically <em>need</em> to activate an environment; activation just
+prepends the venv&#8217;s binary directory to your path, so that &#8220;python&#8221; invokes the
+venv&#8217;s Python interpreter and you can run installed scripts without having to
+use their full path. However, all scripts installed in a venv should be
+runnable without activating it, and run with the venv&#8217;s Python automatically.</p>
+<p>You can deactivate a venv by typing &#8220;deactivate&#8221; in your shell. The exact
+mechanism is platform-specific: for example, the Bash activation script defines
+a &#8220;deactivate&#8221; function, whereas on Windows there are separate scripts called
+<tt class="docutils literal"><span class="pre">deactivate.bat</span></tt> and <tt class="docutils literal"><span class="pre">Deactivate.ps1</span></tt> which are installed when the venv is
+created.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4: </span><tt class="docutils literal"><span class="pre">fish</span></tt> and <tt class="docutils literal"><span class="pre">csh</span></tt> activation scripts.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">5. Additional Tools and Scripts</a><ul>
+<li><a class="reference internal" href="#pyvenv-creating-virtual-environments">5.1. pyvenv - Creating virtual environments</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mac.html"
+                        title="previous chapter">4. Using Python on a Macintosh</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../reference/index.html"
+                        title="next chapter">The Python Language Reference</a></p>
+<h3>This Page</h3>
+<ul class="this-page-menu">
+  <li><a href="../bugs.html">Report a Bug</a></li>
+  <li><a href="../_sources/using/scripts.txt"
+         rel="nofollow">Show Source</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../reference/index.html" title="The Python Language Reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mac.html" title="4. Using Python on a Macintosh"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" >Python Setup and Usage</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 1990-2014, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="http://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jun 03, 2014.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+    </div>
+
+  </body>
+</html>

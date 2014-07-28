@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>19.6. base64 — Base16, Base32, Base64, Base85 Data Encodings &mdash; Python 3.5.0a0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.5.0a0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.5.0a0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="Python 3.5.0a0 documentation" href="../index.html" />
+    <link rel="up" title="19. Internet Data Handling" href="netdata.html" />
+    <link rel="next" title="19.7. binhex — Encode and decode binhex4 files" href="binhex.html" />
+    <link rel="prev" title="19.5. mimetypes — Map filenames to MIME types" href="mimetypes.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/version_switch.js"></script>
+    
+ 
+
+  </head>
+  <body>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="binhex.html" title="19.7. binhex — Encode and decode binhex4 files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mimetypes.html" title="19.5. mimetypes — Map filenames to MIME types"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" >The Python Standard Library</a> &raquo;</li>
+          <li><a href="netdata.html" accesskey="U">19. Internet Data Handling</a> &raquo;</li> 
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-base64">
+<span id="base64-base16-base32-base64-base85-data-encodings"></span><h1>19.6. <a class="reference internal" href="#module-base64" title="base64: RFC 3548: Base16, Base32, Base64 Data Encodings; Base85 and Ascii85"><tt class="xref py py-mod docutils literal"><span class="pre">base64</span></tt></a> &#8212; Base16, Base32, Base64, Base85 Data Encodings<a class="headerlink" href="#module-base64" title="Permalink to this headline">¶</a></h1>
+<p id="index-0">This module provides functions for encoding binary data to printable
+ASCII characters and decoding such encodings back to binary data.
+It provides encoding and decoding functions for the encodings specified in
+in <span class="target" id="index-1"></span><a class="rfc reference external" href="http://tools.ietf.org/html/rfc3548.html"><strong>RFC 3548</strong></a>, which defines the Base16, Base32, and Base64 algorithms,
+and for the de-facto standard Ascii85 and Base85 encodings.</p>
+<p>The <span class="target" id="index-2"></span><a class="rfc reference external" href="http://tools.ietf.org/html/rfc3548.html"><strong>RFC 3548</strong></a> encodings are suitable for encoding binary data so that it can
+safely sent by email, used as parts of URLs, or included as part of an HTTP
+POST request.  The encoding algorithm is not the same as the
+<strong class="program">uuencode</strong> program.</p>
+<p>There are two <span class="target" id="index-3"></span><a class="rfc reference external" href="http://tools.ietf.org/html/rfc3548.html"><strong>RFC 3548</strong></a> interfaces provided by this module.  The modern
+interface supports encoding and decoding ASCII byte string objects using all
+three <span class="target" id="index-4"></span><a class="rfc reference external" href="http://tools.ietf.org/html/rfc3548.html"><strong>RFC 3548</strong></a> defined alphabets (normal, URL-safe, and filesystem-safe).
+Additionally, the decoding functions of the modern interface also accept
+Unicode strings containing only ASCII characters. The legacy interface provides
+for encoding and decoding to and from file-like objects as well as byte
+strings, but only using the Base64 standard alphabet.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.3: </span>ASCII-only Unicode strings are now accepted by the decoding functions of
+the modern interface.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4: </span>Any <a class="reference internal" href="../glossary.html#term-bytes-like-object"><em class="xref std std-term">bytes-like object</em></a>s are now accepted by all
+encoding and decoding functions in this module.  Ascii85/Base85 support added.</p>
+</div>
+<p>The modern interface provides:</p>
+<dl class="function">
+<dt id="base64.b64encode">
+<tt class="descclassname">base64.</tt><tt class="descname">b64encode</tt><big>(</big><em>s</em>, <em>altchars=None</em><big>)</big><a class="headerlink" href="#base64.b64encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode a byte string using Base64.</p>
+<p><em>s</em> is the string to encode.  Optional <em>altchars</em> must be a string of at least
+length 2 (additional characters are ignored) which specifies an alternative
+alphabet for the <tt class="docutils literal"><span class="pre">+</span></tt> and <tt class="docutils literal"><span class="pre">/</span></tt> characters.  This allows an application to e.g.
+generate URL or filesystem safe Base64 strings.  The default is <tt class="docutils literal"><span class="pre">None</span></tt>, for
+which the standard Base64 alphabet is used.</p>
+<p>The encoded byte string is returned.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.b64decode">
+<tt class="descclassname">base64.</tt><tt class="descname">b64decode</tt><big>(</big><em>s</em>, <em>altchars=None</em>, <em>validate=False</em><big>)</big><a class="headerlink" href="#base64.b64decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode a Base64 encoded byte string.</p>
+<p><em>s</em> is the byte string to decode.  Optional <em>altchars</em> must be a string of
+at least length 2 (additional characters are ignored) which specifies the
+alternative alphabet used instead of the <tt class="docutils literal"><span class="pre">+</span></tt> and <tt class="docutils literal"><span class="pre">/</span></tt> characters.</p>
+<p>The decoded string is returned.  A <a class="reference internal" href="binascii.html#binascii.Error" title="binascii.Error"><tt class="xref py py-exc docutils literal"><span class="pre">binascii.Error</span></tt></a> exception is raised
+if <em>s</em> is incorrectly padded.</p>
+<p>If <em>validate</em> is <tt class="docutils literal"><span class="pre">False</span></tt> (the default), non-base64-alphabet characters are
+discarded prior to the padding check.  If <em>validate</em> is <tt class="docutils literal"><span class="pre">True</span></tt>,
+non-base64-alphabet characters in the input result in a
+<a class="reference internal" href="binascii.html#binascii.Error" title="binascii.Error"><tt class="xref py py-exc docutils literal"><span class="pre">binascii.Error</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.standard_b64encode">
+<tt class="descclassname">base64.</tt><tt class="descname">standard_b64encode</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#base64.standard_b64encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode byte string <em>s</em> using the standard Base64 alphabet.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.standard_b64decode">
+<tt class="descclassname">base64.</tt><tt class="descname">standard_b64decode</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#base64.standard_b64decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode byte string <em>s</em> using the standard Base64 alphabet.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.urlsafe_b64encode">
+<tt class="descclassname">base64.</tt><tt class="descname">urlsafe_b64encode</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#base64.urlsafe_b64encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode byte string <em>s</em> using a URL-safe alphabet, which substitutes <tt class="docutils literal"><span class="pre">-</span></tt> instead of
+<tt class="docutils literal"><span class="pre">+</span></tt> and <tt class="docutils literal"><span class="pre">_</span></tt> instead of <tt class="docutils literal"><span class="pre">/</span></tt> in the standard Base64 alphabet.  The result
+can still contain <tt class="docutils literal"><span class="pre">=</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.urlsafe_b64decode">
+<tt class="descclassname">base64.</tt><tt class="descname">urlsafe_b64decode</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#base64.urlsafe_b64decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode byte string <em>s</em> using a URL-safe alphabet, which substitutes <tt class="docutils literal"><span class="pre">-</span></tt> instead of
+<tt class="docutils literal"><span class="pre">+</span></tt> and <tt class="docutils literal"><span class="pre">_</span></tt> instead of <tt class="docutils literal"><span class="pre">/</span></tt> in the standard Base64 alphabet.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.b32encode">
+<tt class="descclassname">base64.</tt><tt class="descname">b32encode</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#base64.b32encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode a byte string using Base32.  <em>s</em> is the string to encode.  The encoded string
+is returned.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.b32decode">
+<tt class="descclassname">base64.</tt><tt class="descname">b32decode</tt><big>(</big><em>s</em>, <em>casefold=False</em>, <em>map01=None</em><big>)</big><a class="headerlink" href="#base64.b32decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode a Base32 encoded byte string.</p>
+<p><em>s</em> is the byte string to decode.  Optional <em>casefold</em> is a flag specifying
+whether a lowercase alphabet is acceptable as input.  For security purposes,
+the default is <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<p><span class="target" id="index-5"></span><a class="rfc reference external" href="http://tools.ietf.org/html/rfc3548.html"><strong>RFC 3548</strong></a> allows for optional mapping of the digit 0 (zero) to the letter O
+(oh), and for optional mapping of the digit 1 (one) to either the letter I (eye)
+or letter L (el).  The optional argument <em>map01</em> when not <tt class="docutils literal"><span class="pre">None</span></tt>, specifies
+which letter the digit 1 should be mapped to (when <em>map01</em> is not <tt class="docutils literal"><span class="pre">None</span></tt>, the
+digit 0 is always mapped to the letter O).  For security purposes the default is
+<tt class="docutils literal"><span class="pre">None</span></tt>, so that 0 and 1 are not allowed in the input.</p>
+<p>The decoded byte string is returned.  A <a class="reference internal" href="binascii.html#binascii.Error" title="binascii.Error"><tt class="xref py py-exc docutils literal"><span class="pre">binascii.Error</span></tt></a> is raised if <em>s</em> is
+incorrectly padded or if there are non-alphabet characters present in the
+string.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.b16encode">
+<tt class="descclassname">base64.</tt><tt class="descname">b16encode</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#base64.b16encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode a byte string using Base16.</p>
+<p><em>s</em> is the string to encode.  The encoded byte string is returned.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.b16decode">
+<tt class="descclassname">base64.</tt><tt class="descname">b16decode</tt><big>(</big><em>s</em>, <em>casefold=False</em><big>)</big><a class="headerlink" href="#base64.b16decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode a Base16 encoded byte string.</p>
+<p><em>s</em> is the string to decode.  Optional <em>casefold</em> is a flag specifying whether a
+lowercase alphabet is acceptable as input.  For security purposes, the default
+is <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<p>The decoded byte string is returned.  A <a class="reference internal" href="exceptions.html#TypeError" title="TypeError"><tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt></a> is raised if <em>s</em> were
+incorrectly padded or if there are non-alphabet characters present in the
+string.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.a85encode">
+<tt class="descclassname">base64.</tt><tt class="descname">a85encode</tt><big>(</big><em>s</em>, <em>*</em>, <em>foldspaces=False</em>, <em>wrapcol=0</em>, <em>pad=False</em>, <em>adobe=False</em><big>)</big><a class="headerlink" href="#base64.a85encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode a byte string using Ascii85.</p>
+<p><em>s</em> is the string to encode. The encoded byte string is returned.</p>
+<p><em>foldspaces</em> is an optional flag that uses the special short sequence &#8216;y&#8217;
+instead of 4 consecutive spaces (ASCII 0x20) as supported by &#8216;btoa&#8217;. This
+feature is not supported by the &#8220;standard&#8221; Ascii85 encoding.</p>
+<p><em>wrapcol</em> controls whether the output should have newline (&#8216;n&#8217;)
+characters added to it. If this is non-zero, each output line will be
+at most this many characters long.</p>
+<p><em>pad</em> controls whether the input string is padded to a multiple of 4
+before encoding. Note that the <tt class="docutils literal"><span class="pre">btoa</span></tt> implementation always pads.</p>
+<p><em>adobe</em> controls whether the encoded byte sequence is framed with <tt class="docutils literal"><span class="pre">&lt;~</span></tt>
+and <tt class="docutils literal"><span class="pre">~&gt;</span></tt>, which is used by the Adobe implementation.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.a85decode">
+<tt class="descclassname">base64.</tt><tt class="descname">a85decode</tt><big>(</big><em>s</em>, <em>*</em>, <em>foldspaces=False</em>, <em>adobe=False</em>, <em>ignorechars=b' tnrv'</em><big>)</big><a class="headerlink" href="#base64.a85decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode an Ascii85 encoded byte string.</p>
+<p><em>s</em> is the byte string to decode.</p>
+<p><em>foldspaces</em> is a flag that specifies whether the &#8216;y&#8217; short sequence
+should be accepted as shorthand for 4 consecutive spaces (ASCII 0x20).
+This feature is not supported by the &#8220;standard&#8221; Ascii85 encoding.</p>
+<p><em>adobe</em> controls whether the input sequence is in Adobe Ascii85 format
+(i.e. is framed with &lt;~ and ~&gt;).</p>
+<p><em>ignorechars</em> should be a byte string containing characters to ignore
+from the input. This should only contain whitespace characters, and by
+default contains all whitespace characters in ASCII.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.b85encode">
+<tt class="descclassname">base64.</tt><tt class="descname">b85encode</tt><big>(</big><em>s</em>, <em>pad=False</em><big>)</big><a class="headerlink" href="#base64.b85encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode a byte string using base85, as used in e.g. git-style binary
+diffs.</p>
+<p>If <em>pad</em> is true, the input is padded with &#8220;\0&#8221; so its length is a
+multiple of 4 characters before encoding.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.b85decode">
+<tt class="descclassname">base64.</tt><tt class="descname">b85decode</tt><big>(</big><em>b</em><big>)</big><a class="headerlink" href="#base64.b85decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode base85-encoded byte string.  Padding is implicitly removed, if
+necessary.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Both Base85 and Ascii85 have an expansion factor of 5 to 4 (5 Base85 or
+Ascii85 characters can encode 4 binary bytes), while the better-known
+Base64 has an expansion factor of 6 to 4.  They are therefore more
+efficient when space expensive.  They differ by details such as the
+character map used for encoding.</p>
+</div>
+<p>The legacy interface:</p>
+<dl class="function">
+<dt id="base64.decode">
+<tt class="descclassname">base64.</tt><tt class="descname">decode</tt><big>(</big><em>input</em>, <em>output</em><big>)</big><a class="headerlink" href="#base64.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode the contents of the binary <em>input</em> file and write the resulting binary
+data to the <em>output</em> file. <em>input</em> and <em>output</em> must be <a class="reference internal" href="../glossary.html#term-file-object"><em class="xref std std-term">file objects</em></a>. <em>input</em> will be read until <tt class="docutils literal"><span class="pre">input.read()</span></tt> returns an empty
+bytes object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.decodebytes">
+<tt class="descclassname">base64.</tt><tt class="descname">decodebytes</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#base64.decodebytes" title="Permalink to this definition">¶</a></dt>
+<dt id="base64.decodestring">
+<tt class="descclassname">base64.</tt><tt class="descname">decodestring</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#base64.decodestring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode the byte string <em>s</em>, which must contain one or more lines of base64
+encoded data, and return a byte string containing the resulting binary data.
+<tt class="docutils literal"><span class="pre">decodestring</span></tt> is a deprecated alias.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.encode">
+<tt class="descclassname">base64.</tt><tt class="descname">encode</tt><big>(</big><em>input</em>, <em>output</em><big>)</big><a class="headerlink" href="#base64.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the contents of the binary <em>input</em> file and write the resulting base64
+encoded data to the <em>output</em> file. <em>input</em> and <em>output</em> must be <a class="reference internal" href="../glossary.html#term-file-object"><em class="xref std std-term">file
+objects</em></a>. <em>input</em> will be read until <tt class="docutils literal"><span class="pre">input.read()</span></tt> returns
+an empty bytes object. <a class="reference internal" href="#base64.encode" title="base64.encode"><tt class="xref py py-func docutils literal"><span class="pre">encode()</span></tt></a> returns the encoded data plus a trailing
+newline character (<tt class="docutils literal"><span class="pre">b'\n'</span></tt>).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="base64.encodebytes">
+<tt class="descclassname">base64.</tt><tt class="descname">encodebytes</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#base64.encodebytes" title="Permalink to this definition">¶</a></dt>
+<dt id="base64.encodestring">
+<tt class="descclassname">base64.</tt><tt class="descname">encodestring</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#base64.encodestring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the byte string <em>s</em>, which can contain arbitrary binary data, and
+return a byte string containing one or more lines of base64-encoded data.
+<a class="reference internal" href="#base64.encodebytes" title="base64.encodebytes"><tt class="xref py py-func docutils literal"><span class="pre">encodebytes()</span></tt></a> returns a string containing one or more lines of
+base64-encoded data always including an extra trailing newline (<tt class="docutils literal"><span class="pre">b'\n'</span></tt>).
+<tt class="docutils literal"><span class="pre">encodestring</span></tt> is a deprecated alias.</p>
+</dd></dl>
+
+<p>An example usage of the module:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">encoded</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;data to be encoded&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">encoded</span>
+<span class="go">b&#39;ZGF0YSB0byBiZSBlbmNvZGVk&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">encoded</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">b&#39;data to be encoded&#39;</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt>Module <a class="reference internal" href="binascii.html#module-binascii" title="binascii: Tools for converting between binary and various ASCII-encoded binary representations."><tt class="xref py py-mod docutils literal"><span class="pre">binascii</span></tt></a></dt>
+<dd>Support module containing ASCII-to-binary and binary-to-ASCII conversions.</dd>
+<dt><span class="target" id="index-6"></span><a class="rfc reference external" href="http://tools.ietf.org/html/rfc1521.html"><strong>RFC 1521</strong></a> - MIME (Multipurpose Internet Mail Extensions) Part One: Mechanisms for Specifying and Describing the Format of Internet Message Bodies</dt>
+<dd>Section 5.2, &#8220;Base64 Content-Transfer-Encoding,&#8221; provides the definition of the
+base64 encoding.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mimetypes.html"
+                        title="previous chapter">19.5. <tt class="docutils literal"><span class="pre">mimetypes</span></tt> &#8212; Map filenames to MIME types</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="binhex.html"
+                        title="next chapter">19.7. <tt class="docutils literal"><span class="pre">binhex</span></tt> &#8212; Encode and decode binhex4 files</a></p>
+<h3>This Page</h3>
+<ul class="this-page-menu">
+  <li><a href="../bugs.html">Report a Bug</a></li>
+  <li><a href="../_sources/library/base64.txt"
+         rel="nofollow">Show Source</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="binhex.html" title="19.7. binhex — Encode and decode binhex4 files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mimetypes.html" title="19.5. mimetypes — Map filenames to MIME types"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" >The Python Standard Library</a> &raquo;</li>
+          <li><a href="netdata.html" >19. Internet Data Handling</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 1990-2014, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="http://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jun 03, 2014.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+    </div>
+
+  </body>
+</html>

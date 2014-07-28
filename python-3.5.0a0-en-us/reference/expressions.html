@@ -1,0 +1,1211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>6. Expressions &mdash; Python 3.5.0a0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.5.0a0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.5.0a0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="Python 3.5.0a0 documentation" href="../index.html" />
+    <link rel="up" title="The Python Language Reference" href="index.html" />
+    <link rel="next" title="7. Simple statements" href="simple_stmts.html" />
+    <link rel="prev" title="5. The import system" href="import.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/version_switch.js"></script>
+    
+ 
+
+  </head>
+  <body>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="simple_stmts.html" title="7. Simple statements"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="import.html" title="5. The import system"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" accesskey="U">The Python Language Reference</a> &raquo;</li> 
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="expressions">
+<span id="id1"></span><h1>6. Expressions<a class="headerlink" href="#expressions" title="Permalink to this headline">¶</a></h1>
+<p id="index-0">This chapter explains the meaning of the elements of expressions in Python.</p>
+<p><strong>Syntax Notes:</strong> In this and the following chapters, extended BNF notation will
+be used to describe syntax, not lexical analysis.  When (one alternative of) a
+syntax rule has the form</p>
+<pre>
+<strong id="grammar-token-name">name</strong> ::=  <tt class="xref docutils literal"><span class="pre">othername</span></tt>
+</pre>
+<p>and no semantics are given, the semantics of this form of <tt class="docutils literal"><span class="pre">name</span></tt> are the same
+as for <tt class="docutils literal"><span class="pre">othername</span></tt>.</p>
+<div class="section" id="arithmetic-conversions">
+<span id="conversions"></span><h2>6.1. Arithmetic conversions<a class="headerlink" href="#arithmetic-conversions" title="Permalink to this headline">¶</a></h2>
+<p id="index-1">When a description of an arithmetic operator below uses the phrase &#8220;the numeric
+arguments are converted to a common type,&#8221; this means that the operator
+implementation for built-in types works as follows:</p>
+<ul class="simple">
+<li>If either argument is a complex number, the other is converted to complex;</li>
+<li>otherwise, if either argument is a floating point number, the other is
+converted to floating point;</li>
+<li>otherwise, both must be integers and no conversion is necessary.</li>
+</ul>
+<p>Some additional rules apply for certain operators (e.g., a string as a left
+argument to the &#8216;%&#8217; operator).  Extensions must define their own conversion
+behavior.</p>
+</div>
+<div class="section" id="atoms">
+<span id="id2"></span><h2>6.2. Atoms<a class="headerlink" href="#atoms" title="Permalink to this headline">¶</a></h2>
+<p id="index-2">Atoms are the most basic elements of expressions.  The simplest atoms are
+identifiers or literals.  Forms enclosed in parentheses, brackets or braces are
+also categorized syntactically as atoms.  The syntax for atoms is:</p>
+<pre>
+<strong id="grammar-token-atom">atom     </strong> ::=  <a class="reference internal" href="lexical_analysis.html#grammar-token-identifier"><tt class="xref docutils literal"><span class="pre">identifier</span></tt></a> | <a class="reference internal" href="#grammar-token-literal"><tt class="xref docutils literal"><span class="pre">literal</span></tt></a> | <a class="reference internal" href="#grammar-token-enclosure"><tt class="xref docutils literal"><span class="pre">enclosure</span></tt></a>
+<strong id="grammar-token-enclosure">enclosure</strong> ::=  <a class="reference internal" href="#grammar-token-parenth_form"><tt class="xref docutils literal"><span class="pre">parenth_form</span></tt></a> | <a class="reference internal" href="#grammar-token-list_display"><tt class="xref docutils literal"><span class="pre">list_display</span></tt></a> | <a class="reference internal" href="#grammar-token-dict_display"><tt class="xref docutils literal"><span class="pre">dict_display</span></tt></a> | <a class="reference internal" href="#grammar-token-set_display"><tt class="xref docutils literal"><span class="pre">set_display</span></tt></a>
+               | <a class="reference internal" href="#grammar-token-generator_expression"><tt class="xref docutils literal"><span class="pre">generator_expression</span></tt></a> | <a class="reference internal" href="#grammar-token-yield_atom"><tt class="xref docutils literal"><span class="pre">yield_atom</span></tt></a>
+</pre>
+<div class="section" id="atom-identifiers">
+<span id="identifiers-names"></span><h3>6.2.1. Identifiers (Names)<a class="headerlink" href="#atom-identifiers" title="Permalink to this headline">¶</a></h3>
+<p id="index-3">An identifier occurring as an atom is a name.  See section <a class="reference internal" href="lexical_analysis.html#identifiers"><em>Identifiers and keywords</em></a>
+for lexical definition and section <a class="reference internal" href="executionmodel.html#naming"><em>Naming and binding</em></a> for documentation of naming and
+binding.</p>
+<p id="index-4">When the name is bound to an object, evaluation of the atom yields that object.
+When a name is not bound, an attempt to evaluate it raises a <a class="reference internal" href="../library/exceptions.html#NameError" title="NameError"><tt class="xref py py-exc docutils literal"><span class="pre">NameError</span></tt></a>
+exception.</p>
+<p id="index-5"><strong>Private name mangling:</strong> When an identifier that textually occurs in a class
+definition begins with two or more underscore characters and does not end in two
+or more underscores, it is considered a <em class="dfn">private name</em> of that class.
+Private names are transformed to a longer form before code is generated for
+them.  The transformation inserts the class name, with leading underscores
+removed and a single underscore inserted, in front of the name.  For example,
+the identifier <tt class="docutils literal"><span class="pre">__spam</span></tt> occurring in a class named <tt class="docutils literal"><span class="pre">Ham</span></tt> will be transformed
+to <tt class="docutils literal"><span class="pre">_Ham__spam</span></tt>.  This transformation is independent of the syntactical
+context in which the identifier is used.  If the transformed name is extremely
+long (longer than 255 characters), implementation defined truncation may happen.
+If the class name consists only of underscores, no transformation is done.</p>
+</div>
+<div class="section" id="literals">
+<span id="atom-literals"></span><h3>6.2.2. Literals<a class="headerlink" href="#literals" title="Permalink to this headline">¶</a></h3>
+<p id="index-6">Python supports string and bytes literals and various numeric literals:</p>
+<pre>
+<strong id="grammar-token-literal">literal</strong> ::=  <a class="reference internal" href="lexical_analysis.html#grammar-token-stringliteral"><tt class="xref docutils literal"><span class="pre">stringliteral</span></tt></a> | <a class="reference internal" href="lexical_analysis.html#grammar-token-bytesliteral"><tt class="xref docutils literal"><span class="pre">bytesliteral</span></tt></a>
+             | <a class="reference internal" href="lexical_analysis.html#grammar-token-integer"><tt class="xref docutils literal"><span class="pre">integer</span></tt></a> | <a class="reference internal" href="lexical_analysis.html#grammar-token-floatnumber"><tt class="xref docutils literal"><span class="pre">floatnumber</span></tt></a> | <a class="reference internal" href="lexical_analysis.html#grammar-token-imagnumber"><tt class="xref docutils literal"><span class="pre">imagnumber</span></tt></a>
+</pre>
+<p>Evaluation of a literal yields an object of the given type (string, bytes,
+integer, floating point number, complex number) with the given value.  The value
+may be approximated in the case of floating point and imaginary (complex)
+literals.  See section <a class="reference internal" href="lexical_analysis.html#literals"><em>Literals</em></a> for details.</p>
+<p id="index-7">All literals correspond to immutable data types, and hence the object&#8217;s identity
+is less important than its value.  Multiple evaluations of literals with the
+same value (either the same occurrence in the program text or a different
+occurrence) may obtain the same object or a different object with the same
+value.</p>
+</div>
+<div class="section" id="parenthesized-forms">
+<span id="parenthesized"></span><h3>6.2.3. Parenthesized forms<a class="headerlink" href="#parenthesized-forms" title="Permalink to this headline">¶</a></h3>
+<p id="index-8">A parenthesized form is an optional expression list enclosed in parentheses:</p>
+<pre>
+<strong id="grammar-token-parenth_form">parenth_form</strong> ::=  &quot;(&quot; [<a class="reference internal" href="#grammar-token-expression_list"><tt class="xref docutils literal"><span class="pre">expression_list</span></tt></a>] &quot;)&quot;
+</pre>
+<p>A parenthesized expression list yields whatever that expression list yields: if
+the list contains at least one comma, it yields a tuple; otherwise, it yields
+the single expression that makes up the expression list.</p>
+<p id="index-9">An empty pair of parentheses yields an empty tuple object.  Since tuples are
+immutable, the rules for literals apply (i.e., two occurrences of the empty
+tuple may or may not yield the same object).</p>
+<p id="index-10">Note that tuples are not formed by the parentheses, but rather by use of the
+comma operator.  The exception is the empty tuple, for which parentheses <em>are</em>
+required &#8212; allowing unparenthesized &#8220;nothing&#8221; in expressions would cause
+ambiguities and allow common typos to pass uncaught.</p>
+</div>
+<div class="section" id="displays-for-lists-sets-and-dictionaries">
+<span id="comprehensions"></span><h3>6.2.4. Displays for lists, sets and dictionaries<a class="headerlink" href="#displays-for-lists-sets-and-dictionaries" title="Permalink to this headline">¶</a></h3>
+<p>For constructing a list, a set or a dictionary Python provides special syntax
+called &#8220;displays&#8221;, each of them in two flavors:</p>
+<ul class="simple">
+<li>either the container contents are listed explicitly, or</li>
+<li>they are computed via a set of looping and filtering instructions, called a
+<em class="dfn">comprehension</em>.</li>
+</ul>
+<p>Common syntax elements for comprehensions are:</p>
+<pre>
+<strong id="grammar-token-comprehension">comprehension</strong> ::=  <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a> <a class="reference internal" href="#grammar-token-comp_for"><tt class="xref docutils literal"><span class="pre">comp_for</span></tt></a>
+<strong id="grammar-token-comp_for">comp_for     </strong> ::=  &quot;for&quot; <a class="reference internal" href="simple_stmts.html#grammar-token-target_list"><tt class="xref docutils literal"><span class="pre">target_list</span></tt></a> &quot;in&quot; <a class="reference internal" href="#grammar-token-or_test"><tt class="xref docutils literal"><span class="pre">or_test</span></tt></a> [<a class="reference internal" href="#grammar-token-comp_iter"><tt class="xref docutils literal"><span class="pre">comp_iter</span></tt></a>]
+<strong id="grammar-token-comp_iter">comp_iter    </strong> ::=  <a class="reference internal" href="#grammar-token-comp_for"><tt class="xref docutils literal"><span class="pre">comp_for</span></tt></a> | <a class="reference internal" href="#grammar-token-comp_if"><tt class="xref docutils literal"><span class="pre">comp_if</span></tt></a>
+<strong id="grammar-token-comp_if">comp_if      </strong> ::=  &quot;if&quot; <a class="reference internal" href="#grammar-token-expression_nocond"><tt class="xref docutils literal"><span class="pre">expression_nocond</span></tt></a> [<a class="reference internal" href="#grammar-token-comp_iter"><tt class="xref docutils literal"><span class="pre">comp_iter</span></tt></a>]
+</pre>
+<p>The comprehension consists of a single expression followed by at least one
+<a class="reference internal" href="compound_stmts.html#for"><tt class="xref std std-keyword docutils literal"><span class="pre">for</span></tt></a> clause and zero or more <a class="reference internal" href="compound_stmts.html#for"><tt class="xref std std-keyword docutils literal"><span class="pre">for</span></tt></a> or <a class="reference internal" href="compound_stmts.html#if"><tt class="xref std std-keyword docutils literal"><span class="pre">if</span></tt></a> clauses.
+In this case, the elements of the new container are those that would be produced
+by considering each of the <a class="reference internal" href="compound_stmts.html#for"><tt class="xref std std-keyword docutils literal"><span class="pre">for</span></tt></a> or <a class="reference internal" href="compound_stmts.html#if"><tt class="xref std std-keyword docutils literal"><span class="pre">if</span></tt></a> clauses a block,
+nesting from left to right, and evaluating the expression to produce an element
+each time the innermost block is reached.</p>
+<p>Note that the comprehension is executed in a separate scope, so names assigned
+to in the target list don&#8217;t &#8220;leak&#8221; into the enclosing scope.</p>
+</div>
+<div class="section" id="list-displays">
+<span id="lists"></span><h3>6.2.5. List displays<a class="headerlink" href="#list-displays" title="Permalink to this headline">¶</a></h3>
+<p id="index-11">A list display is a possibly empty series of expressions enclosed in square
+brackets:</p>
+<pre>
+<strong id="grammar-token-list_display">list_display</strong> ::=  &quot;[&quot; [<a class="reference internal" href="#grammar-token-expression_list"><tt class="xref docutils literal"><span class="pre">expression_list</span></tt></a> | <a class="reference internal" href="#grammar-token-comprehension"><tt class="xref docutils literal"><span class="pre">comprehension</span></tt></a>] &quot;]&quot;
+</pre>
+<p>A list display yields a new list object, the contents being specified by either
+a list of expressions or a comprehension.  When a comma-separated list of
+expressions is supplied, its elements are evaluated from left to right and
+placed into the list object in that order.  When a comprehension is supplied,
+the list is constructed from the elements resulting from the comprehension.</p>
+</div>
+<div class="section" id="set-displays">
+<span id="set"></span><h3>6.2.6. Set displays<a class="headerlink" href="#set-displays" title="Permalink to this headline">¶</a></h3>
+<p id="index-12">A set display is denoted by curly braces and distinguishable from dictionary
+displays by the lack of colons separating keys and values:</p>
+<pre>
+<strong id="grammar-token-set_display">set_display</strong> ::=  &quot;{&quot; (<a class="reference internal" href="#grammar-token-expression_list"><tt class="xref docutils literal"><span class="pre">expression_list</span></tt></a> | <a class="reference internal" href="#grammar-token-comprehension"><tt class="xref docutils literal"><span class="pre">comprehension</span></tt></a>) &quot;}&quot;
+</pre>
+<p>A set display yields a new mutable set object, the contents being specified by
+either a sequence of expressions or a comprehension.  When a comma-separated
+list of expressions is supplied, its elements are evaluated from left to right
+and added to the set object.  When a comprehension is supplied, the set is
+constructed from the elements resulting from the comprehension.</p>
+<p>An empty set cannot be constructed with <tt class="docutils literal"><span class="pre">{}</span></tt>; this literal constructs an empty
+dictionary.</p>
+</div>
+<div class="section" id="dictionary-displays">
+<span id="dict"></span><h3>6.2.7. Dictionary displays<a class="headerlink" href="#dictionary-displays" title="Permalink to this headline">¶</a></h3>
+<p id="index-13">A dictionary display is a possibly empty series of key/datum pairs enclosed in
+curly braces:</p>
+<pre>
+<strong id="grammar-token-dict_display">dict_display      </strong> ::=  &quot;{&quot; [<a class="reference internal" href="#grammar-token-key_datum_list"><tt class="xref docutils literal"><span class="pre">key_datum_list</span></tt></a> | <a class="reference internal" href="#grammar-token-dict_comprehension"><tt class="xref docutils literal"><span class="pre">dict_comprehension</span></tt></a>] &quot;}&quot;
+<strong id="grammar-token-key_datum_list">key_datum_list    </strong> ::=  <a class="reference internal" href="#grammar-token-key_datum"><tt class="xref docutils literal"><span class="pre">key_datum</span></tt></a> (&quot;,&quot; <a class="reference internal" href="#grammar-token-key_datum"><tt class="xref docutils literal"><span class="pre">key_datum</span></tt></a>)* [&quot;,&quot;]
+<strong id="grammar-token-key_datum">key_datum         </strong> ::=  <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a> &quot;:&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>
+<strong id="grammar-token-dict_comprehension">dict_comprehension</strong> ::=  <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a> &quot;:&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a> <a class="reference internal" href="#grammar-token-comp_for"><tt class="xref docutils literal"><span class="pre">comp_for</span></tt></a>
+</pre>
+<p>A dictionary display yields a new dictionary object.</p>
+<p>If a comma-separated sequence of key/datum pairs is given, they are evaluated
+from left to right to define the entries of the dictionary: each key object is
+used as a key into the dictionary to store the corresponding datum.  This means
+that you can specify the same key multiple times in the key/datum list, and the
+final dictionary&#8217;s value for that key will be the last one given.</p>
+<p>A dict comprehension, in contrast to list and set comprehensions, needs two
+expressions separated with a colon followed by the usual &#8220;for&#8221; and &#8220;if&#8221; clauses.
+When the comprehension is run, the resulting key and value elements are inserted
+in the new dictionary in the order they are produced.</p>
+<p id="index-14">Restrictions on the types of the key values are listed earlier in section
+<a class="reference internal" href="datamodel.html#types"><em>The standard type hierarchy</em></a>.  (To summarize, the key type should be <a class="reference internal" href="../glossary.html#term-hashable"><em class="xref std std-term">hashable</em></a>, which excludes
+all mutable objects.)  Clashes between duplicate keys are not detected; the last
+datum (textually rightmost in the display) stored for a given key value
+prevails.</p>
+</div>
+<div class="section" id="generator-expressions">
+<span id="genexpr"></span><h3>6.2.8. Generator expressions<a class="headerlink" href="#generator-expressions" title="Permalink to this headline">¶</a></h3>
+<p id="index-15">A generator expression is a compact generator notation in parentheses:</p>
+<pre>
+<strong id="grammar-token-generator_expression">generator_expression</strong> ::=  &quot;(&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a> <a class="reference internal" href="#grammar-token-comp_for"><tt class="xref docutils literal"><span class="pre">comp_for</span></tt></a> &quot;)&quot;
+</pre>
+<p>A generator expression yields a new generator object.  Its syntax is the same as
+for comprehensions, except that it is enclosed in parentheses instead of
+brackets or curly braces.</p>
+<p>Variables used in the generator expression are evaluated lazily when the
+<a class="reference internal" href="#generator.__next__" title="generator.__next__"><tt class="xref py py-meth docutils literal"><span class="pre">__next__()</span></tt></a> method is called for the generator object (in the same
+fashion as normal generators).  However, the leftmost <a class="reference internal" href="compound_stmts.html#for"><tt class="xref std std-keyword docutils literal"><span class="pre">for</span></tt></a> clause is
+immediately evaluated, so that an error produced by it can be seen before any
+other possible error in the code that handles the generator expression.
+Subsequent <a class="reference internal" href="compound_stmts.html#for"><tt class="xref std std-keyword docutils literal"><span class="pre">for</span></tt></a> clauses cannot be evaluated immediately since they
+may depend on the previous <a class="reference internal" href="compound_stmts.html#for"><tt class="xref std std-keyword docutils literal"><span class="pre">for</span></tt></a> loop. For example: <tt class="docutils literal"><span class="pre">(x*y</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span>
+<span class="pre">range(10)</span> <span class="pre">for</span> <span class="pre">y</span> <span class="pre">in</span> <span class="pre">bar(x))</span></tt>.</p>
+<p>The parentheses can be omitted on calls with only one argument.  See section
+<a class="reference internal" href="#calls"><em>Calls</em></a> for details.</p>
+</div>
+<div class="section" id="yield-expressions">
+<span id="yieldexpr"></span><h3>6.2.9. Yield expressions<a class="headerlink" href="#yield-expressions" title="Permalink to this headline">¶</a></h3>
+<pre id="index-16">
+<strong id="grammar-token-yield_atom">yield_atom      </strong> ::=  &quot;(&quot; <a class="reference internal" href="#grammar-token-yield_expression"><tt class="xref docutils literal"><span class="pre">yield_expression</span></tt></a> &quot;)&quot;
+<strong id="grammar-token-yield_expression">yield_expression</strong> ::=  &quot;yield&quot; [<a class="reference internal" href="#grammar-token-expression_list"><tt class="xref docutils literal"><span class="pre">expression_list</span></tt></a> | &quot;from&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>]
+</pre>
+<p>The yield expression is only used when defining a <a class="reference internal" href="../glossary.html#term-generator"><em class="xref std std-term">generator</em></a> function and
+thus can only be used in the body of a function definition.  Using a yield
+expression in a function&#8217;s body causes that function to be a generator.</p>
+<p>When a generator function is called, it returns an iterator known as a
+generator.  That generator then controls the execution of a generator function.
+The execution starts when one of the generator&#8217;s methods is called.  At that
+time, the execution proceeds to the first yield expression, where it is
+suspended again, returning the value of <a class="reference internal" href="#grammar-token-expression_list"><tt class="xref std std-token docutils literal"><span class="pre">expression_list</span></tt></a> to the generator&#8217;s
+caller.  By suspended, we mean that all local state is retained, including the
+current bindings of local variables, the instruction pointer, and the internal
+evaluation stack.  When the execution is resumed by calling one of the
+generator&#8217;s methods, the function can proceed exactly as if the yield expression
+were just another external call.  The value of the yield expression after
+resuming depends on the method which resumed the execution.  If
+<a class="reference internal" href="#generator.__next__" title="generator.__next__"><tt class="xref py py-meth docutils literal"><span class="pre">__next__()</span></tt></a> is used (typically via either a <a class="reference internal" href="compound_stmts.html#for"><tt class="xref std std-keyword docutils literal"><span class="pre">for</span></tt></a> or
+the <a class="reference internal" href="../library/functions.html#next" title="next"><tt class="xref py py-func docutils literal"><span class="pre">next()</span></tt></a> builtin) then the result is <a class="reference internal" href="../library/constants.html#None" title="None"><tt class="xref py py-const docutils literal"><span class="pre">None</span></tt></a>.  Otherwise, if
+<a class="reference internal" href="#generator.send" title="generator.send"><tt class="xref py py-meth docutils literal"><span class="pre">send()</span></tt></a> is used, then the result will be the value passed in to
+that method.</p>
+<p id="index-17">All of this makes generator functions quite similar to coroutines; they yield
+multiple times, they have more than one entry point and their execution can be
+suspended.  The only difference is that a generator function cannot control
+where the execution should continue after it yields; the control is always
+transferred to the generator&#8217;s caller.</p>
+<p>Yield expressions are allowed in the <a class="reference internal" href="compound_stmts.html#try"><tt class="xref std std-keyword docutils literal"><span class="pre">try</span></tt></a> clause of a <a class="reference internal" href="compound_stmts.html#try"><tt class="xref std std-keyword docutils literal"><span class="pre">try</span></tt></a>
+...  <a class="reference internal" href="compound_stmts.html#finally"><tt class="xref std std-keyword docutils literal"><span class="pre">finally</span></tt></a> construct.  If the generator is not resumed before it is
+finalized (by reaching a zero reference count or by being garbage collected),
+the generator-iterator&#8217;s <a class="reference internal" href="#generator.close" title="generator.close"><tt class="xref py py-meth docutils literal"><span class="pre">close()</span></tt></a> method will be called,
+allowing any pending <a class="reference internal" href="compound_stmts.html#finally"><tt class="xref std std-keyword docutils literal"><span class="pre">finally</span></tt></a> clauses to execute.</p>
+<p>When <tt class="docutils literal"><span class="pre">yield</span> <span class="pre">from</span> <span class="pre">&lt;expr&gt;</span></tt> is used, it treats the supplied expression as
+a subiterator. All values produced by that subiterator are passed directly
+to the caller of the current generator&#8217;s methods. Any values passed in with
+<a class="reference internal" href="#generator.send" title="generator.send"><tt class="xref py py-meth docutils literal"><span class="pre">send()</span></tt></a> and any exceptions passed in with
+<a class="reference internal" href="#generator.throw" title="generator.throw"><tt class="xref py py-meth docutils literal"><span class="pre">throw()</span></tt></a> are passed to the underlying iterator if it has the
+appropriate methods.  If this is not the case, then <a class="reference internal" href="#generator.send" title="generator.send"><tt class="xref py py-meth docutils literal"><span class="pre">send()</span></tt></a>
+will raise <a class="reference internal" href="../library/exceptions.html#AttributeError" title="AttributeError"><tt class="xref py py-exc docutils literal"><span class="pre">AttributeError</span></tt></a> or <a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt></a>, while
+<a class="reference internal" href="#generator.throw" title="generator.throw"><tt class="xref py py-meth docutils literal"><span class="pre">throw()</span></tt></a> will just raise the passed in exception immediately.</p>
+<p>When the underlying iterator is complete, the <tt class="xref py py-attr docutils literal"><span class="pre">value</span></tt>
+attribute of the raised <a class="reference internal" href="../library/exceptions.html#StopIteration" title="StopIteration"><tt class="xref py py-exc docutils literal"><span class="pre">StopIteration</span></tt></a> instance becomes the value of
+the yield expression. It can be either set explicitly when raising
+<a class="reference internal" href="../library/exceptions.html#StopIteration" title="StopIteration"><tt class="xref py py-exc docutils literal"><span class="pre">StopIteration</span></tt></a>, or automatically when the sub-iterator is a generator
+(by returning a value from the sub-generator).</p>
+<blockquote>
+<div><div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.3: </span>Added <tt class="docutils literal"><span class="pre">yield</span> <span class="pre">from</span> <span class="pre">&lt;expr&gt;</span></tt> to delegate control flow to a subiterator</p>
+</div>
+</div></blockquote>
+<p>The parentheses may be omitted when the yield expression is the sole expression
+on the right hand side of an assignment statement.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><span class="target" id="index-18"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0255"><strong>PEP 0255</strong></a> - Simple Generators</dt>
+<dd>The proposal for adding generators and the <a class="reference internal" href="simple_stmts.html#yield"><tt class="xref std std-keyword docutils literal"><span class="pre">yield</span></tt></a> statement to Python.</dd>
+<dt><span class="target" id="index-19"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0342"><strong>PEP 0342</strong></a> - Coroutines via Enhanced Generators</dt>
+<dd>The proposal to enhance the API and syntax of generators, making them
+usable as simple coroutines.</dd>
+<dt><span class="target" id="index-20"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0380"><strong>PEP 0380</strong></a> - Syntax for Delegating to a Subgenerator</dt>
+<dd>The proposal to introduce the <tt class="xref std std-token docutils literal"><span class="pre">yield_from</span></tt> syntax, making delegation
+to sub-generators easy.</dd>
+</dl>
+</div>
+<div class="section" id="generator-iterator-methods">
+<span id="index-21"></span><h4>6.2.9.1. Generator-iterator methods<a class="headerlink" href="#generator-iterator-methods" title="Permalink to this headline">¶</a></h4>
+<p>This subsection describes the methods of a generator iterator.  They can
+be used to control the execution of a generator function.</p>
+<p>Note that calling any of the generator methods below when the generator
+is already executing raises a <a class="reference internal" href="../library/exceptions.html#ValueError" title="ValueError"><tt class="xref py py-exc docutils literal"><span class="pre">ValueError</span></tt></a> exception.</p>
+<span class="target" id="index-22"></span><dl class="class">
+<dt id="generator">
+<em class="property">class </em><tt class="descname">generator</tt><a class="headerlink" href="#generator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="generator.__next__">
+<tt class="descclassname">generator.</tt><tt class="descname">__next__</tt><big>(</big><big>)</big><a class="headerlink" href="#generator.__next__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the execution of a generator function or resumes it at the last
+executed yield expression.  When a generator function is resumed with a
+<a class="reference internal" href="#generator.__next__" title="generator.__next__"><tt class="xref py py-meth docutils literal"><span class="pre">__next__()</span></tt></a> method, the current yield expression always
+evaluates to <a class="reference internal" href="../library/constants.html#None" title="None"><tt class="xref py py-const docutils literal"><span class="pre">None</span></tt></a>.  The execution then continues to the next yield
+expression, where the generator is suspended again, and the value of the
+<a class="reference internal" href="#grammar-token-expression_list"><tt class="xref std std-token docutils literal"><span class="pre">expression_list</span></tt></a> is returned to <a class="reference internal" href="../library/functions.html#next" title="next"><tt class="xref py py-meth docutils literal"><span class="pre">next()</span></tt></a>&#8216;s caller.  If the
+generator exits without yielding another value, a <a class="reference internal" href="../library/exceptions.html#StopIteration" title="StopIteration"><tt class="xref py py-exc docutils literal"><span class="pre">StopIteration</span></tt></a>
+exception is raised.</p>
+<p>This method is normally called implicitly, e.g. by a <a class="reference internal" href="compound_stmts.html#for"><tt class="xref std std-keyword docutils literal"><span class="pre">for</span></tt></a> loop, or
+by the built-in <a class="reference internal" href="../library/functions.html#next" title="next"><tt class="xref py py-func docutils literal"><span class="pre">next()</span></tt></a> function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="generator.send">
+<tt class="descclassname">generator.</tt><tt class="descname">send</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#generator.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resumes the execution and &#8220;sends&#8221; a value into the generator function.  The
+<em>value</em> argument becomes the result of the current yield expression.  The
+<a class="reference internal" href="#generator.send" title="generator.send"><tt class="xref py py-meth docutils literal"><span class="pre">send()</span></tt></a> method returns the next value yielded by the generator, or
+raises <a class="reference internal" href="../library/exceptions.html#StopIteration" title="StopIteration"><tt class="xref py py-exc docutils literal"><span class="pre">StopIteration</span></tt></a> if the generator exits without yielding another
+value.  When <a class="reference internal" href="#generator.send" title="generator.send"><tt class="xref py py-meth docutils literal"><span class="pre">send()</span></tt></a> is called to start the generator, it must be called
+with <a class="reference internal" href="../library/constants.html#None" title="None"><tt class="xref py py-const docutils literal"><span class="pre">None</span></tt></a> as the argument, because there is no yield expression that
+could receive the value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="generator.throw">
+<tt class="descclassname">generator.</tt><tt class="descname">throw</tt><big>(</big><em>type</em><span class="optional">[</span>, <em>value</em><span class="optional">[</span>, <em>traceback</em><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#generator.throw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises an exception of type <tt class="docutils literal"><span class="pre">type</span></tt> at the point where the generator was paused,
+and returns the next value yielded by the generator function.  If the generator
+exits without yielding another value, a <a class="reference internal" href="../library/exceptions.html#StopIteration" title="StopIteration"><tt class="xref py py-exc docutils literal"><span class="pre">StopIteration</span></tt></a> exception is
+raised.  If the generator function does not catch the passed-in exception, or
+raises a different exception, then that exception propagates to the caller.</p>
+</dd></dl>
+
+<span class="target" id="index-23"></span><dl class="method">
+<dt id="generator.close">
+<tt class="descclassname">generator.</tt><tt class="descname">close</tt><big>(</big><big>)</big><a class="headerlink" href="#generator.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises a <a class="reference internal" href="../library/exceptions.html#GeneratorExit" title="GeneratorExit"><tt class="xref py py-exc docutils literal"><span class="pre">GeneratorExit</span></tt></a> at the point where the generator function was
+paused.  If the generator function then raises <a class="reference internal" href="../library/exceptions.html#StopIteration" title="StopIteration"><tt class="xref py py-exc docutils literal"><span class="pre">StopIteration</span></tt></a> (by
+exiting normally, or due to already being closed) or <a class="reference internal" href="../library/exceptions.html#GeneratorExit" title="GeneratorExit"><tt class="xref py py-exc docutils literal"><span class="pre">GeneratorExit</span></tt></a> (by
+not catching the exception), close returns to its caller.  If the generator
+yields a value, a <a class="reference internal" href="../library/exceptions.html#RuntimeError" title="RuntimeError"><tt class="xref py py-exc docutils literal"><span class="pre">RuntimeError</span></tt></a> is raised.  If the generator raises any
+other exception, it is propagated to the caller.  <a class="reference internal" href="#generator.close" title="generator.close"><tt class="xref py py-meth docutils literal"><span class="pre">close()</span></tt></a> does nothing
+if the generator has already exited due to an exception or normal exit.</p>
+</dd></dl>
+
+<dl class="class">
+<dt>
+<tt class="descname">.</tt></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="examples">
+<span id="index-24"></span><h4>6.2.9.2. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h4>
+<p>Here is a simple example that demonstrates the behavior of generators and
+generator functions:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">echo</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="k">None</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;Execution starts when &#39;next()&#39; is called for the first time.&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">while</span> <span class="k">True</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="k">yield</span> <span class="n">value</span><span class="p">)</span>
+<span class="gp">... </span>            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="n">value</span> <span class="o">=</span> <span class="n">e</span>
+<span class="gp">... </span>    <span class="k">finally</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="s">&quot;Don&#39;t forget to clean up when &#39;close()&#39; is called.&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">generator</span> <span class="o">=</span> <span class="n">echo</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">generator</span><span class="p">))</span>
+<span class="go">Execution starts when &#39;next()&#39; is called for the first time.</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">generator</span><span class="p">))</span>
+<span class="go">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">generator</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">generator</span><span class="o">.</span><span class="n">throw</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="s">&quot;spam&quot;</span><span class="p">)</span>
+<span class="go">TypeError(&#39;spam&#39;,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">generator</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="go">Don&#39;t forget to clean up when &#39;close()&#39; is called.</span>
+</pre></div>
+</div>
+<p>For examples using <tt class="docutils literal"><span class="pre">yield</span> <span class="pre">from</span></tt>, see <a class="reference internal" href="../whatsnew/3.3.html#pep-380"><em>PEP 380: Syntax for Delegating to a Subgenerator</em></a> in &#8220;What&#8217;s New in
+Python.&#8221;</p>
+</div>
+</div>
+</div>
+<div class="section" id="primaries">
+<span id="id3"></span><h2>6.3. Primaries<a class="headerlink" href="#primaries" title="Permalink to this headline">¶</a></h2>
+<p id="index-25">Primaries represent the most tightly bound operations of the language. Their
+syntax is:</p>
+<pre>
+<strong id="grammar-token-primary">primary</strong> ::=  <a class="reference internal" href="#grammar-token-atom"><tt class="xref docutils literal"><span class="pre">atom</span></tt></a> | <a class="reference internal" href="#grammar-token-attributeref"><tt class="xref docutils literal"><span class="pre">attributeref</span></tt></a> | <a class="reference internal" href="#grammar-token-subscription"><tt class="xref docutils literal"><span class="pre">subscription</span></tt></a> | <a class="reference internal" href="#grammar-token-slicing"><tt class="xref docutils literal"><span class="pre">slicing</span></tt></a> | <a class="reference internal" href="#grammar-token-call"><tt class="xref docutils literal"><span class="pre">call</span></tt></a>
+</pre>
+<div class="section" id="attribute-references">
+<span id="id4"></span><h3>6.3.1. Attribute references<a class="headerlink" href="#attribute-references" title="Permalink to this headline">¶</a></h3>
+<p id="index-26">An attribute reference is a primary followed by a period and a name:</p>
+<pre>
+<strong id="grammar-token-attributeref">attributeref</strong> ::=  <a class="reference internal" href="#grammar-token-primary"><tt class="xref docutils literal"><span class="pre">primary</span></tt></a> &quot;.&quot; <a class="reference internal" href="lexical_analysis.html#grammar-token-identifier"><tt class="xref docutils literal"><span class="pre">identifier</span></tt></a>
+</pre>
+<p id="index-27">The primary must evaluate to an object of a type that supports attribute
+references, which most objects do.  This object is then asked to produce the
+attribute whose name is the identifier.  This production can be customized by
+overriding the <a class="reference internal" href="datamodel.html#object.__getattr__" title="object.__getattr__"><tt class="xref py py-meth docutils literal"><span class="pre">__getattr__()</span></tt></a> method.  If this attribute is not available,
+the exception <a class="reference internal" href="../library/exceptions.html#AttributeError" title="AttributeError"><tt class="xref py py-exc docutils literal"><span class="pre">AttributeError</span></tt></a> is raised.  Otherwise, the type and value of
+the object produced is determined by the object.  Multiple evaluations of the
+same attribute reference may yield different objects.</p>
+</div>
+<div class="section" id="subscriptions">
+<span id="id5"></span><h3>6.3.2. Subscriptions<a class="headerlink" href="#subscriptions" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="index-28"></span><p id="index-29">A subscription selects an item of a sequence (string, tuple or list) or mapping
+(dictionary) object:</p>
+<pre>
+<strong id="grammar-token-subscription">subscription</strong> ::=  <a class="reference internal" href="#grammar-token-primary"><tt class="xref docutils literal"><span class="pre">primary</span></tt></a> &quot;[&quot; <a class="reference internal" href="#grammar-token-expression_list"><tt class="xref docutils literal"><span class="pre">expression_list</span></tt></a> &quot;]&quot;
+</pre>
+<p>The primary must evaluate to an object that supports subscription (lists or
+dictionaries for example).  User-defined objects can support subscription by
+defining a <a class="reference internal" href="datamodel.html#object.__getitem__" title="object.__getitem__"><tt class="xref py py-meth docutils literal"><span class="pre">__getitem__()</span></tt></a> method.</p>
+<p>For built-in objects, there are two types of objects that support subscription:</p>
+<p>If the primary is a mapping, the expression list must evaluate to an object
+whose value is one of the keys of the mapping, and the subscription selects the
+value in the mapping that corresponds to that key.  (The expression list is a
+tuple except if it has exactly one item.)</p>
+<p>If the primary is a sequence, the expression (list) must evaluate to an integer
+or a slice (as discussed in the following section).</p>
+<p>The formal syntax makes no special provision for negative indices in
+sequences; however, built-in sequences all provide a <a class="reference internal" href="datamodel.html#object.__getitem__" title="object.__getitem__"><tt class="xref py py-meth docutils literal"><span class="pre">__getitem__()</span></tt></a>
+method that interprets negative indices by adding the length of the sequence
+to the index (so that <tt class="docutils literal"><span class="pre">x[-1]</span></tt> selects the last item of <tt class="docutils literal"><span class="pre">x</span></tt>).  The
+resulting value must be a nonnegative integer less than the number of items in
+the sequence, and the subscription selects the item whose index is that value
+(counting from zero). Since the support for negative indices and slicing
+occurs in the object&#8217;s <a class="reference internal" href="datamodel.html#object.__getitem__" title="object.__getitem__"><tt class="xref py py-meth docutils literal"><span class="pre">__getitem__()</span></tt></a> method, subclasses overriding
+this method will need to explicitly add that support.</p>
+<p id="index-30">A string&#8217;s items are characters.  A character is not a separate data type but a
+string of exactly one character.</p>
+</div>
+<div class="section" id="slicings">
+<span id="id6"></span><h3>6.3.3. Slicings<a class="headerlink" href="#slicings" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="index-31"></span><p id="index-32">A slicing selects a range of items in a sequence object (e.g., a string, tuple
+or list).  Slicings may be used as expressions or as targets in assignment or
+<a class="reference internal" href="simple_stmts.html#del"><tt class="xref std std-keyword docutils literal"><span class="pre">del</span></tt></a> statements.  The syntax for a slicing:</p>
+<pre>
+<strong id="grammar-token-slicing">slicing     </strong> ::=  <a class="reference internal" href="#grammar-token-primary"><tt class="xref docutils literal"><span class="pre">primary</span></tt></a> &quot;[&quot; <a class="reference internal" href="#grammar-token-slice_list"><tt class="xref docutils literal"><span class="pre">slice_list</span></tt></a> &quot;]&quot;
+<strong id="grammar-token-slice_list">slice_list  </strong> ::=  <a class="reference internal" href="#grammar-token-slice_item"><tt class="xref docutils literal"><span class="pre">slice_item</span></tt></a> (&quot;,&quot; <a class="reference internal" href="#grammar-token-slice_item"><tt class="xref docutils literal"><span class="pre">slice_item</span></tt></a>)* [&quot;,&quot;]
+<strong id="grammar-token-slice_item">slice_item  </strong> ::=  <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a> | <a class="reference internal" href="#grammar-token-proper_slice"><tt class="xref docutils literal"><span class="pre">proper_slice</span></tt></a>
+<strong id="grammar-token-proper_slice">proper_slice</strong> ::=  [<a class="reference internal" href="#grammar-token-lower_bound"><tt class="xref docutils literal"><span class="pre">lower_bound</span></tt></a>] &quot;:&quot; [<a class="reference internal" href="#grammar-token-upper_bound"><tt class="xref docutils literal"><span class="pre">upper_bound</span></tt></a>] [ &quot;:&quot; [<a class="reference internal" href="#grammar-token-stride"><tt class="xref docutils literal"><span class="pre">stride</span></tt></a>] ]
+<strong id="grammar-token-lower_bound">lower_bound </strong> ::=  <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>
+<strong id="grammar-token-upper_bound">upper_bound </strong> ::=  <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>
+<strong id="grammar-token-stride">stride      </strong> ::=  <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>
+</pre>
+<p>There is ambiguity in the formal syntax here: anything that looks like an
+expression list also looks like a slice list, so any subscription can be
+interpreted as a slicing.  Rather than further complicating the syntax, this is
+disambiguated by defining that in this case the interpretation as a subscription
+takes priority over the interpretation as a slicing (this is the case if the
+slice list contains no proper slice).</p>
+<p id="index-33">The semantics for a slicing are as follows.  The primary must evaluate to a
+mapping object, and it is indexed (using the same <a class="reference internal" href="datamodel.html#object.__getitem__" title="object.__getitem__"><tt class="xref py py-meth docutils literal"><span class="pre">__getitem__()</span></tt></a> method as
+normal subscription) with a key that is constructed from the slice list, as
+follows.  If the slice list contains at least one comma, the key is a tuple
+containing the conversion of the slice items; otherwise, the conversion of the
+lone slice item is the key.  The conversion of a slice item that is an
+expression is that expression.  The conversion of a proper slice is a slice
+object (see section <a class="reference internal" href="datamodel.html#types"><em>The standard type hierarchy</em></a>) whose <tt class="xref py py-attr docutils literal"><span class="pre">start</span></tt>,
+<tt class="xref py py-attr docutils literal"><span class="pre">stop</span></tt> and <tt class="xref py py-attr docutils literal"><span class="pre">step</span></tt> attributes are the values of the
+expressions given as lower bound, upper bound and stride, respectively,
+substituting <tt class="docutils literal"><span class="pre">None</span></tt> for missing expressions.</p>
+</div>
+<div class="section" id="calls">
+<span id="index-34"></span><span id="id7"></span><h3>6.3.4. Calls<a class="headerlink" href="#calls" title="Permalink to this headline">¶</a></h3>
+<p>A call calls a callable object (e.g., a <a class="reference internal" href="../glossary.html#term-function"><em class="xref std std-term">function</em></a>) with a possibly empty
+series of <a class="reference internal" href="../glossary.html#term-argument"><em class="xref std std-term">arguments</em></a>:</p>
+<pre>
+<strong id="grammar-token-call">call                </strong> ::=  <a class="reference internal" href="#grammar-token-primary"><tt class="xref docutils literal"><span class="pre">primary</span></tt></a> &quot;(&quot; [<a class="reference internal" href="#grammar-token-argument_list"><tt class="xref docutils literal"><span class="pre">argument_list</span></tt></a> [&quot;,&quot;] | <a class="reference internal" href="#grammar-token-comprehension"><tt class="xref docutils literal"><span class="pre">comprehension</span></tt></a>] &quot;)&quot;
+<strong id="grammar-token-argument_list">argument_list       </strong> ::=  <a class="reference internal" href="#grammar-token-positional_arguments"><tt class="xref docutils literal"><span class="pre">positional_arguments</span></tt></a> [&quot;,&quot; <a class="reference internal" href="#grammar-token-keyword_arguments"><tt class="xref docutils literal"><span class="pre">keyword_arguments</span></tt></a>]
+                            [&quot;,&quot; &quot;*&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>] [&quot;,&quot; <a class="reference internal" href="#grammar-token-keyword_arguments"><tt class="xref docutils literal"><span class="pre">keyword_arguments</span></tt></a>]
+                            [&quot;,&quot; &quot;**&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>]
+                          | <a class="reference internal" href="#grammar-token-keyword_arguments"><tt class="xref docutils literal"><span class="pre">keyword_arguments</span></tt></a> [&quot;,&quot; &quot;*&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>]
+                            [&quot;,&quot; <a class="reference internal" href="#grammar-token-keyword_arguments"><tt class="xref docutils literal"><span class="pre">keyword_arguments</span></tt></a>] [&quot;,&quot; &quot;**&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>]
+                          | &quot;*&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a> [&quot;,&quot; <a class="reference internal" href="#grammar-token-keyword_arguments"><tt class="xref docutils literal"><span class="pre">keyword_arguments</span></tt></a>] [&quot;,&quot; &quot;**&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>]
+                          | &quot;**&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>
+<strong id="grammar-token-positional_arguments">positional_arguments</strong> ::=  <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a> (&quot;,&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>)*
+<strong id="grammar-token-keyword_arguments">keyword_arguments   </strong> ::=  <a class="reference internal" href="#grammar-token-keyword_item"><tt class="xref docutils literal"><span class="pre">keyword_item</span></tt></a> (&quot;,&quot; <a class="reference internal" href="#grammar-token-keyword_item"><tt class="xref docutils literal"><span class="pre">keyword_item</span></tt></a>)*
+<strong id="grammar-token-keyword_item">keyword_item        </strong> ::=  <a class="reference internal" href="lexical_analysis.html#grammar-token-identifier"><tt class="xref docutils literal"><span class="pre">identifier</span></tt></a> &quot;=&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>
+</pre>
+<p>An optional trailing comma may be present after the positional and keyword arguments
+but does not affect the semantics.</p>
+<p id="index-35">The primary must evaluate to a callable object (user-defined functions, built-in
+functions, methods of built-in objects, class objects, methods of class
+instances, and all objects having a <a class="reference internal" href="datamodel.html#object.__call__" title="object.__call__"><tt class="xref py py-meth docutils literal"><span class="pre">__call__()</span></tt></a> method are callable).  All
+argument expressions are evaluated before the call is attempted.  Please refer
+to section <a class="reference internal" href="compound_stmts.html#function"><em>Function definitions</em></a> for the syntax of formal <a class="reference internal" href="../glossary.html#term-parameter"><em class="xref std std-term">parameter</em></a> lists.</p>
+<p>If keyword arguments are present, they are first converted to positional
+arguments, as follows.  First, a list of unfilled slots is created for the
+formal parameters.  If there are N positional arguments, they are placed in the
+first N slots.  Next, for each keyword argument, the identifier is used to
+determine the corresponding slot (if the identifier is the same as the first
+formal parameter name, the first slot is used, and so on).  If the slot is
+already filled, a <a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt></a> exception is raised. Otherwise, the value of
+the argument is placed in the slot, filling it (even if the expression is
+<tt class="docutils literal"><span class="pre">None</span></tt>, it fills the slot).  When all arguments have been processed, the slots
+that are still unfilled are filled with the corresponding default value from the
+function definition.  (Default values are calculated, once, when the function is
+defined; thus, a mutable object such as a list or dictionary used as default
+value will be shared by all calls that don&#8217;t specify an argument value for the
+corresponding slot; this should usually be avoided.)  If there are any unfilled
+slots for which no default value is specified, a <a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt></a> exception is
+raised.  Otherwise, the list of filled slots is used as the argument list for
+the call.</p>
+<div class="impl-detail compound">
+<p><strong>CPython implementation detail:</strong> An implementation may provide built-in functions whose positional parameters
+do not have names, even if they are &#8216;named&#8217; for the purpose of documentation,
+and which therefore cannot be supplied by keyword.  In CPython, this is the
+case for functions implemented in C that use <a class="reference internal" href="../c-api/arg.html#c.PyArg_ParseTuple" title="PyArg_ParseTuple"><tt class="xref c c-func docutils literal"><span class="pre">PyArg_ParseTuple()</span></tt></a> to
+parse their arguments.</p>
+</div>
+<p>If there are more positional arguments than there are formal parameter slots, a
+<a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt></a> exception is raised, unless a formal parameter using the syntax
+<tt class="docutils literal"><span class="pre">*identifier</span></tt> is present; in this case, that formal parameter receives a tuple
+containing the excess positional arguments (or an empty tuple if there were no
+excess positional arguments).</p>
+<p>If any keyword argument does not correspond to a formal parameter name, a
+<a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt></a> exception is raised, unless a formal parameter using the syntax
+<tt class="docutils literal"><span class="pre">**identifier</span></tt> is present; in this case, that formal parameter receives a
+dictionary containing the excess keyword arguments (using the keywords as keys
+and the argument values as corresponding values), or a (new) empty dictionary if
+there were no excess keyword arguments.</p>
+<p id="index-36">If the syntax <tt class="docutils literal"><span class="pre">*expression</span></tt> appears in the function call, <tt class="docutils literal"><span class="pre">expression</span></tt> must
+evaluate to an iterable.  Elements from this iterable are treated as if they
+were additional positional arguments; if there are positional arguments
+<em>x1</em>, ..., <em>xN</em>, and <tt class="docutils literal"><span class="pre">expression</span></tt> evaluates to a sequence <em>y1</em>, ..., <em>yM</em>,
+this is equivalent to a call with M+N positional arguments <em>x1</em>, ..., <em>xN</em>,
+<em>y1</em>, ..., <em>yM</em>.</p>
+<p>A consequence of this is that although the <tt class="docutils literal"><span class="pre">*expression</span></tt> syntax may appear
+<em>after</em> some keyword arguments, it is processed <em>before</em> the keyword arguments
+(and the <tt class="docutils literal"><span class="pre">**expression</span></tt> argument, if any &#8211; see below).  So:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span> <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+<span class="go">2 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">?</span>
+<span class="gr">TypeError</span>: <span class="n">f() got multiple values for keyword argument &#39;a&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+<span class="go">1 2</span>
+</pre></div>
+</div>
+<p>It is unusual for both keyword arguments and the <tt class="docutils literal"><span class="pre">*expression</span></tt> syntax to be
+used in the same call, so in practice this confusion does not arise.</p>
+<p id="index-37">If the syntax <tt class="docutils literal"><span class="pre">**expression</span></tt> appears in the function call, <tt class="docutils literal"><span class="pre">expression</span></tt> must
+evaluate to a mapping, the contents of which are treated as additional keyword
+arguments.  In the case of a keyword appearing in both <tt class="docutils literal"><span class="pre">expression</span></tt> and as an
+explicit keyword argument, a <a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt></a> exception is raised.</p>
+<p>Formal parameters using the syntax <tt class="docutils literal"><span class="pre">*identifier</span></tt> or <tt class="docutils literal"><span class="pre">**identifier</span></tt> cannot be
+used as positional argument slots or as keyword argument names.</p>
+<p>A call always returns some value, possibly <tt class="docutils literal"><span class="pre">None</span></tt>, unless it raises an
+exception.  How this value is computed depends on the type of the callable
+object.</p>
+<p>If it is&#8212;</p>
+<dl class="docutils">
+<dt>a user-defined function:</dt>
+<dd><p class="first last" id="index-38">The code block for the function is executed, passing it the argument list.  The
+first thing the code block will do is bind the formal parameters to the
+arguments; this is described in section <a class="reference internal" href="compound_stmts.html#function"><em>Function definitions</em></a>.  When the code block
+executes a <a class="reference internal" href="simple_stmts.html#return"><tt class="xref std std-keyword docutils literal"><span class="pre">return</span></tt></a> statement, this specifies the return value of the
+function call.</p>
+</dd>
+<dt>a built-in function or method:</dt>
+<dd><p class="first last" id="index-39">The result is up to the interpreter; see <a class="reference internal" href="../library/functions.html#built-in-funcs"><em>Built-in Functions</em></a> for the
+descriptions of built-in functions and methods.</p>
+</dd>
+<dt>a class object:</dt>
+<dd><p class="first last" id="index-40">A new instance of that class is returned.</p>
+</dd>
+<dt>a class instance method:</dt>
+<dd><p class="first last" id="index-41">The corresponding user-defined function is called, with an argument list that is
+one longer than the argument list of the call: the instance becomes the first
+argument.</p>
+</dd>
+<dt>a class instance:</dt>
+<dd><p class="first last" id="index-42">The class must define a <a class="reference internal" href="datamodel.html#object.__call__" title="object.__call__"><tt class="xref py py-meth docutils literal"><span class="pre">__call__()</span></tt></a> method; the effect is then the same as
+if that method was called.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="the-power-operator">
+<span id="power"></span><h2>6.4. The power operator<a class="headerlink" href="#the-power-operator" title="Permalink to this headline">¶</a></h2>
+<p>The power operator binds more tightly than unary operators on its left; it binds
+less tightly than unary operators on its right.  The syntax is:</p>
+<pre>
+<strong id="grammar-token-power">power</strong> ::=  <a class="reference internal" href="#grammar-token-primary"><tt class="xref docutils literal"><span class="pre">primary</span></tt></a> [&quot;**&quot; <a class="reference internal" href="#grammar-token-u_expr"><tt class="xref docutils literal"><span class="pre">u_expr</span></tt></a>]
+</pre>
+<p>Thus, in an unparenthesized sequence of power and unary operators, the operators
+are evaluated from right to left (this does not constrain the evaluation order
+for the operands): <tt class="docutils literal"><span class="pre">-1**2</span></tt> results in <tt class="docutils literal"><span class="pre">-1</span></tt>.</p>
+<p>The power operator has the same semantics as the built-in <a class="reference internal" href="../library/functions.html#pow" title="pow"><tt class="xref py py-func docutils literal"><span class="pre">pow()</span></tt></a> function,
+when called with two arguments: it yields its left argument raised to the power
+of its right argument.  The numeric arguments are first converted to a common
+type, and the result is of that type.</p>
+<p>For int operands, the result has the same type as the operands unless the second
+argument is negative; in that case, all arguments are converted to float and a
+float result is delivered. For example, <tt class="docutils literal"><span class="pre">10**2</span></tt> returns <tt class="docutils literal"><span class="pre">100</span></tt>, but
+<tt class="docutils literal"><span class="pre">10**-2</span></tt> returns <tt class="docutils literal"><span class="pre">0.01</span></tt>.</p>
+<p>Raising <tt class="docutils literal"><span class="pre">0.0</span></tt> to a negative power results in a <a class="reference internal" href="../library/exceptions.html#ZeroDivisionError" title="ZeroDivisionError"><tt class="xref py py-exc docutils literal"><span class="pre">ZeroDivisionError</span></tt></a>.
+Raising a negative number to a fractional power results in a <a class="reference internal" href="../library/functions.html#complex" title="complex"><tt class="xref py py-class docutils literal"><span class="pre">complex</span></tt></a>
+number. (In earlier versions it raised a <a class="reference internal" href="../library/exceptions.html#ValueError" title="ValueError"><tt class="xref py py-exc docutils literal"><span class="pre">ValueError</span></tt></a>.)</p>
+</div>
+<div class="section" id="unary-arithmetic-and-bitwise-operations">
+<span id="unary"></span><h2>6.5. Unary arithmetic and bitwise operations<a class="headerlink" href="#unary-arithmetic-and-bitwise-operations" title="Permalink to this headline">¶</a></h2>
+<p id="index-43">All unary arithmetic and bitwise operations have the same priority:</p>
+<pre>
+<strong id="grammar-token-u_expr">u_expr</strong> ::=  <a class="reference internal" href="#grammar-token-power"><tt class="xref docutils literal"><span class="pre">power</span></tt></a> | &quot;-&quot; <a class="reference internal" href="#grammar-token-u_expr"><tt class="xref docutils literal"><span class="pre">u_expr</span></tt></a> | &quot;+&quot; <a class="reference internal" href="#grammar-token-u_expr"><tt class="xref docutils literal"><span class="pre">u_expr</span></tt></a> | &quot;~&quot; <a class="reference internal" href="#grammar-token-u_expr"><tt class="xref docutils literal"><span class="pre">u_expr</span></tt></a>
+</pre>
+<p id="index-44">The unary <tt class="docutils literal"><span class="pre">-</span></tt> (minus) operator yields the negation of its numeric argument.</p>
+<p id="index-45">The unary <tt class="docutils literal"><span class="pre">+</span></tt> (plus) operator yields its numeric argument unchanged.</p>
+<p id="index-46">The unary <tt class="docutils literal"><span class="pre">~</span></tt> (invert) operator yields the bitwise inversion of its integer
+argument.  The bitwise inversion of <tt class="docutils literal"><span class="pre">x</span></tt> is defined as <tt class="docutils literal"><span class="pre">-(x+1)</span></tt>.  It only
+applies to integral numbers.</p>
+<p id="index-47">In all three cases, if the argument does not have the proper type, a
+<a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt></a> exception is raised.</p>
+</div>
+<div class="section" id="binary-arithmetic-operations">
+<span id="binary"></span><h2>6.6. Binary arithmetic operations<a class="headerlink" href="#binary-arithmetic-operations" title="Permalink to this headline">¶</a></h2>
+<p id="index-48">The binary arithmetic operations have the conventional priority levels.  Note
+that some of these operations also apply to certain non-numeric types.  Apart
+from the power operator, there are only two levels, one for multiplicative
+operators and one for additive operators:</p>
+<pre>
+<strong id="grammar-token-m_expr">m_expr</strong> ::=  <a class="reference internal" href="#grammar-token-u_expr"><tt class="xref docutils literal"><span class="pre">u_expr</span></tt></a> | <a class="reference internal" href="#grammar-token-m_expr"><tt class="xref docutils literal"><span class="pre">m_expr</span></tt></a> &quot;*&quot; <a class="reference internal" href="#grammar-token-u_expr"><tt class="xref docutils literal"><span class="pre">u_expr</span></tt></a> | <a class="reference internal" href="#grammar-token-m_expr"><tt class="xref docutils literal"><span class="pre">m_expr</span></tt></a> &quot;&#64;&quot; <a class="reference internal" href="#grammar-token-m_expr"><tt class="xref docutils literal"><span class="pre">m_expr</span></tt></a> |
+            <a class="reference internal" href="#grammar-token-m_expr"><tt class="xref docutils literal"><span class="pre">m_expr</span></tt></a> &quot;//&quot; <a class="reference internal" href="#grammar-token-u_expr"><tt class="xref docutils literal"><span class="pre">u_expr</span></tt></a>| <a class="reference internal" href="#grammar-token-m_expr"><tt class="xref docutils literal"><span class="pre">m_expr</span></tt></a> &quot;/&quot; <a class="reference internal" href="#grammar-token-u_expr"><tt class="xref docutils literal"><span class="pre">u_expr</span></tt></a> |
+            <a class="reference internal" href="#grammar-token-m_expr"><tt class="xref docutils literal"><span class="pre">m_expr</span></tt></a> &quot;%&quot; <a class="reference internal" href="#grammar-token-u_expr"><tt class="xref docutils literal"><span class="pre">u_expr</span></tt></a>
+<strong id="grammar-token-a_expr">a_expr</strong> ::=  <a class="reference internal" href="#grammar-token-m_expr"><tt class="xref docutils literal"><span class="pre">m_expr</span></tt></a> | <a class="reference internal" href="#grammar-token-a_expr"><tt class="xref docutils literal"><span class="pre">a_expr</span></tt></a> &quot;+&quot; <a class="reference internal" href="#grammar-token-m_expr"><tt class="xref docutils literal"><span class="pre">m_expr</span></tt></a> | <a class="reference internal" href="#grammar-token-a_expr"><tt class="xref docutils literal"><span class="pre">a_expr</span></tt></a> &quot;-&quot; <a class="reference internal" href="#grammar-token-m_expr"><tt class="xref docutils literal"><span class="pre">m_expr</span></tt></a>
+</pre>
+<p id="index-49">The <tt class="docutils literal"><span class="pre">*</span></tt> (multiplication) operator yields the product of its arguments.  The
+arguments must either both be numbers, or one argument must be an integer and
+the other must be a sequence. In the former case, the numbers are converted to a
+common type and then multiplied together.  In the latter case, sequence
+repetition is performed; a negative repetition factor yields an empty sequence.</p>
+<p id="index-50">The <tt class="docutils literal"><span class="pre">&#64;</span></tt> (at) operator is intended to be used for matrix multiplication.  No
+builtin Python types implement this operator.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.5.</span></p>
+</div>
+<p id="index-51">The <tt class="docutils literal"><span class="pre">/</span></tt> (division) and <tt class="docutils literal"><span class="pre">//</span></tt> (floor division) operators yield the quotient of
+their arguments.  The numeric arguments are first converted to a common type.
+Division of integers yields a float, while floor division of integers results in an
+integer; the result is that of mathematical division with the &#8216;floor&#8217; function
+applied to the result.  Division by zero raises the <a class="reference internal" href="../library/exceptions.html#ZeroDivisionError" title="ZeroDivisionError"><tt class="xref py py-exc docutils literal"><span class="pre">ZeroDivisionError</span></tt></a>
+exception.</p>
+<p id="index-52">The <tt class="docutils literal"><span class="pre">%</span></tt> (modulo) operator yields the remainder from the division of the first
+argument by the second.  The numeric arguments are first converted to a common
+type.  A zero right argument raises the <a class="reference internal" href="../library/exceptions.html#ZeroDivisionError" title="ZeroDivisionError"><tt class="xref py py-exc docutils literal"><span class="pre">ZeroDivisionError</span></tt></a> exception.  The
+arguments may be floating point numbers, e.g., <tt class="docutils literal"><span class="pre">3.14%0.7</span></tt> equals <tt class="docutils literal"><span class="pre">0.34</span></tt>
+(since <tt class="docutils literal"><span class="pre">3.14</span></tt> equals <tt class="docutils literal"><span class="pre">4*0.7</span> <span class="pre">+</span> <span class="pre">0.34</span></tt>.)  The modulo operator always yields a
+result with the same sign as its second operand (or zero); the absolute value of
+the result is strictly smaller than the absolute value of the second operand
+<a class="footnote-reference" href="#id16" id="id8">[1]</a>.</p>
+<p>The floor division and modulo operators are connected by the following
+identity: <tt class="docutils literal"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">(x//y)*y</span> <span class="pre">+</span> <span class="pre">(x%y)</span></tt>.  Floor division and modulo are also
+connected with the built-in function <a class="reference internal" href="../library/functions.html#divmod" title="divmod"><tt class="xref py py-func docutils literal"><span class="pre">divmod()</span></tt></a>: <tt class="docutils literal"><span class="pre">divmod(x,</span> <span class="pre">y)</span> <span class="pre">==</span> <span class="pre">(x//y,</span>
+<span class="pre">x%y)</span></tt>. <a class="footnote-reference" href="#id17" id="id9">[2]</a>.</p>
+<p>In addition to performing the modulo operation on numbers, the <tt class="docutils literal"><span class="pre">%</span></tt> operator is
+also overloaded by string objects to perform old-style string formatting (also
+known as interpolation).  The syntax for string formatting is described in the
+Python Library Reference, section <a class="reference internal" href="../library/stdtypes.html#old-string-formatting"><em>printf-style String Formatting</em></a>.</p>
+<p>The floor division operator, the modulo operator, and the <a class="reference internal" href="../library/functions.html#divmod" title="divmod"><tt class="xref py py-func docutils literal"><span class="pre">divmod()</span></tt></a>
+function are not defined for complex numbers.  Instead, convert to a floating
+point number using the <a class="reference internal" href="../library/functions.html#abs" title="abs"><tt class="xref py py-func docutils literal"><span class="pre">abs()</span></tt></a> function if appropriate.</p>
+<p id="index-53">The <tt class="docutils literal"><span class="pre">+</span></tt> (addition) operator yields the sum of its arguments.  The arguments
+must either both be numbers or both be sequences of the same type.  In the
+former case, the numbers are converted to a common type and then added together.
+In the latter case, the sequences are concatenated.</p>
+<p id="index-54">The <tt class="docutils literal"><span class="pre">-</span></tt> (subtraction) operator yields the difference of its arguments.  The
+numeric arguments are first converted to a common type.</p>
+</div>
+<div class="section" id="shifting-operations">
+<span id="shifting"></span><h2>6.7. Shifting operations<a class="headerlink" href="#shifting-operations" title="Permalink to this headline">¶</a></h2>
+<p id="index-55">The shifting operations have lower priority than the arithmetic operations:</p>
+<pre>
+<strong id="grammar-token-shift_expr">shift_expr</strong> ::=  <a class="reference internal" href="#grammar-token-a_expr"><tt class="xref docutils literal"><span class="pre">a_expr</span></tt></a> | <a class="reference internal" href="#grammar-token-shift_expr"><tt class="xref docutils literal"><span class="pre">shift_expr</span></tt></a> ( &quot;&lt;&lt;&quot; | &quot;&gt;&gt;&quot; ) <a class="reference internal" href="#grammar-token-a_expr"><tt class="xref docutils literal"><span class="pre">a_expr</span></tt></a>
+</pre>
+<p>These operators accept integers as arguments.  They shift the first argument to
+the left or right by the number of bits given by the second argument.</p>
+<p id="index-56">A right shift by <em>n</em> bits is defined as floor division by <tt class="docutils literal"><span class="pre">pow(2,n)</span></tt>.  A left
+shift by <em>n</em> bits is defined as multiplication with <tt class="docutils literal"><span class="pre">pow(2,n)</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In the current implementation, the right-hand operand is required
+to be at most <a class="reference internal" href="../library/sys.html#sys.maxsize" title="sys.maxsize"><tt class="xref py py-attr docutils literal"><span class="pre">sys.maxsize</span></tt></a>.  If the right-hand operand is larger than
+<a class="reference internal" href="../library/sys.html#sys.maxsize" title="sys.maxsize"><tt class="xref py py-attr docutils literal"><span class="pre">sys.maxsize</span></tt></a> an <a class="reference internal" href="../library/exceptions.html#OverflowError" title="OverflowError"><tt class="xref py py-exc docutils literal"><span class="pre">OverflowError</span></tt></a> exception is raised.</p>
+</div>
+</div>
+<div class="section" id="binary-bitwise-operations">
+<span id="bitwise"></span><h2>6.8. Binary bitwise operations<a class="headerlink" href="#binary-bitwise-operations" title="Permalink to this headline">¶</a></h2>
+<p id="index-57">Each of the three bitwise operations has a different priority level:</p>
+<pre>
+<strong id="grammar-token-and_expr">and_expr</strong> ::=  <a class="reference internal" href="#grammar-token-shift_expr"><tt class="xref docutils literal"><span class="pre">shift_expr</span></tt></a> | <a class="reference internal" href="#grammar-token-and_expr"><tt class="xref docutils literal"><span class="pre">and_expr</span></tt></a> &quot;&amp;&quot; <a class="reference internal" href="#grammar-token-shift_expr"><tt class="xref docutils literal"><span class="pre">shift_expr</span></tt></a>
+<strong id="grammar-token-xor_expr">xor_expr</strong> ::=  <a class="reference internal" href="#grammar-token-and_expr"><tt class="xref docutils literal"><span class="pre">and_expr</span></tt></a> | <a class="reference internal" href="#grammar-token-xor_expr"><tt class="xref docutils literal"><span class="pre">xor_expr</span></tt></a> &quot;^&quot; <a class="reference internal" href="#grammar-token-and_expr"><tt class="xref docutils literal"><span class="pre">and_expr</span></tt></a>
+<strong id="grammar-token-or_expr">or_expr </strong> ::=  <a class="reference internal" href="#grammar-token-xor_expr"><tt class="xref docutils literal"><span class="pre">xor_expr</span></tt></a> | <a class="reference internal" href="#grammar-token-or_expr"><tt class="xref docutils literal"><span class="pre">or_expr</span></tt></a> &quot;|&quot; <a class="reference internal" href="#grammar-token-xor_expr"><tt class="xref docutils literal"><span class="pre">xor_expr</span></tt></a>
+</pre>
+<p id="index-58">The <tt class="docutils literal"><span class="pre">&amp;</span></tt> operator yields the bitwise AND of its arguments, which must be
+integers.</p>
+<p id="index-59">The <tt class="docutils literal"><span class="pre">^</span></tt> operator yields the bitwise XOR (exclusive OR) of its arguments, which
+must be integers.</p>
+<p id="index-60">The <tt class="docutils literal"><span class="pre">|</span></tt> operator yields the bitwise (inclusive) OR of its arguments, which
+must be integers.</p>
+</div>
+<div class="section" id="not-in">
+<span id="in"></span><span id="is-not"></span><span id="is"></span><span id="comparisons"></span><span id="id10"></span><h2>6.9. Comparisons<a class="headerlink" href="#not-in" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="index-61"></span><p id="index-62">Unlike C, all comparison operations in Python have the same priority, which is
+lower than that of any arithmetic, shifting or bitwise operation.  Also unlike
+C, expressions like <tt class="docutils literal"><span class="pre">a</span> <span class="pre">&lt;</span> <span class="pre">b</span> <span class="pre">&lt;</span> <span class="pre">c</span></tt> have the interpretation that is conventional
+in mathematics:</p>
+<pre>
+<strong id="grammar-token-comparison">comparison   </strong> ::=  <a class="reference internal" href="#grammar-token-or_expr"><tt class="xref docutils literal"><span class="pre">or_expr</span></tt></a> ( <a class="reference internal" href="#grammar-token-comp_operator"><tt class="xref docutils literal"><span class="pre">comp_operator</span></tt></a> <a class="reference internal" href="#grammar-token-or_expr"><tt class="xref docutils literal"><span class="pre">or_expr</span></tt></a> )*
+<strong id="grammar-token-comp_operator">comp_operator</strong> ::=  &quot;&lt;&quot; | &quot;&gt;&quot; | &quot;==&quot; | &quot;&gt;=&quot; | &quot;&lt;=&quot; | &quot;!=&quot;
+                   | &quot;is&quot; [&quot;not&quot;] | [&quot;not&quot;] &quot;in&quot;
+</pre>
+<p>Comparisons yield boolean values: <tt class="docutils literal"><span class="pre">True</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<p id="index-63">Comparisons can be chained arbitrarily, e.g., <tt class="docutils literal"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span> <span class="pre">&lt;=</span> <span class="pre">z</span></tt> is equivalent to
+<tt class="docutils literal"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span> <span class="pre">and</span> <span class="pre">y</span> <span class="pre">&lt;=</span> <span class="pre">z</span></tt>, except that <tt class="docutils literal"><span class="pre">y</span></tt> is evaluated only once (but in both
+cases <tt class="docutils literal"><span class="pre">z</span></tt> is not evaluated at all when <tt class="docutils literal"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span></tt> is found to be false).</p>
+<p>Formally, if <em>a</em>, <em>b</em>, <em>c</em>, ..., <em>y</em>, <em>z</em> are expressions and <em>op1</em>, <em>op2</em>, ...,
+<em>opN</em> are comparison operators, then <tt class="docutils literal"><span class="pre">a</span> <span class="pre">op1</span> <span class="pre">b</span> <span class="pre">op2</span> <span class="pre">c</span> <span class="pre">...</span> <span class="pre">y</span> <span class="pre">opN</span> <span class="pre">z</span></tt> is equivalent
+to <tt class="docutils literal"><span class="pre">a</span> <span class="pre">op1</span> <span class="pre">b</span> <span class="pre">and</span> <span class="pre">b</span> <span class="pre">op2</span> <span class="pre">c</span> <span class="pre">and</span> <span class="pre">...</span> <span class="pre">y</span> <span class="pre">opN</span> <span class="pre">z</span></tt>, except that each expression is
+evaluated at most once.</p>
+<p>Note that <tt class="docutils literal"><span class="pre">a</span> <span class="pre">op1</span> <span class="pre">b</span> <span class="pre">op2</span> <span class="pre">c</span></tt> doesn&#8217;t imply any kind of comparison between <em>a</em> and
+<em>c</em>, so that, e.g., <tt class="docutils literal"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span> <span class="pre">&gt;</span> <span class="pre">z</span></tt> is perfectly legal (though perhaps not
+pretty).</p>
+<p>The operators <tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">==</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, <tt class="docutils literal"><span class="pre">&lt;=</span></tt>, and <tt class="docutils literal"><span class="pre">!=</span></tt> compare the
+values of two objects.  The objects need not have the same type. If both are
+numbers, they are converted to a common type.  Otherwise, the <tt class="docutils literal"><span class="pre">==</span></tt> and <tt class="docutils literal"><span class="pre">!=</span></tt>
+operators <em>always</em> consider objects of different types to be unequal, while the
+<tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt> and <tt class="docutils literal"><span class="pre">&lt;=</span></tt> operators raise a <a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt></a> when
+comparing objects of different types that do not implement these operators for
+the given pair of types.  You can control comparison behavior of objects of
+non-built-in types by defining rich comparison methods like <a class="reference internal" href="datamodel.html#object.__gt__" title="object.__gt__"><tt class="xref py py-meth docutils literal"><span class="pre">__gt__()</span></tt></a>,
+described in section <a class="reference internal" href="datamodel.html#customization"><em>Basic customization</em></a>.</p>
+<p>Comparison of objects of the same type depends on the type:</p>
+<ul>
+<li><p class="first">Numbers are compared arithmetically.</p>
+</li>
+<li><p class="first">The values <tt class="xref py py-const docutils literal"><span class="pre">float('NaN')</span></tt> and <tt class="xref py py-const docutils literal"><span class="pre">Decimal('NaN')</span></tt> are special.
+The are identical to themselves, <tt class="docutils literal"><span class="pre">x</span> <span class="pre">is</span> <span class="pre">x</span></tt> but are not equal to themselves,
+<tt class="docutils literal"><span class="pre">x</span> <span class="pre">!=</span> <span class="pre">x</span></tt>.  Additionally, comparing any value to a not-a-number value
+will return <tt class="docutils literal"><span class="pre">False</span></tt>.  For example, both <tt class="docutils literal"><span class="pre">3</span> <span class="pre">&lt;</span> <span class="pre">float('NaN')</span></tt> and
+<tt class="docutils literal"><span class="pre">float('NaN')</span> <span class="pre">&lt;</span> <span class="pre">3</span></tt> will return <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+</li>
+<li><p class="first">Bytes objects are compared lexicographically using the numeric values of their
+elements.</p>
+</li>
+<li><p class="first">Strings are compared lexicographically using the numeric equivalents (the
+result of the built-in function <a class="reference internal" href="../library/functions.html#ord" title="ord"><tt class="xref py py-func docutils literal"><span class="pre">ord()</span></tt></a>) of their characters. <a class="footnote-reference" href="#id18" id="id11">[3]</a> String
+and bytes object can&#8217;t be compared!</p>
+</li>
+<li><p class="first">Tuples and lists are compared lexicographically using comparison of
+corresponding elements.  This means that to compare equal, each element must
+compare equal and the two sequences must be of the same type and have the same
+length.</p>
+<p>If not equal, the sequences are ordered the same as their first differing
+elements.  For example, <tt class="docutils literal"><span class="pre">[1,2,x]</span> <span class="pre">&lt;=</span> <span class="pre">[1,2,y]</span></tt> has the same value as
+<tt class="docutils literal"><span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">y</span></tt>.  If the corresponding element does not exist, the shorter
+sequence is ordered first (for example, <tt class="docutils literal"><span class="pre">[1,2]</span> <span class="pre">&lt;</span> <span class="pre">[1,2,3]</span></tt>).</p>
+</li>
+<li><p class="first">Mappings (dictionaries) compare equal if and only if they have the same
+<tt class="docutils literal"><span class="pre">(key,</span> <span class="pre">value)</span></tt> pairs. Order comparisons <tt class="docutils literal"><span class="pre">('&lt;',</span> <span class="pre">'&lt;=',</span> <span class="pre">'&gt;=',</span> <span class="pre">'&gt;')</span></tt>
+raise <a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt></a>.</p>
+</li>
+<li><p class="first">Sets and frozensets define comparison operators to mean subset and superset
+tests.  Those relations do not define total orderings (the two sets <tt class="docutils literal"><span class="pre">{1,2}</span></tt>
+and {2,3} are not equal, nor subsets of one another, nor supersets of one
+another).  Accordingly, sets are not appropriate arguments for functions
+which depend on total ordering.  For example, <a class="reference internal" href="../library/functions.html#min" title="min"><tt class="xref py py-func docutils literal"><span class="pre">min()</span></tt></a>, <a class="reference internal" href="../library/functions.html#max" title="max"><tt class="xref py py-func docutils literal"><span class="pre">max()</span></tt></a>, and
+<a class="reference internal" href="../library/functions.html#sorted" title="sorted"><tt class="xref py py-func docutils literal"><span class="pre">sorted()</span></tt></a> produce undefined results given a list of sets as inputs.</p>
+</li>
+<li><p class="first">Most other objects of built-in types compare unequal unless they are the same
+object; the choice whether one object is considered smaller or larger than
+another one is made arbitrarily but consistently within one execution of a
+program.</p>
+</li>
+</ul>
+<p>Comparison of objects of differing types depends on whether either of the
+types provide explicit support for the comparison.  Most numeric types can be
+compared with one another.  When cross-type comparison is not supported, the
+comparison method returns <tt class="docutils literal"><span class="pre">NotImplemented</span></tt>.</p>
+<p id="membership-test-details">The operators <a class="reference internal" href="#in"><tt class="xref std std-keyword docutils literal"><span class="pre">in</span></tt></a> and <a class="reference internal" href="#not-in"><tt class="xref std std-keyword docutils literal"><span class="pre">not</span> <span class="pre">in</span></tt></a> test for membership.  <tt class="docutils literal"><span class="pre">x</span> <span class="pre">in</span>
+<span class="pre">s</span></tt> evaluates to true if <em>x</em> is a member of <em>s</em>, and false otherwise.  <tt class="docutils literal"><span class="pre">x</span> <span class="pre">not</span>
+<span class="pre">in</span> <span class="pre">s</span></tt> returns the negation of <tt class="docutils literal"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">s</span></tt>.  All built-in sequences and set types
+support this as well as dictionary, for which <a class="reference internal" href="#in"><tt class="xref std std-keyword docutils literal"><span class="pre">in</span></tt></a> tests whether the
+dictionary has a given key. For container types such as list, tuple, set,
+frozenset, dict, or collections.deque, the expression <tt class="docutils literal"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">y</span></tt> is equivalent
+to <tt class="docutils literal"><span class="pre">any(x</span> <span class="pre">is</span> <span class="pre">e</span> <span class="pre">or</span> <span class="pre">x</span> <span class="pre">==</span> <span class="pre">e</span> <span class="pre">for</span> <span class="pre">e</span> <span class="pre">in</span> <span class="pre">y)</span></tt>.</p>
+<p>For the string and bytes types, <tt class="docutils literal"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">y</span></tt> is true if and only if <em>x</em> is a
+substring of <em>y</em>.  An equivalent test is <tt class="docutils literal"><span class="pre">y.find(x)</span> <span class="pre">!=</span> <span class="pre">-1</span></tt>.  Empty strings are
+always considered to be a substring of any other string, so <tt class="docutils literal"><span class="pre">&quot;&quot;</span> <span class="pre">in</span> <span class="pre">&quot;abc&quot;</span></tt> will
+return <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+<p>For user-defined classes which define the <a class="reference internal" href="datamodel.html#object.__contains__" title="object.__contains__"><tt class="xref py py-meth docutils literal"><span class="pre">__contains__()</span></tt></a> method, <tt class="docutils literal"><span class="pre">x</span> <span class="pre">in</span>
+<span class="pre">y</span></tt> is true if and only if <tt class="docutils literal"><span class="pre">y.__contains__(x)</span></tt> is true.</p>
+<p>For user-defined classes which do not define <a class="reference internal" href="datamodel.html#object.__contains__" title="object.__contains__"><tt class="xref py py-meth docutils literal"><span class="pre">__contains__()</span></tt></a> but do define
+<a class="reference internal" href="datamodel.html#object.__iter__" title="object.__iter__"><tt class="xref py py-meth docutils literal"><span class="pre">__iter__()</span></tt></a>, <tt class="docutils literal"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">y</span></tt> is true if some value <tt class="docutils literal"><span class="pre">z</span></tt> with <tt class="docutils literal"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">z</span></tt> is
+produced while iterating over <tt class="docutils literal"><span class="pre">y</span></tt>.  If an exception is raised during the
+iteration, it is as if <a class="reference internal" href="#in"><tt class="xref std std-keyword docutils literal"><span class="pre">in</span></tt></a> raised that exception.</p>
+<p>Lastly, the old-style iteration protocol is tried: if a class defines
+<a class="reference internal" href="datamodel.html#object.__getitem__" title="object.__getitem__"><tt class="xref py py-meth docutils literal"><span class="pre">__getitem__()</span></tt></a>, <tt class="docutils literal"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">y</span></tt> is true if and only if there is a non-negative
+integer index <em>i</em> such that <tt class="docutils literal"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">y[i]</span></tt>, and all lower integer indices do not
+raise <a class="reference internal" href="../library/exceptions.html#IndexError" title="IndexError"><tt class="xref py py-exc docutils literal"><span class="pre">IndexError</span></tt></a> exception.  (If any other exception is raised, it is as
+if <a class="reference internal" href="#in"><tt class="xref std std-keyword docutils literal"><span class="pre">in</span></tt></a> raised that exception).</p>
+<p id="index-64">The operator <a class="reference internal" href="#not-in"><tt class="xref std std-keyword docutils literal"><span class="pre">not</span> <span class="pre">in</span></tt></a> is defined to have the inverse true value of
+<a class="reference internal" href="#in"><tt class="xref std std-keyword docutils literal"><span class="pre">in</span></tt></a>.</p>
+<p id="index-65">The operators <a class="reference internal" href="#is"><tt class="xref std std-keyword docutils literal"><span class="pre">is</span></tt></a> and <a class="reference internal" href="#is-not"><tt class="xref std std-keyword docutils literal"><span class="pre">is</span> <span class="pre">not</span></tt></a> test for object identity: <tt class="docutils literal"><span class="pre">x</span>
+<span class="pre">is</span> <span class="pre">y</span></tt> is true if and only if <em>x</em> and <em>y</em> are the same object.  <tt class="docutils literal"><span class="pre">x</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">y</span></tt>
+yields the inverse truth value. <a class="footnote-reference" href="#id19" id="id12">[4]</a></p>
+</div>
+<div class="section" id="boolean-operations">
+<span id="not"></span><span id="or"></span><span id="and"></span><span id="booleans"></span><h2>6.10. Boolean operations<a class="headerlink" href="#boolean-operations" title="Permalink to this headline">¶</a></h2>
+<pre id="index-66">
+<strong id="grammar-token-or_test">or_test </strong> ::=  <a class="reference internal" href="#grammar-token-and_test"><tt class="xref docutils literal"><span class="pre">and_test</span></tt></a> | <a class="reference internal" href="#grammar-token-or_test"><tt class="xref docutils literal"><span class="pre">or_test</span></tt></a> &quot;or&quot; <a class="reference internal" href="#grammar-token-and_test"><tt class="xref docutils literal"><span class="pre">and_test</span></tt></a>
+<strong id="grammar-token-and_test">and_test</strong> ::=  <a class="reference internal" href="#grammar-token-not_test"><tt class="xref docutils literal"><span class="pre">not_test</span></tt></a> | <a class="reference internal" href="#grammar-token-and_test"><tt class="xref docutils literal"><span class="pre">and_test</span></tt></a> &quot;and&quot; <a class="reference internal" href="#grammar-token-not_test"><tt class="xref docutils literal"><span class="pre">not_test</span></tt></a>
+<strong id="grammar-token-not_test">not_test</strong> ::=  <a class="reference internal" href="#grammar-token-comparison"><tt class="xref docutils literal"><span class="pre">comparison</span></tt></a> | &quot;not&quot; <a class="reference internal" href="#grammar-token-not_test"><tt class="xref docutils literal"><span class="pre">not_test</span></tt></a>
+</pre>
+<p>In the context of Boolean operations, and also when expressions are used by
+control flow statements, the following values are interpreted as false:
+<tt class="docutils literal"><span class="pre">False</span></tt>, <tt class="docutils literal"><span class="pre">None</span></tt>, numeric zero of all types, and empty strings and containers
+(including strings, tuples, lists, dictionaries, sets and frozensets).  All
+other values are interpreted as true.  User-defined objects can customize their
+truth value by providing a <a class="reference internal" href="datamodel.html#object.__bool__" title="object.__bool__"><tt class="xref py py-meth docutils literal"><span class="pre">__bool__()</span></tt></a> method.</p>
+<p id="index-67">The operator <a class="reference internal" href="#not"><tt class="xref std std-keyword docutils literal"><span class="pre">not</span></tt></a> yields <tt class="docutils literal"><span class="pre">True</span></tt> if its argument is false, <tt class="docutils literal"><span class="pre">False</span></tt>
+otherwise.</p>
+<p id="index-68">The expression <tt class="docutils literal"><span class="pre">x</span> <span class="pre">and</span> <span class="pre">y</span></tt> first evaluates <em>x</em>; if <em>x</em> is false, its value is
+returned; otherwise, <em>y</em> is evaluated and the resulting value is returned.</p>
+<p id="index-69">The expression <tt class="docutils literal"><span class="pre">x</span> <span class="pre">or</span> <span class="pre">y</span></tt> first evaluates <em>x</em>; if <em>x</em> is true, its value is
+returned; otherwise, <em>y</em> is evaluated and the resulting value is returned.</p>
+<p>(Note that neither <a class="reference internal" href="#and"><tt class="xref std std-keyword docutils literal"><span class="pre">and</span></tt></a> nor <a class="reference internal" href="#or"><tt class="xref std std-keyword docutils literal"><span class="pre">or</span></tt></a> restrict the value and type
+they return to <tt class="docutils literal"><span class="pre">False</span></tt> and <tt class="docutils literal"><span class="pre">True</span></tt>, but rather return the last evaluated
+argument.  This is sometimes useful, e.g., if <tt class="docutils literal"><span class="pre">s</span></tt> is a string that should be
+replaced by a default value if it is empty, the expression <tt class="docutils literal"><span class="pre">s</span> <span class="pre">or</span> <span class="pre">'foo'</span></tt> yields
+the desired value.  Because <a class="reference internal" href="#not"><tt class="xref std std-keyword docutils literal"><span class="pre">not</span></tt></a> has to create a new value, it
+returns a boolean value regardless of the type of its argument
+(for example, <tt class="docutils literal"><span class="pre">not</span> <span class="pre">'foo'</span></tt> produces <tt class="docutils literal"><span class="pre">False</span></tt> rather than <tt class="docutils literal"><span class="pre">''</span></tt>.)</p>
+</div>
+<div class="section" id="conditional-expressions">
+<h2>6.11. Conditional expressions<a class="headerlink" href="#conditional-expressions" title="Permalink to this headline">¶</a></h2>
+<pre id="index-70">
+<strong id="grammar-token-conditional_expression">conditional_expression</strong> ::=  <a class="reference internal" href="#grammar-token-or_test"><tt class="xref docutils literal"><span class="pre">or_test</span></tt></a> [&quot;if&quot; <a class="reference internal" href="#grammar-token-or_test"><tt class="xref docutils literal"><span class="pre">or_test</span></tt></a> &quot;else&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>]
+<strong id="grammar-token-expression">expression            </strong> ::=  <a class="reference internal" href="#grammar-token-conditional_expression"><tt class="xref docutils literal"><span class="pre">conditional_expression</span></tt></a> | <a class="reference internal" href="#grammar-token-lambda_expr"><tt class="xref docutils literal"><span class="pre">lambda_expr</span></tt></a>
+<strong id="grammar-token-expression_nocond">expression_nocond     </strong> ::=  <a class="reference internal" href="#grammar-token-or_test"><tt class="xref docutils literal"><span class="pre">or_test</span></tt></a> | <a class="reference internal" href="#grammar-token-lambda_expr_nocond"><tt class="xref docutils literal"><span class="pre">lambda_expr_nocond</span></tt></a>
+</pre>
+<p>Conditional expressions (sometimes called a &#8220;ternary operator&#8221;) have the lowest
+priority of all Python operations.</p>
+<p>The expression <tt class="docutils literal"><span class="pre">x</span> <span class="pre">if</span> <span class="pre">C</span> <span class="pre">else</span> <span class="pre">y</span></tt> first evaluates the condition, <em>C</em> rather than <em>x</em>.
+If <em>C</em> is true, <em>x</em> is evaluated and its value is returned; otherwise, <em>y</em> is
+evaluated and its value is returned.</p>
+<p>See <span class="target" id="index-71"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0308"><strong>PEP 308</strong></a> for more details about conditional expressions.</p>
+</div>
+<div class="section" id="lambda">
+<span id="lambdas"></span><span id="id13"></span><h2>6.12. Lambdas<a class="headerlink" href="#lambda" title="Permalink to this headline">¶</a></h2>
+<pre id="index-72">
+<strong id="grammar-token-lambda_expr">lambda_expr       </strong> ::=  &quot;lambda&quot; [<a class="reference internal" href="compound_stmts.html#grammar-token-parameter_list"><tt class="xref docutils literal"><span class="pre">parameter_list</span></tt></a>]: <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a>
+<strong id="grammar-token-lambda_expr_nocond">lambda_expr_nocond</strong> ::=  &quot;lambda&quot; [<a class="reference internal" href="compound_stmts.html#grammar-token-parameter_list"><tt class="xref docutils literal"><span class="pre">parameter_list</span></tt></a>]: <a class="reference internal" href="#grammar-token-expression_nocond"><tt class="xref docutils literal"><span class="pre">expression_nocond</span></tt></a>
+</pre>
+<p>Lambda expressions (sometimes called lambda forms) are used to create anonymous
+functions. The expression <tt class="docutils literal"><span class="pre">lambda</span> <span class="pre">arguments:</span> <span class="pre">expression</span></tt> yields a function
+object.  The unnamed object behaves like a function object defined with</p>
+<div class="highlight-python3"><div class="highlight"><pre>def &lt;lambda&gt;(arguments):
+    return expression
+</pre></div>
+</div>
+<p>See section <a class="reference internal" href="compound_stmts.html#function"><em>Function definitions</em></a> for the syntax of parameter lists.  Note that
+functions created with lambda expressions cannot contain statements or
+annotations.</p>
+</div>
+<div class="section" id="expression-lists">
+<span id="exprlists"></span><h2>6.13. Expression lists<a class="headerlink" href="#expression-lists" title="Permalink to this headline">¶</a></h2>
+<pre id="index-73">
+<strong id="grammar-token-expression_list">expression_list</strong> ::=  <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a> ( &quot;,&quot; <a class="reference internal" href="#grammar-token-expression"><tt class="xref docutils literal"><span class="pre">expression</span></tt></a> )* [&quot;,&quot;]
+</pre>
+<p id="index-74">An expression list containing at least one comma yields a tuple.  The length of
+the tuple is the number of expressions in the list.  The expressions are
+evaluated from left to right.</p>
+<p id="index-75">The trailing comma is required only to create a single tuple (a.k.a. a
+<em>singleton</em>); it is optional in all other cases.  A single expression without a
+trailing comma doesn&#8217;t create a tuple, but rather yields the value of that
+expression. (To create an empty tuple, use an empty pair of parentheses:
+<tt class="docutils literal"><span class="pre">()</span></tt>.)</p>
+</div>
+<div class="section" id="evaluation-order">
+<span id="evalorder"></span><h2>6.14. Evaluation order<a class="headerlink" href="#evaluation-order" title="Permalink to this headline">¶</a></h2>
+<p id="index-76">Python evaluates expressions from left to right.  Notice that while evaluating
+an assignment, the right-hand side is evaluated before the left-hand side.</p>
+<p>In the following lines, expressions will be evaluated in the arithmetic order of
+their suffixes:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="n">expr1</span><span class="p">,</span> <span class="n">expr2</span><span class="p">,</span> <span class="n">expr3</span><span class="p">,</span> <span class="n">expr4</span>
+<span class="p">(</span><span class="n">expr1</span><span class="p">,</span> <span class="n">expr2</span><span class="p">,</span> <span class="n">expr3</span><span class="p">,</span> <span class="n">expr4</span><span class="p">)</span>
+<span class="p">{</span><span class="n">expr1</span><span class="p">:</span> <span class="n">expr2</span><span class="p">,</span> <span class="n">expr3</span><span class="p">:</span> <span class="n">expr4</span><span class="p">}</span>
+<span class="n">expr1</span> <span class="o">+</span> <span class="n">expr2</span> <span class="o">*</span> <span class="p">(</span><span class="n">expr3</span> <span class="o">-</span> <span class="n">expr4</span><span class="p">)</span>
+<span class="n">expr1</span><span class="p">(</span><span class="n">expr2</span><span class="p">,</span> <span class="n">expr3</span><span class="p">,</span> <span class="o">*</span><span class="n">expr4</span><span class="p">,</span> <span class="o">**</span><span class="n">expr5</span><span class="p">)</span>
+<span class="n">expr3</span><span class="p">,</span> <span class="n">expr4</span> <span class="o">=</span> <span class="n">expr1</span><span class="p">,</span> <span class="n">expr2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="operator-precedence">
+<span id="operator-summary"></span><h2>6.15. Operator precedence<a class="headerlink" href="#operator-precedence" title="Permalink to this headline">¶</a></h2>
+<p id="index-77">The following table summarizes the operator precedence in Python, from lowest
+precedence (least binding) to highest precedence (most binding).  Operators in
+the same box have the same precedence.  Unless the syntax is explicitly given,
+operators are binary.  Operators in the same box group left to right (except for
+exponentiation, which groups from right to left).</p>
+<p>Note that comparisons, membership tests, and identity tests, all have the same
+precedence and have a left-to-right chaining feature as described in the
+<a class="reference internal" href="#comparisons"><em>Comparisons</em></a> section.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="56%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="#lambda"><tt class="xref std std-keyword docutils literal"><span class="pre">lambda</span></tt></a></td>
+<td>Lambda expression</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="compound_stmts.html#if"><tt class="xref std std-keyword docutils literal"><span class="pre">if</span></tt></a> &#8211; <a class="reference internal" href="compound_stmts.html#else"><tt class="xref std std-keyword docutils literal"><span class="pre">else</span></tt></a></td>
+<td>Conditional expression</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#or"><tt class="xref std std-keyword docutils literal"><span class="pre">or</span></tt></a></td>
+<td>Boolean OR</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#and"><tt class="xref std std-keyword docutils literal"><span class="pre">and</span></tt></a></td>
+<td>Boolean AND</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#not"><tt class="xref std std-keyword docutils literal"><span class="pre">not</span></tt></a> <tt class="docutils literal"><span class="pre">x</span></tt></td>
+<td>Boolean NOT</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#in"><tt class="xref std std-keyword docutils literal"><span class="pre">in</span></tt></a>, <a class="reference internal" href="#not-in"><tt class="xref std std-keyword docutils literal"><span class="pre">not</span> <span class="pre">in</span></tt></a>,
+<a class="reference internal" href="#is"><tt class="xref std std-keyword docutils literal"><span class="pre">is</span></tt></a>, <a class="reference internal" href="#is-not"><tt class="xref std std-keyword docutils literal"><span class="pre">is</span> <span class="pre">not</span></tt></a>, <tt class="docutils literal"><span class="pre">&lt;</span></tt>,
+<tt class="docutils literal"><span class="pre">&lt;=</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, <tt class="docutils literal"><span class="pre">!=</span></tt>, <tt class="docutils literal"><span class="pre">==</span></tt></td>
+<td>Comparisons, including membership
+tests and identity tests</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">|</span></tt></td>
+<td>Bitwise OR</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">^</span></tt></td>
+<td>Bitwise XOR</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&amp;</span></tt></td>
+<td>Bitwise AND</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;&gt;</span></tt></td>
+<td>Shifts</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">+</span></tt>, <tt class="docutils literal"><span class="pre">-</span></tt></td>
+<td>Addition and subtraction</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">*</span></tt>, <tt class="docutils literal"><span class="pre">&#64;</span></tt>, <tt class="docutils literal"><span class="pre">/</span></tt>, <tt class="docutils literal"><span class="pre">//</span></tt>, <tt class="docutils literal"><span class="pre">%</span></tt></td>
+<td>Multiplication, matrix
+multiplication division,
+remainder <a class="footnote-reference" href="#id20" id="id14">[5]</a></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">+x</span></tt>, <tt class="docutils literal"><span class="pre">-x</span></tt>, <tt class="docutils literal"><span class="pre">~x</span></tt></td>
+<td>Positive, negative, bitwise NOT</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">**</span></tt></td>
+<td>Exponentiation <a class="footnote-reference" href="#id21" id="id15">[6]</a></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">x[index]</span></tt>, <tt class="docutils literal"><span class="pre">x[index:index]</span></tt>,
+<tt class="docutils literal"><span class="pre">x(arguments...)</span></tt>, <tt class="docutils literal"><span class="pre">x.attribute</span></tt></td>
+<td>Subscription, slicing,
+call, attribute reference</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">(expressions...)</span></tt>,
+<tt class="docutils literal"><span class="pre">[expressions...]</span></tt>,
+<tt class="docutils literal"><span class="pre">{key:</span> <span class="pre">value...}</span></tt>,
+<tt class="docutils literal"><span class="pre">{expressions...}</span></tt></td>
+<td>Binding or tuple display,
+list display,
+dictionary display,
+set display</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[1]</a></td><td>While <tt class="docutils literal"><span class="pre">abs(x%y)</span> <span class="pre">&lt;</span> <span class="pre">abs(y)</span></tt> is true mathematically, for floats it may not be
+true numerically due to roundoff.  For example, and assuming a platform on which
+a Python float is an IEEE 754 double-precision number, in order that <tt class="docutils literal"><span class="pre">-1e-100</span> <span class="pre">%</span>
+<span class="pre">1e100</span></tt> have the same sign as <tt class="docutils literal"><span class="pre">1e100</span></tt>, the computed result is <tt class="docutils literal"><span class="pre">-1e-100</span> <span class="pre">+</span>
+<span class="pre">1e100</span></tt>, which is numerically exactly equal to <tt class="docutils literal"><span class="pre">1e100</span></tt>.  The function
+<a class="reference internal" href="../library/math.html#math.fmod" title="math.fmod"><tt class="xref py py-func docutils literal"><span class="pre">math.fmod()</span></tt></a> returns a result whose sign matches the sign of the
+first argument instead, and so returns <tt class="docutils literal"><span class="pre">-1e-100</span></tt> in this case. Which approach
+is more appropriate depends on the application.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id17" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id9">[2]</a></td><td>If x is very close to an exact integer multiple of y, it&#8217;s possible for
+<tt class="docutils literal"><span class="pre">x//y</span></tt> to be one larger than <tt class="docutils literal"><span class="pre">(x-x%y)//y</span></tt> due to rounding.  In such
+cases, Python returns the latter result, in order to preserve that
+<tt class="docutils literal"><span class="pre">divmod(x,y)[0]</span> <span class="pre">*</span> <span class="pre">y</span> <span class="pre">+</span> <span class="pre">x</span> <span class="pre">%</span> <span class="pre">y</span></tt> be very close to <tt class="docutils literal"><span class="pre">x</span></tt>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id18" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11">[3]</a></td><td>While comparisons between strings make sense at the byte level, they may
+be counter-intuitive to users.  For example, the strings <tt class="docutils literal"><span class="pre">&quot;\u00C7&quot;</span></tt> and
+<tt class="docutils literal"><span class="pre">&quot;\u0327\u0043&quot;</span></tt> compare differently, even though they both represent the
+same unicode character (LATIN CAPITAL LETTER C WITH CEDILLA).  To compare
+strings in a human recognizable way, compare using
+<a class="reference internal" href="../library/unicodedata.html#unicodedata.normalize" title="unicodedata.normalize"><tt class="xref py py-func docutils literal"><span class="pre">unicodedata.normalize()</span></tt></a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id19" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id12">[4]</a></td><td>Due to automatic garbage-collection, free lists, and the dynamic nature of
+descriptors, you may notice seemingly unusual behaviour in certain uses of
+the <a class="reference internal" href="#is"><tt class="xref std std-keyword docutils literal"><span class="pre">is</span></tt></a> operator, like those involving comparisons between instance
+methods, or constants.  Check their documentation for more info.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id20" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id14">[5]</a></td><td>The <tt class="docutils literal"><span class="pre">%</span></tt> operator is also used for string formatting; the same
+precedence applies.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id21" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id15">[6]</a></td><td>The power operator <tt class="docutils literal"><span class="pre">**</span></tt> binds less tightly than an arithmetic or
+bitwise unary operator on its right, that is, <tt class="docutils literal"><span class="pre">2**-1</span></tt> is <tt class="docutils literal"><span class="pre">0.5</span></tt>.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">6. Expressions</a><ul>
+<li><a class="reference internal" href="#arithmetic-conversions">6.1. Arithmetic conversions</a></li>
+<li><a class="reference internal" href="#atoms">6.2. Atoms</a><ul>
+<li><a class="reference internal" href="#atom-identifiers">6.2.1. Identifiers (Names)</a></li>
+<li><a class="reference internal" href="#literals">6.2.2. Literals</a></li>
+<li><a class="reference internal" href="#parenthesized-forms">6.2.3. Parenthesized forms</a></li>
+<li><a class="reference internal" href="#displays-for-lists-sets-and-dictionaries">6.2.4. Displays for lists, sets and dictionaries</a></li>
+<li><a class="reference internal" href="#list-displays">6.2.5. List displays</a></li>
+<li><a class="reference internal" href="#set-displays">6.2.6. Set displays</a></li>
+<li><a class="reference internal" href="#dictionary-displays">6.2.7. Dictionary displays</a></li>
+<li><a class="reference internal" href="#generator-expressions">6.2.8. Generator expressions</a></li>
+<li><a class="reference internal" href="#yield-expressions">6.2.9. Yield expressions</a><ul>
+<li><a class="reference internal" href="#generator-iterator-methods">6.2.9.1. Generator-iterator methods</a></li>
+<li><a class="reference internal" href="#examples">6.2.9.2. Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#primaries">6.3. Primaries</a><ul>
+<li><a class="reference internal" href="#attribute-references">6.3.1. Attribute references</a></li>
+<li><a class="reference internal" href="#subscriptions">6.3.2. Subscriptions</a></li>
+<li><a class="reference internal" href="#slicings">6.3.3. Slicings</a></li>
+<li><a class="reference internal" href="#calls">6.3.4. Calls</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-power-operator">6.4. The power operator</a></li>
+<li><a class="reference internal" href="#unary-arithmetic-and-bitwise-operations">6.5. Unary arithmetic and bitwise operations</a></li>
+<li><a class="reference internal" href="#binary-arithmetic-operations">6.6. Binary arithmetic operations</a></li>
+<li><a class="reference internal" href="#shifting-operations">6.7. Shifting operations</a></li>
+<li><a class="reference internal" href="#binary-bitwise-operations">6.8. Binary bitwise operations</a></li>
+<li><a class="reference internal" href="#not-in">6.9. Comparisons</a></li>
+<li><a class="reference internal" href="#boolean-operations">6.10. Boolean operations</a></li>
+<li><a class="reference internal" href="#conditional-expressions">6.11. Conditional expressions</a></li>
+<li><a class="reference internal" href="#lambda">6.12. Lambdas</a></li>
+<li><a class="reference internal" href="#expression-lists">6.13. Expression lists</a></li>
+<li><a class="reference internal" href="#evaluation-order">6.14. Evaluation order</a></li>
+<li><a class="reference internal" href="#operator-precedence">6.15. Operator precedence</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="import.html"
+                        title="previous chapter">5. The import system</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="simple_stmts.html"
+                        title="next chapter">7. Simple statements</a></p>
+<h3>This Page</h3>
+<ul class="this-page-menu">
+  <li><a href="../bugs.html">Report a Bug</a></li>
+  <li><a href="../_sources/reference/expressions.txt"
+         rel="nofollow">Show Source</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="simple_stmts.html" title="7. Simple statements"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="import.html" title="5. The import system"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" >The Python Language Reference</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 1990-2014, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="http://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jun 03, 2014.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+    </div>
+
+  </body>
+</html>

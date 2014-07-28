@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>25.4. tkinter.scrolledtext — Scrolled Text Widget &mdash; Python 3.5.0a0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.5.0a0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.5.0a0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="Python 3.5.0a0 documentation" href="../index.html" />
+    <link rel="up" title="25. Graphical User Interfaces with Tk" href="tk.html" />
+    <link rel="next" title="25.5. IDLE" href="idle.html" />
+    <link rel="prev" title="25.3. tkinter.tix — Extension widgets for Tk" href="tkinter.tix.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/version_switch.js"></script>
+    
+ 
+
+  </head>
+  <body>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="idle.html" title="25.5. IDLE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tkinter.tix.html" title="25.3. tkinter.tix — Extension widgets for Tk"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" >The Python Standard Library</a> &raquo;</li>
+          <li><a href="tk.html" accesskey="U">25. Graphical User Interfaces with Tk</a> &raquo;</li> 
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tkinter.scrolledtext">
+<span id="tkinter-scrolledtext-scrolled-text-widget"></span><h1>25.4. <a class="reference internal" href="#module-tkinter.scrolledtext" title="tkinter.scrolledtext: Text widget with a vertical scroll bar. (Tk)"><tt class="xref py py-mod docutils literal"><span class="pre">tkinter.scrolledtext</span></tt></a> &#8212; Scrolled Text Widget<a class="headerlink" href="#module-tkinter.scrolledtext" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="#module-tkinter.scrolledtext" title="tkinter.scrolledtext: Text widget with a vertical scroll bar. (Tk)"><tt class="xref py py-mod docutils literal"><span class="pre">tkinter.scrolledtext</span></tt></a> module provides a class of the same name which
+implements a basic text widget which has a vertical scroll bar configured to do
+the &#8220;right thing.&#8221;  Using the <tt class="xref py py-class docutils literal"><span class="pre">ScrolledText</span></tt> class is a lot easier than
+setting up a text widget and scroll bar directly.  The constructor is the same
+as that of the <tt class="xref py py-class docutils literal"><span class="pre">tkinter.Text</span></tt> class.</p>
+<p>The text widget and scrollbar are packed together in a <tt class="xref py py-class docutils literal"><span class="pre">Frame</span></tt>, and the
+methods of the <tt class="xref py py-class docutils literal"><span class="pre">Grid</span></tt> and <tt class="xref py py-class docutils literal"><span class="pre">Pack</span></tt> geometry managers are acquired
+from the <tt class="xref py py-class docutils literal"><span class="pre">Frame</span></tt> object.  This allows the <tt class="xref py py-class docutils literal"><span class="pre">ScrolledText</span></tt> widget to
+be used directly to achieve most normal geometry management behavior.</p>
+<p>Should more specific control be necessary, the following attributes are
+available:</p>
+<dl class="attribute">
+<dt id="tkinter.scrolledtext.ScrolledText.frame">
+<tt class="descclassname">ScrolledText.</tt><tt class="descname">frame</tt><a class="headerlink" href="#tkinter.scrolledtext.ScrolledText.frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>The frame which surrounds the text and scroll bar widgets.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tkinter.scrolledtext.ScrolledText.vbar">
+<tt class="descclassname">ScrolledText.</tt><tt class="descname">vbar</tt><a class="headerlink" href="#tkinter.scrolledtext.ScrolledText.vbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>The scroll bar widget.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tkinter.tix.html"
+                        title="previous chapter">25.3. <tt class="docutils literal"><span class="pre">tkinter.tix</span></tt> &#8212; Extension widgets for Tk</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="idle.html"
+                        title="next chapter">25.5. IDLE</a></p>
+<h3>This Page</h3>
+<ul class="this-page-menu">
+  <li><a href="../bugs.html">Report a Bug</a></li>
+  <li><a href="../_sources/library/tkinter.scrolledtext.txt"
+         rel="nofollow">Show Source</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="idle.html" title="25.5. IDLE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tkinter.tix.html" title="25.3. tkinter.tix — Extension widgets for Tk"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" >The Python Standard Library</a> &raquo;</li>
+          <li><a href="tk.html" >25. Graphical User Interfaces with Tk</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 1990-2014, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="http://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jun 03, 2014.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+    </div>
+
+  </body>
+</html>
