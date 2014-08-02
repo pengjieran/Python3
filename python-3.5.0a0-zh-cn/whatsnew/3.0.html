@@ -1,0 +1,982 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>What’s New In Python 3.0 &mdash; Python 3.5.0a0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.5.0a0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.5.0a0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="Python 3.5.0a0 documentation" href="../index.html" />
+    <link rel="up" title="What’s New in Python" href="index.html" />
+    <link rel="next" title="What’s New in Python 2.7" href="2.7.html" />
+    <link rel="prev" title="What’s New In Python 3.1" href="3.1.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/version_switch.js"></script>
+    
+ 
+
+  </head>
+  <body>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="2.7.html" title="What’s New in Python 2.7"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="3.1.html" title="What’s New In Python 3.1"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" accesskey="U">What&#8217;s New in Python</a> &raquo;</li> 
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="what-s-new-in-python-3-0">
+<h1>What&#8217;s New In Python 3.0<a class="headerlink" href="#what-s-new-in-python-3-0" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Guido van Rossum</td>
+</tr>
+</tbody>
+</table>
+<p>This article explains the new features in Python 3.0, compared to 2.6.
+Python 3.0, also known as &#8220;Python 3000&#8221; or &#8220;Py3K&#8221;, is the first ever
+<em>intentionally backwards incompatible</em> Python release.  There are more
+changes than in a typical release, and more that are important for all
+Python users.  Nevertheless, after digesting the changes, you&#8217;ll find
+that Python really hasn&#8217;t changed all that much &#8211; by and large, we&#8217;re
+mostly fixing well-known annoyances and warts, and removing a lot of
+old cruft.</p>
+<p>This article doesn&#8217;t attempt to provide a complete specification of
+all new features, but instead tries to give a convenient overview.
+For full details, you should refer to the documentation for Python
+3.0, and/or the many PEPs referenced in the text. If you want to
+understand the complete implementation and design rationale for a
+particular feature, PEPs usually have more details than the regular
+documentation; but note that PEPs usually are not kept up-to-date once
+a feature has been fully implemented.</p>
+<p>Due to time constraints this document is not as complete as it should
+have been.  As always for a new release, the <tt class="docutils literal"><span class="pre">Misc/NEWS</span></tt> file in the
+source distribution contains a wealth of detailed information about
+every small thing that was changed.</p>
+<div class="section" id="common-stumbling-blocks">
+<h2>Common Stumbling Blocks<a class="headerlink" href="#common-stumbling-blocks" title="Permalink to this headline">¶</a></h2>
+<p>This section lists those few changes that are most likely to trip you
+up if you&#8217;re used to Python 2.5.</p>
+<div class="section" id="print-is-a-function">
+<h3>Print Is A Function<a class="headerlink" href="#print-is-a-function" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">print</span></tt> statement has been replaced with a <a class="reference internal" href="../library/functions.html#print" title="print"><tt class="xref py py-func docutils literal"><span class="pre">print()</span></tt></a>
+function, with keyword arguments to replace most of the special syntax
+of the old <tt class="docutils literal"><span class="pre">print</span></tt> statement (<span class="target" id="index-0"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3105"><strong>PEP 3105</strong></a>).  Examples:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="n">Old</span><span class="p">:</span> <span class="nb">print</span> <span class="s">&quot;The answer is&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="mi">2</span>
+<span class="n">New</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s">&quot;The answer is&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">Old</span><span class="p">:</span> <span class="nb">print</span> <span class="n">x</span><span class="p">,</span>           <span class="c"># Trailing comma suppresses newline</span>
+<span class="n">New</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>  <span class="c"># Appends a space instead of a newline</span>
+
+<span class="n">Old</span><span class="p">:</span> <span class="nb">print</span>              <span class="c"># Prints a newline</span>
+<span class="n">New</span><span class="p">:</span> <span class="nb">print</span><span class="p">()</span>            <span class="c"># You must call the function!</span>
+
+<span class="n">Old</span><span class="p">:</span> <span class="nb">print</span> <span class="o">&gt;&gt;</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;fatal error&quot;</span>
+<span class="n">New</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s">&quot;fatal error&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+
+<span class="n">Old</span><span class="p">:</span> <span class="nb">print</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>       <span class="c"># prints repr((x, y))</span>
+<span class="n">New</span><span class="p">:</span> <span class="nb">print</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>      <span class="c"># Not the same as print(x, y)!</span>
+</pre></div>
+</div>
+<p>You can also customize the separator between items, e.g.:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;There are &lt;&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="p">,</span> <span class="s">&quot;&gt; possibilities!&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>which produces:</p>
+<div class="highlight-python3"><div class="highlight"><pre>There are &lt;4294967296&gt; possibilities!
+</pre></div>
+</div>
+<p>Note:</p>
+<ul class="simple">
+<li>The <a class="reference internal" href="../library/functions.html#print" title="print"><tt class="xref py py-func docutils literal"><span class="pre">print()</span></tt></a> function doesn&#8217;t support the &#8220;softspace&#8221; feature of
+the old <tt class="docutils literal"><span class="pre">print</span></tt> statement.  For example, in Python 2.x,
+<tt class="docutils literal"><span class="pre">print</span> <span class="pre">&quot;A\n&quot;,</span> <span class="pre">&quot;B&quot;</span></tt> would write <tt class="docutils literal"><span class="pre">&quot;A\nB\n&quot;</span></tt>; but in Python 3.0,
+<tt class="docutils literal"><span class="pre">print(&quot;A\n&quot;,</span> <span class="pre">&quot;B&quot;)</span></tt> writes <tt class="docutils literal"><span class="pre">&quot;A\n</span> <span class="pre">B\n&quot;</span></tt>.</li>
+<li>Initially, you&#8217;ll be finding yourself typing the old <tt class="docutils literal"><span class="pre">print</span> <span class="pre">x</span></tt>
+a lot in interactive mode.  Time to retrain your fingers to type
+<tt class="docutils literal"><span class="pre">print(x)</span></tt> instead!</li>
+<li>When using the <tt class="docutils literal"><span class="pre">2to3</span></tt> source-to-source conversion tool, all
+<tt class="docutils literal"><span class="pre">print</span></tt> statements are automatically converted to
+<a class="reference internal" href="../library/functions.html#print" title="print"><tt class="xref py py-func docutils literal"><span class="pre">print()</span></tt></a> function calls, so this is mostly a non-issue for
+larger projects.</li>
+</ul>
+</div>
+<div class="section" id="views-and-iterators-instead-of-lists">
+<h3>Views And Iterators Instead Of Lists<a class="headerlink" href="#views-and-iterators-instead-of-lists" title="Permalink to this headline">¶</a></h3>
+<p>Some well-known APIs no longer return lists:</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="../library/stdtypes.html#dict" title="dict"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> methods <a class="reference internal" href="../library/stdtypes.html#dict.keys" title="dict.keys"><tt class="xref py py-meth docutils literal"><span class="pre">dict.keys()</span></tt></a>, <a class="reference internal" href="../library/stdtypes.html#dict.items" title="dict.items"><tt class="xref py py-meth docutils literal"><span class="pre">dict.items()</span></tt></a> and
+<a class="reference internal" href="../library/stdtypes.html#dict.values" title="dict.values"><tt class="xref py py-meth docutils literal"><span class="pre">dict.values()</span></tt></a> return &#8220;views&#8221; instead of lists.  For example,
+this no longer works: <tt class="docutils literal"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">d.keys();</span> <span class="pre">k.sort()</span></tt>.  Use <tt class="docutils literal"><span class="pre">k</span> <span class="pre">=</span>
+<span class="pre">sorted(d)</span></tt> instead (this works in Python 2.5 too and is just
+as efficient).</p>
+</li>
+<li><p class="first">Also, the <tt class="xref py py-meth docutils literal"><span class="pre">dict.iterkeys()</span></tt>, <tt class="xref py py-meth docutils literal"><span class="pre">dict.iteritems()</span></tt> and
+<tt class="xref py py-meth docutils literal"><span class="pre">dict.itervalues()</span></tt> methods are no longer supported.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../library/functions.html#map" title="map"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a> and <a class="reference internal" href="../library/functions.html#filter" title="filter"><tt class="xref py py-func docutils literal"><span class="pre">filter()</span></tt></a> return iterators.  If you really need
+a list and the input sequences are all of equal length, a quick
+fix is to wrap <a class="reference internal" href="../library/functions.html#map" title="map"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a> in <a class="reference internal" href="../library/stdtypes.html#list" title="list"><tt class="xref py py-func docutils literal"><span class="pre">list()</span></tt></a>, e.g. <tt class="docutils literal"><span class="pre">list(map(...))</span></tt>,
+but a better fix is
+often to use a list comprehension (especially when the original code
+uses <a class="reference internal" href="../reference/expressions.html#lambda"><tt class="xref std std-keyword docutils literal"><span class="pre">lambda</span></tt></a>), or rewriting the code so it doesn&#8217;t need a
+list at all.  Particularly tricky is <a class="reference internal" href="../library/functions.html#map" title="map"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a> invoked for the
+side effects of the function; the correct transformation is to use a
+regular <a class="reference internal" href="../reference/compound_stmts.html#for"><tt class="xref std std-keyword docutils literal"><span class="pre">for</span></tt></a> loop (since creating a list would just be
+wasteful).</p>
+<p>If the input sequences are not of equal length, <a class="reference internal" href="../library/functions.html#map" title="map"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a> will
+stop at the termination of the shortest of the sequences. For full
+compatibility with <cite>map</cite> from Python 2.x, also wrap the sequences in
+<a class="reference internal" href="../library/itertools.html#itertools.zip_longest" title="itertools.zip_longest"><tt class="xref py py-func docutils literal"><span class="pre">itertools.zip_longest()</span></tt></a>, e.g. <tt class="docutils literal"><span class="pre">map(func,</span> <span class="pre">*sequences)</span></tt> becomes
+<tt class="docutils literal"><span class="pre">list(map(func,</span> <span class="pre">itertools.zip_longest(*sequences)))</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../library/stdtypes.html#range" title="range"><tt class="xref py py-func docutils literal"><span class="pre">range()</span></tt></a> now behaves like <tt class="xref py py-func docutils literal"><span class="pre">xrange()</span></tt> used to behave, except
+it works with values of arbitrary size.  The latter no longer
+exists.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../library/functions.html#zip" title="zip"><tt class="xref py py-func docutils literal"><span class="pre">zip()</span></tt></a> now returns an iterator.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="ordering-comparisons">
+<h3>Ordering Comparisons<a class="headerlink" href="#ordering-comparisons" title="Permalink to this headline">¶</a></h3>
+<p>Python 3.0 has simplified the rules for ordering comparisons:</p>
+<ul class="simple">
+<li>The ordering comparison operators (<tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;=</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt>)
+raise a TypeError exception when the operands don&#8217;t have a
+meaningful natural ordering.  Thus, expressions like <tt class="docutils literal"><span class="pre">1</span> <span class="pre">&lt;</span> <span class="pre">''</span></tt>, <tt class="docutils literal"><span class="pre">0</span>
+<span class="pre">&gt;</span> <span class="pre">None</span></tt> or <tt class="docutils literal"><span class="pre">len</span> <span class="pre">&lt;=</span> <span class="pre">len</span></tt> are no longer valid, and e.g. <tt class="docutils literal"><span class="pre">None</span> <span class="pre">&lt;</span>
+<span class="pre">None</span></tt> raises <a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt></a> instead of returning
+<tt class="docutils literal"><span class="pre">False</span></tt>.  A corollary is that sorting a heterogeneous list
+no longer makes sense &#8211; all the elements must be comparable to each
+other.  Note that this does not apply to the <tt class="docutils literal"><span class="pre">==</span></tt> and <tt class="docutils literal"><span class="pre">!=</span></tt>
+operators: objects of different incomparable types always compare
+unequal to each other.</li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">builtin.sorted()</span></tt> and <a class="reference internal" href="../library/stdtypes.html#list.sort" title="list.sort"><tt class="xref py py-meth docutils literal"><span class="pre">list.sort()</span></tt></a> no longer accept the
+<em>cmp</em> argument providing a comparison function.  Use the <em>key</em>
+argument instead. N.B. the <em>key</em> and <em>reverse</em> arguments are now
+&#8220;keyword-only&#8221;.</li>
+<li>The <tt class="xref py py-func docutils literal"><span class="pre">cmp()</span></tt> function should be treated as gone, and the <tt class="xref py py-meth docutils literal"><span class="pre">__cmp__()</span></tt>
+special method is no longer supported.  Use <a class="reference internal" href="../reference/datamodel.html#object.__lt__" title="object.__lt__"><tt class="xref py py-meth docutils literal"><span class="pre">__lt__()</span></tt></a> for sorting,
+<a class="reference internal" href="../reference/datamodel.html#object.__eq__" title="object.__eq__"><tt class="xref py py-meth docutils literal"><span class="pre">__eq__()</span></tt></a> with <a class="reference internal" href="../reference/datamodel.html#object.__hash__" title="object.__hash__"><tt class="xref py py-meth docutils literal"><span class="pre">__hash__()</span></tt></a>, and other rich comparisons as needed.
+(If you really need the <tt class="xref py py-func docutils literal"><span class="pre">cmp()</span></tt> functionality, you could use the
+expression <tt class="docutils literal"><span class="pre">(a</span> <span class="pre">&gt;</span> <span class="pre">b)</span> <span class="pre">-</span> <span class="pre">(a</span> <span class="pre">&lt;</span> <span class="pre">b)</span></tt> as the equivalent for <tt class="docutils literal"><span class="pre">cmp(a,</span> <span class="pre">b)</span></tt>.)</li>
+</ul>
+</div>
+<div class="section" id="integers">
+<h3>Integers<a class="headerlink" href="#integers" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><span class="target" id="index-1"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0237"><strong>PEP 0237</strong></a>: Essentially, <tt class="xref py py-class docutils literal"><span class="pre">long</span></tt> renamed to <a class="reference internal" href="../library/functions.html#int" title="int"><tt class="xref py py-class docutils literal"><span class="pre">int</span></tt></a>.
+That is, there is only one built-in integral type, named
+<a class="reference internal" href="../library/functions.html#int" title="int"><tt class="xref py py-class docutils literal"><span class="pre">int</span></tt></a>; but it behaves mostly like the old <tt class="xref py py-class docutils literal"><span class="pre">long</span></tt> type.</li>
+<li><span class="target" id="index-2"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0238"><strong>PEP 0238</strong></a>: An expression like <tt class="docutils literal"><span class="pre">1/2</span></tt> returns a float.  Use
+<tt class="docutils literal"><span class="pre">1//2</span></tt> to get the truncating behavior.  (The latter syntax has
+existed for years, at least since Python 2.2.)</li>
+<li>The <tt class="xref py py-data docutils literal"><span class="pre">sys.maxint</span></tt> constant was removed, since there is no
+longer a limit to the value of integers.  However, <a class="reference internal" href="../library/sys.html#sys.maxsize" title="sys.maxsize"><tt class="xref py py-data docutils literal"><span class="pre">sys.maxsize</span></tt></a>
+can be used as an integer larger than any practical list or string
+index.  It conforms to the implementation&#8217;s &#8220;natural&#8221; integer size
+and is typically the same as <tt class="xref py py-data docutils literal"><span class="pre">sys.maxint</span></tt> in previous releases
+on the same platform (assuming the same build options).</li>
+<li>The <a class="reference internal" href="../library/functions.html#repr" title="repr"><tt class="xref py py-func docutils literal"><span class="pre">repr()</span></tt></a> of a long integer doesn&#8217;t include the trailing <tt class="docutils literal"><span class="pre">L</span></tt>
+anymore, so code that unconditionally strips that character will
+chop off the last digit instead.  (Use <a class="reference internal" href="../library/stdtypes.html#str" title="str"><tt class="xref py py-func docutils literal"><span class="pre">str()</span></tt></a> instead.)</li>
+<li>Octal literals are no longer of the form <tt class="docutils literal"><span class="pre">0720</span></tt>; use <tt class="docutils literal"><span class="pre">0o720</span></tt>
+instead.</li>
+</ul>
+</div>
+<div class="section" id="text-vs-data-instead-of-unicode-vs-8-bit">
+<h3>Text Vs. Data Instead Of Unicode Vs. 8-bit<a class="headerlink" href="#text-vs-data-instead-of-unicode-vs-8-bit" title="Permalink to this headline">¶</a></h3>
+<p>Everything you thought you knew about binary data and Unicode has
+changed.</p>
+<ul class="simple">
+<li>Python 3.0 uses the concepts of <em>text</em> and (binary) <em>data</em> instead
+of Unicode strings and 8-bit strings.  All text is Unicode; however
+<em>encoded</em> Unicode is represented as binary data.  The type used to
+hold text is <a class="reference internal" href="../library/stdtypes.html#str" title="str"><tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></a>, the type used to hold data is
+<a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a>.  The biggest difference with the 2.x situation is
+that any attempt to mix text and data in Python 3.0 raises
+<a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><tt class="xref py py-exc docutils literal"><span class="pre">TypeError</span></tt></a>, whereas if you were to mix Unicode and 8-bit
+strings in Python 2.x, it would work if the 8-bit string happened to
+contain only 7-bit (ASCII) bytes, but you would get
+<a class="reference internal" href="../library/exceptions.html#UnicodeDecodeError" title="UnicodeDecodeError"><tt class="xref py py-exc docutils literal"><span class="pre">UnicodeDecodeError</span></tt></a> if it contained non-ASCII values.  This
+value-specific behavior has caused numerous sad faces over the
+years.</li>
+<li>As a consequence of this change in philosophy, pretty much all code
+that uses Unicode, encodings or binary data most likely has to
+change.  The change is for the better, as in the 2.x world there
+were numerous bugs having to do with mixing encoded and unencoded
+text.  To be prepared in Python 2.x, start using <tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt>
+for all unencoded text, and <a class="reference internal" href="../library/stdtypes.html#str" title="str"><tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></a> for binary or encoded data
+only.  Then the <tt class="docutils literal"><span class="pre">2to3</span></tt> tool will do most of the work for you.</li>
+<li>You can no longer use <tt class="docutils literal"><span class="pre">u&quot;...&quot;</span></tt> literals for Unicode text.
+However, you must use <tt class="docutils literal"><span class="pre">b&quot;...&quot;</span></tt> literals for binary data.</li>
+<li>As the <a class="reference internal" href="../library/stdtypes.html#str" title="str"><tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></a> and <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> types cannot be mixed, you
+must always explicitly convert between them.  Use <a class="reference internal" href="../library/stdtypes.html#str.encode" title="str.encode"><tt class="xref py py-meth docutils literal"><span class="pre">str.encode()</span></tt></a>
+to go from <a class="reference internal" href="../library/stdtypes.html#str" title="str"><tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></a> to <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a>, and <a class="reference internal" href="../library/stdtypes.html#bytes.decode" title="bytes.decode"><tt class="xref py py-meth docutils literal"><span class="pre">bytes.decode()</span></tt></a>
+to go from <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> to <a class="reference internal" href="../library/stdtypes.html#str" title="str"><tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></a>.  You can also use
+<tt class="docutils literal"><span class="pre">bytes(s,</span> <span class="pre">encoding=...)</span></tt> and <tt class="docutils literal"><span class="pre">str(b,</span> <span class="pre">encoding=...)</span></tt>,
+respectively.</li>
+<li>Like <a class="reference internal" href="../library/stdtypes.html#str" title="str"><tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></a>, the <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> type is immutable.  There is a
+separate <em>mutable</em> type to hold buffered binary data,
+<a class="reference internal" href="../library/functions.html#bytearray" title="bytearray"><tt class="xref py py-class docutils literal"><span class="pre">bytearray</span></tt></a>.  Nearly all APIs that accept <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> also
+accept <a class="reference internal" href="../library/functions.html#bytearray" title="bytearray"><tt class="xref py py-class docutils literal"><span class="pre">bytearray</span></tt></a>.  The mutable API is based on
+<tt class="xref py py-class docutils literal"><span class="pre">collections.MutableSequence</span></tt>.</li>
+<li>All backslashes in raw string literals are interpreted literally.
+This means that <tt class="docutils literal"><span class="pre">'\U'</span></tt> and <tt class="docutils literal"><span class="pre">'\u'</span></tt> escapes in raw strings are not
+treated specially.  For example, <tt class="docutils literal"><span class="pre">r'\u20ac'</span></tt> is a string of 6
+characters in Python 3.0, whereas in 2.6, <tt class="docutils literal"><span class="pre">ur'\u20ac'</span></tt> was the
+single &#8220;euro&#8221; character.  (Of course, this change only affects raw
+string literals; the euro character is <tt class="docutils literal"><span class="pre">'\u20ac'</span></tt> in Python 3.0.)</li>
+<li>The built-in <tt class="xref py py-class docutils literal"><span class="pre">basestring</span></tt> abstract type was removed.  Use
+<a class="reference internal" href="../library/stdtypes.html#str" title="str"><tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></a> instead.  The <a class="reference internal" href="../library/stdtypes.html#str" title="str"><tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></a> and <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> types
+don&#8217;t have functionality enough in common to warrant a shared base
+class.  The <tt class="docutils literal"><span class="pre">2to3</span></tt> tool (see below) replaces every occurrence of
+<tt class="xref py py-class docutils literal"><span class="pre">basestring</span></tt> with <a class="reference internal" href="../library/stdtypes.html#str" title="str"><tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></a>.</li>
+<li>Files opened as text files (still the default mode for <a class="reference internal" href="../library/functions.html#open" title="open"><tt class="xref py py-func docutils literal"><span class="pre">open()</span></tt></a>)
+always use an encoding to map between strings (in memory) and bytes
+(on disk).  Binary files (opened with a <tt class="docutils literal"><span class="pre">b</span></tt> in the mode argument)
+always use bytes in memory.  This means that if a file is opened
+using an incorrect mode or encoding, I/O will likely fail loudly,
+instead of silently producing incorrect data.  It also means that
+even Unix users will have to specify the correct mode (text or
+binary) when opening a file.  There is a platform-dependent default
+encoding, which on Unixy platforms can be set with the <tt class="docutils literal"><span class="pre">LANG</span></tt>
+environment variable (and sometimes also with some other
+platform-specific locale-related environment variables).  In many
+cases, but not all, the system default is UTF-8; you should never
+count on this default.  Any application reading or writing more than
+pure ASCII text should probably have a way to override the encoding.
+There is no longer any need for using the encoding-aware streams
+in the <a class="reference internal" href="../library/codecs.html#module-codecs" title="codecs: Encode and decode data and streams."><tt class="xref py py-mod docutils literal"><span class="pre">codecs</span></tt></a> module.</li>
+<li>The initial values of <a class="reference internal" href="../library/sys.html#sys.stdin" title="sys.stdin"><tt class="xref py py-data docutils literal"><span class="pre">sys.stdin</span></tt></a>, <a class="reference internal" href="../library/sys.html#sys.stdout" title="sys.stdout"><tt class="xref py py-data docutils literal"><span class="pre">sys.stdout</span></tt></a> and
+<a class="reference internal" href="../library/sys.html#sys.stderr" title="sys.stderr"><tt class="xref py py-data docutils literal"><span class="pre">sys.stderr</span></tt></a> are now unicode-only text files (i.e., they are
+instances of <a class="reference internal" href="../library/io.html#io.TextIOBase" title="io.TextIOBase"><tt class="xref py py-class docutils literal"><span class="pre">io.TextIOBase</span></tt></a>).  To read and write bytes data
+with these streams, you need to use their <a class="reference internal" href="../library/io.html#io.TextIOBase.buffer" title="io.TextIOBase.buffer"><tt class="xref py py-data docutils literal"><span class="pre">io.TextIOBase.buffer</span></tt></a>
+attribute.</li>
+<li>Filenames are passed to and returned from APIs as (Unicode) strings.
+This can present platform-specific problems because on some
+platforms filenames are arbitrary byte strings.  (On the other hand,
+on Windows filenames are natively stored as Unicode.)  As a
+work-around, most APIs (e.g. <a class="reference internal" href="../library/functions.html#open" title="open"><tt class="xref py py-func docutils literal"><span class="pre">open()</span></tt></a> and many functions in the
+<a class="reference internal" href="../library/os.html#module-os" title="os: Miscellaneous operating system interfaces."><tt class="xref py py-mod docutils literal"><span class="pre">os</span></tt></a> module) that take filenames accept <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> objects
+as well as strings, and a few APIs have a way to ask for a
+<a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> return value.  Thus, <a class="reference internal" href="../library/os.html#os.listdir" title="os.listdir"><tt class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></tt></a> returns a
+list of <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> instances if the argument is a <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a>
+instance, and <a class="reference internal" href="../library/os.html#os.getcwdb" title="os.getcwdb"><tt class="xref py py-func docutils literal"><span class="pre">os.getcwdb()</span></tt></a> returns the current working
+directory as a <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> instance.  Note that when
+<a class="reference internal" href="../library/os.html#os.listdir" title="os.listdir"><tt class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></tt></a> returns a list of strings, filenames that
+cannot be decoded properly are omitted rather than raising
+<a class="reference internal" href="../library/exceptions.html#UnicodeError" title="UnicodeError"><tt class="xref py py-exc docutils literal"><span class="pre">UnicodeError</span></tt></a>.</li>
+<li>Some system APIs like <a class="reference internal" href="../library/os.html#os.environ" title="os.environ"><tt class="xref py py-data docutils literal"><span class="pre">os.environ</span></tt></a> and <a class="reference internal" href="../library/sys.html#sys.argv" title="sys.argv"><tt class="xref py py-data docutils literal"><span class="pre">sys.argv</span></tt></a> can
+also present problems when the bytes made available by the system is
+not interpretable using the default encoding.  Setting the <tt class="docutils literal"><span class="pre">LANG</span></tt>
+variable and rerunning the program is probably the best approach.</li>
+<li><span class="target" id="index-3"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3138"><strong>PEP 3138</strong></a>: The <a class="reference internal" href="../library/functions.html#repr" title="repr"><tt class="xref py py-func docutils literal"><span class="pre">repr()</span></tt></a> of a string no longer escapes
+non-ASCII characters.  It still escapes control characters and code
+points with non-printable status in the Unicode standard, however.</li>
+<li><span class="target" id="index-4"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3120"><strong>PEP 3120</strong></a>: The default source encoding is now UTF-8.</li>
+<li><span class="target" id="index-5"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3131"><strong>PEP 3131</strong></a>: Non-ASCII letters are now allowed in identifiers.
+(However, the standard library remains ASCII-only with the exception
+of contributor names in comments.)</li>
+<li>The <tt class="xref py py-mod docutils literal"><span class="pre">StringIO</span></tt> and <tt class="xref py py-mod docutils literal"><span class="pre">cStringIO</span></tt> modules are gone.  Instead,
+import the <a class="reference internal" href="../library/io.html#module-io" title="io: Core tools for working with streams."><tt class="xref py py-mod docutils literal"><span class="pre">io</span></tt></a> module and use <a class="reference internal" href="../library/io.html#io.StringIO" title="io.StringIO"><tt class="xref py py-class docutils literal"><span class="pre">io.StringIO</span></tt></a> or
+<a class="reference internal" href="../library/io.html#io.BytesIO" title="io.BytesIO"><tt class="xref py py-class docutils literal"><span class="pre">io.BytesIO</span></tt></a> for text and data respectively.</li>
+<li>See also the <a class="reference internal" href="../howto/unicode.html#unicode-howto"><em>Unicode HOWTO</em></a>, which was updated for Python 3.0.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="overview-of-syntax-changes">
+<h2>Overview Of Syntax Changes<a class="headerlink" href="#overview-of-syntax-changes" title="Permalink to this headline">¶</a></h2>
+<p>This section gives a brief overview of every <em>syntactic</em> change in
+Python 3.0.</p>
+<div class="section" id="new-syntax">
+<h3>New Syntax<a class="headerlink" href="#new-syntax" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><span class="target" id="index-6"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3107"><strong>PEP 3107</strong></a>: Function argument and return value annotations.  This
+provides a standardized way of annotating a function&#8217;s parameters
+and return value.  There are no semantics attached to such
+annotations except that they can be introspected at runtime using
+the <tt class="xref py py-attr docutils literal"><span class="pre">__annotations__</span></tt> attribute.  The intent is to encourage
+experimentation through metaclasses, decorators or frameworks.</p>
+</li>
+<li><p class="first"><span class="target" id="index-7"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3102"><strong>PEP 3102</strong></a>: Keyword-only arguments.  Named parameters occurring
+after <tt class="docutils literal"><span class="pre">*args</span></tt> in the parameter list <em>must</em> be specified using
+keyword syntax in the call.  You can also use a bare <tt class="docutils literal"><span class="pre">*</span></tt> in the
+parameter list to indicate that you don&#8217;t accept a variable-length
+argument list, but you do have keyword-only arguments.</p>
+</li>
+<li><p class="first">Keyword arguments are allowed after the list of base classes in a
+class definition.  This is used by the new convention for specifying
+a metaclass (see next section), but can be used for other purposes
+as well, as long as the metaclass supports it.</p>
+</li>
+<li><p class="first"><span class="target" id="index-8"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3104"><strong>PEP 3104</strong></a>: <a class="reference internal" href="../reference/simple_stmts.html#nonlocal"><tt class="xref std std-keyword docutils literal"><span class="pre">nonlocal</span></tt></a> statement.  Using <tt class="docutils literal"><span class="pre">nonlocal</span> <span class="pre">x</span></tt>
+you can now assign directly to a variable in an outer (but
+non-global) scope.  <a class="reference internal" href="../reference/simple_stmts.html#nonlocal"><tt class="xref std std-keyword docutils literal"><span class="pre">nonlocal</span></tt></a> is a new reserved word.</p>
+</li>
+<li><p class="first"><span class="target" id="index-9"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3132"><strong>PEP 3132</strong></a>: Extended Iterable Unpacking.  You can now write things
+like <tt class="docutils literal"><span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">*rest</span> <span class="pre">=</span> <span class="pre">some_sequence</span></tt>.  And even <tt class="docutils literal"><span class="pre">*rest,</span> <span class="pre">a</span> <span class="pre">=</span>
+<span class="pre">stuff</span></tt>.  The <tt class="docutils literal"><span class="pre">rest</span></tt> object is always a (possibly empty) list; the
+right-hand side may be any iterable.  Example:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This sets <em>a</em> to <tt class="docutils literal"><span class="pre">0</span></tt>, <em>b</em> to <tt class="docutils literal"><span class="pre">4</span></tt>, and <em>rest</em> to <tt class="docutils literal"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></tt>.</p>
+</li>
+<li><p class="first">Dictionary comprehensions: <tt class="docutils literal"><span class="pre">{k:</span> <span class="pre">v</span> <span class="pre">for</span> <span class="pre">k,</span> <span class="pre">v</span> <span class="pre">in</span> <span class="pre">stuff}</span></tt> means the
+same thing as <tt class="docutils literal"><span class="pre">dict(stuff)</span></tt> but is more flexible.  (This is
+<span class="target" id="index-10"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0274"><strong>PEP 0274</strong></a> vindicated. :-)</p>
+</li>
+<li><p class="first">Set literals, e.g. <tt class="docutils literal"><span class="pre">{1,</span> <span class="pre">2}</span></tt>.  Note that <tt class="docutils literal"><span class="pre">{}</span></tt> is an empty
+dictionary; use <tt class="docutils literal"><span class="pre">set()</span></tt> for an empty set.  Set comprehensions are
+also supported; e.g., <tt class="docutils literal"><span class="pre">{x</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">stuff}</span></tt> means the same thing as
+<tt class="docutils literal"><span class="pre">set(stuff)</span></tt> but is more flexible.</p>
+</li>
+<li><p class="first">New octal literals, e.g. <tt class="docutils literal"><span class="pre">0o720</span></tt> (already in 2.6).  The old octal
+literals (<tt class="docutils literal"><span class="pre">0720</span></tt>) are gone.</p>
+</li>
+<li><p class="first">New binary literals, e.g. <tt class="docutils literal"><span class="pre">0b1010</span></tt> (already in 2.6), and
+there is a new corresponding built-in function, <a class="reference internal" href="../library/functions.html#bin" title="bin"><tt class="xref py py-func docutils literal"><span class="pre">bin()</span></tt></a>.</p>
+</li>
+<li><p class="first">Bytes literals are introduced with a leading <tt class="docutils literal"><span class="pre">b</span></tt> or <tt class="docutils literal"><span class="pre">B</span></tt>, and
+there is a new corresponding built-in function, <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-func docutils literal"><span class="pre">bytes()</span></tt></a>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="changed-syntax">
+<h3>Changed Syntax<a class="headerlink" href="#changed-syntax" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><span class="target" id="index-11"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3109"><strong>PEP 3109</strong></a> and <span class="target" id="index-12"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3134"><strong>PEP 3134</strong></a>: new <a class="reference internal" href="../reference/simple_stmts.html#raise"><tt class="xref std std-keyword docutils literal"><span class="pre">raise</span></tt></a> statement syntax:
+<tt class="samp docutils literal"><span class="pre">raise</span> <span class="pre">[</span><em><span class="pre">expr</span></em> <span class="pre">[from</span> <em><span class="pre">expr</span></em><span class="pre">]]</span></tt>.  See below.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../reference/compound_stmts.html#as"><tt class="xref std std-keyword docutils literal"><span class="pre">as</span></tt></a> and <a class="reference internal" href="../reference/compound_stmts.html#with"><tt class="xref std std-keyword docutils literal"><span class="pre">with</span></tt></a> are now reserved words.  (Since
+2.6, actually.)</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">True</span></tt>, <tt class="docutils literal"><span class="pre">False</span></tt>, and <tt class="docutils literal"><span class="pre">None</span></tt> are reserved words.  (2.6 partially enforced
+the restrictions on <tt class="docutils literal"><span class="pre">None</span></tt> already.)</p>
+</li>
+<li><p class="first">Change from <a class="reference internal" href="../reference/compound_stmts.html#except"><tt class="xref std std-keyword docutils literal"><span class="pre">except</span></tt></a> <em>exc</em>, <em>var</em> to
+<a class="reference internal" href="../reference/compound_stmts.html#except"><tt class="xref std std-keyword docutils literal"><span class="pre">except</span></tt></a> <em>exc</em> <a class="reference internal" href="../reference/compound_stmts.html#as"><tt class="xref std std-keyword docutils literal"><span class="pre">as</span></tt></a> <em>var</em>.  See <span class="target" id="index-13"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3110"><strong>PEP 3110</strong></a>.</p>
+</li>
+<li><p class="first"><span class="target" id="index-14"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3115"><strong>PEP 3115</strong></a>: New Metaclass Syntax.  Instead of:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">M</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>you must now use:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">M</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>The module-global <tt class="xref py py-data docutils literal"><span class="pre">__metaclass__</span></tt> variable is no longer
+supported.  (It was a crutch to make it easier to default to
+new-style classes without deriving every class from
+<a class="reference internal" href="../library/functions.html#object" title="object"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a>.)</p>
+</li>
+<li><p class="first">List comprehensions no longer support the syntactic form
+<tt class="samp docutils literal"><span class="pre">[...</span> <span class="pre">for</span> <em><span class="pre">var</span></em> <span class="pre">in</span> <em><span class="pre">item1</span></em><span class="pre">,</span> <em><span class="pre">item2</span></em><span class="pre">,</span> <span class="pre">...]</span></tt>.  Use
+<tt class="samp docutils literal"><span class="pre">[...</span> <span class="pre">for</span> <em><span class="pre">var</span></em> <span class="pre">in</span> <span class="pre">(</span><em><span class="pre">item1</span></em><span class="pre">,</span> <em><span class="pre">item2</span></em><span class="pre">,</span> <span class="pre">...)]</span></tt> instead.
+Also note that list comprehensions have different semantics: they
+are closer to syntactic sugar for a generator expression inside a
+<a class="reference internal" href="../library/stdtypes.html#list" title="list"><tt class="xref py py-func docutils literal"><span class="pre">list()</span></tt></a> constructor, and in particular the loop control
+variables are no longer leaked into the surrounding scope.</p>
+</li>
+<li><p class="first">The <em>ellipsis</em> (<tt class="docutils literal"><span class="pre">...</span></tt>) can be used as an atomic expression
+anywhere.  (Previously it was only allowed in slices.)  Also, it
+<em>must</em> now be spelled as <tt class="docutils literal"><span class="pre">...</span></tt>.  (Previously it could also be
+spelled as <tt class="docutils literal"><span class="pre">.</span> <span class="pre">.</span> <span class="pre">.</span></tt>, by a mere accident of the grammar.)</p>
+</li>
+</ul>
+</div>
+<div class="section" id="removed-syntax">
+<h3>Removed Syntax<a class="headerlink" href="#removed-syntax" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><span class="target" id="index-15"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3113"><strong>PEP 3113</strong></a>: Tuple parameter unpacking removed.  You can no longer
+write <tt class="docutils literal"><span class="pre">def</span> <span class="pre">foo(a,</span> <span class="pre">(b,</span> <span class="pre">c)):</span> <span class="pre">...</span></tt>.
+Use <tt class="docutils literal"><span class="pre">def</span> <span class="pre">foo(a,</span> <span class="pre">b_c):</span> <span class="pre">b,</span> <span class="pre">c</span> <span class="pre">=</span> <span class="pre">b_c</span></tt> instead.</li>
+<li>Removed backticks (use <a class="reference internal" href="../library/functions.html#repr" title="repr"><tt class="xref py py-func docutils literal"><span class="pre">repr()</span></tt></a> instead).</li>
+<li>Removed <tt class="docutils literal"><span class="pre">&lt;&gt;</span></tt> (use <tt class="docutils literal"><span class="pre">!=</span></tt> instead).</li>
+<li>Removed keyword: <a class="reference internal" href="../library/functions.html#exec" title="exec"><tt class="xref py py-func docutils literal"><span class="pre">exec()</span></tt></a> is no longer a keyword; it remains as
+a function.  (Fortunately the function syntax was also accepted in
+2.x.)  Also note that <a class="reference internal" href="../library/functions.html#exec" title="exec"><tt class="xref py py-func docutils literal"><span class="pre">exec()</span></tt></a> no longer takes a stream argument;
+instead of <tt class="docutils literal"><span class="pre">exec(f)</span></tt> you can use <tt class="docutils literal"><span class="pre">exec(f.read())</span></tt>.</li>
+<li>Integer literals no longer support a trailing <tt class="docutils literal"><span class="pre">l</span></tt> or <tt class="docutils literal"><span class="pre">L</span></tt>.</li>
+<li>String literals no longer support a leading <tt class="docutils literal"><span class="pre">u</span></tt> or <tt class="docutils literal"><span class="pre">U</span></tt>.</li>
+<li>The <a class="reference internal" href="../reference/simple_stmts.html#from"><tt class="xref std std-keyword docutils literal"><span class="pre">from</span></tt></a> <em>module</em> <a class="reference internal" href="../reference/simple_stmts.html#import"><tt class="xref std std-keyword docutils literal"><span class="pre">import</span></tt></a> <tt class="docutils literal"><span class="pre">*</span></tt> syntax is only
+allowed at the module level, no longer inside functions.</li>
+<li>The only acceptable syntax for relative imports is <tt class="samp docutils literal"><span class="pre">from</span> <span class="pre">.[</span><em><span class="pre">module</span></em><span class="pre">]</span>
+<span class="pre">import</span> <em><span class="pre">name</span></em></tt>.  All <a class="reference internal" href="../reference/simple_stmts.html#import"><tt class="xref std std-keyword docutils literal"><span class="pre">import</span></tt></a> forms not starting with <tt class="docutils literal"><span class="pre">.</span></tt> are
+interpreted as absolute imports.  (<span class="target" id="index-16"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0328"><strong>PEP 0328</strong></a>)</li>
+<li>Classic classes are gone.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="changes-already-present-in-python-2-6">
+<h2>Changes Already Present In Python 2.6<a class="headerlink" href="#changes-already-present-in-python-2-6" title="Permalink to this headline">¶</a></h2>
+<p>Since many users presumably make the jump straight from Python 2.5 to
+Python 3.0, this section reminds the reader of new features that were
+originally designed for Python 3.0 but that were back-ported to Python
+2.6.  The corresponding sections in <a class="reference internal" href="2.6.html#whats-new-in-2-6"><em>What&#8217;s New in Python 2.6</em></a> should be
+consulted for longer descriptions.</p>
+<ul class="simple">
+<li><a class="reference internal" href="2.6.html#pep-0343"><em>PEP 343: The &#8216;with&#8217; statement</em></a>.  The <a class="reference internal" href="../reference/compound_stmts.html#with"><tt class="xref std std-keyword docutils literal"><span class="pre">with</span></tt></a> statement is now a standard
+feature and no longer needs to be imported from the <a class="reference internal" href="../library/__future__.html#module-__future__" title="__future__: Future statement definitions"><tt class="xref py py-mod docutils literal"><span class="pre">__future__</span></tt></a>.
+Also check out <a class="reference internal" href="2.6.html#new-26-context-managers"><em>Writing Context Managers</em></a> and
+<a class="reference internal" href="2.6.html#new-module-contextlib"><em>The contextlib module</em></a>.</li>
+<li><a class="reference internal" href="2.6.html#pep-0366"><em>PEP 366: Explicit Relative Imports From a Main Module</em></a>.  This enhances the usefulness of the <a class="reference internal" href="../using/cmdline.html#cmdoption-m"><em class="xref std std-option">-m</em></a>
+option when the referenced module lives in a package.</li>
+<li><a class="reference internal" href="2.6.html#pep-0370"><em>PEP 370: Per-user site-packages Directory</em></a>.</li>
+<li><a class="reference internal" href="2.6.html#pep-0371"><em>PEP 371: The multiprocessing Package</em></a>.</li>
+<li><a class="reference internal" href="2.6.html#pep-3101"><em>PEP 3101: Advanced String Formatting</em></a>.  Note: the 2.6 description mentions the
+<a class="reference internal" href="../library/functions.html#format" title="format"><tt class="xref py py-meth docutils literal"><span class="pre">format()</span></tt></a> method for both 8-bit and Unicode strings.  In 3.0,
+only the <a class="reference internal" href="../library/stdtypes.html#str" title="str"><tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></a> type (text strings with Unicode support)
+supports this method; the <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a> type does not.  The plan is
+to eventually make this the only API for string formatting, and to
+start deprecating the <tt class="docutils literal"><span class="pre">%</span></tt> operator in Python 3.1.</li>
+<li><a class="reference internal" href="2.6.html#pep-3105"><em>PEP 3105: print As a Function</em></a>.  This is now a standard feature and no longer needs
+to be imported from <a class="reference internal" href="../library/__future__.html#module-__future__" title="__future__: Future statement definitions"><tt class="xref py py-mod docutils literal"><span class="pre">__future__</span></tt></a>.  More details were given above.</li>
+<li><a class="reference internal" href="2.6.html#pep-3110"><em>PEP 3110: Exception-Handling Changes</em></a>.  The <a class="reference internal" href="../reference/compound_stmts.html#except"><tt class="xref std std-keyword docutils literal"><span class="pre">except</span></tt></a> <em>exc</em> <a class="reference internal" href="../reference/compound_stmts.html#as"><tt class="xref std std-keyword docutils literal"><span class="pre">as</span></tt></a> <em>var</em>
+syntax is now standard and <a class="reference internal" href="../reference/compound_stmts.html#except"><tt class="xref std std-keyword docutils literal"><span class="pre">except</span></tt></a> <em>exc</em>, <em>var</em> is no
+longer supported.  (Of course, the <a class="reference internal" href="../reference/compound_stmts.html#as"><tt class="xref std std-keyword docutils literal"><span class="pre">as</span></tt></a> <em>var</em> part is still
+optional.)</li>
+<li><a class="reference internal" href="2.6.html#pep-3112"><em>PEP 3112: Byte Literals</em></a>.  The <tt class="docutils literal"><span class="pre">b&quot;...&quot;</span></tt> string literal notation (and its
+variants like <tt class="docutils literal"><span class="pre">b'...'</span></tt>, <tt class="docutils literal"><span class="pre">b&quot;&quot;&quot;...&quot;&quot;&quot;</span></tt>, and <tt class="docutils literal"><span class="pre">br&quot;...&quot;</span></tt>) now
+produces a literal of type <a class="reference internal" href="../library/functions.html#bytes" title="bytes"><tt class="xref py py-class docutils literal"><span class="pre">bytes</span></tt></a>.</li>
+<li><a class="reference internal" href="2.6.html#pep-3116"><em>PEP 3116: New I/O Library</em></a>.  The <a class="reference internal" href="../library/io.html#module-io" title="io: Core tools for working with streams."><tt class="xref py py-mod docutils literal"><span class="pre">io</span></tt></a> module is now the standard way of
+doing file I/O.  The built-in <a class="reference internal" href="../library/functions.html#open" title="open"><tt class="xref py py-func docutils literal"><span class="pre">open()</span></tt></a> function is now an
+alias for <a class="reference internal" href="../library/io.html#io.open" title="io.open"><tt class="xref py py-func docutils literal"><span class="pre">io.open()</span></tt></a> and has additional keyword arguments
+<em>encoding</em>, <em>errors</em>, <em>newline</em> and <em>closefd</em>.  Also note that an
+invalid <em>mode</em> argument now raises <a class="reference internal" href="../library/exceptions.html#ValueError" title="ValueError"><tt class="xref py py-exc docutils literal"><span class="pre">ValueError</span></tt></a>, not
+<a class="reference internal" href="../library/exceptions.html#IOError" title="IOError"><tt class="xref py py-exc docutils literal"><span class="pre">IOError</span></tt></a>.  The binary file object underlying a text file
+object can be accessed as <tt class="xref py py-attr docutils literal"><span class="pre">f.buffer</span></tt> (but beware that the
+text object maintains a buffer of itself in order to speed up
+the encoding and decoding operations).</li>
+<li><a class="reference internal" href="2.6.html#pep-3118"><em>PEP 3118: Revised Buffer Protocol</em></a>.  The old builtin <tt class="xref py py-func docutils literal"><span class="pre">buffer()</span></tt> is now really gone;
+the new builtin <a class="reference internal" href="../library/stdtypes.html#memoryview" title="memoryview"><tt class="xref py py-func docutils literal"><span class="pre">memoryview()</span></tt></a> provides (mostly) similar
+functionality.</li>
+<li><a class="reference internal" href="2.6.html#pep-3119"><em>PEP 3119: Abstract Base Classes</em></a>.  The <a class="reference internal" href="../library/abc.html#module-abc" title="abc: Abstract base classes according to PEP 3119."><tt class="xref py py-mod docutils literal"><span class="pre">abc</span></tt></a> module and the ABCs defined in the
+<a class="reference internal" href="../library/collections.html#module-collections" title="collections: Container datatypes"><tt class="xref py py-mod docutils literal"><span class="pre">collections</span></tt></a> module plays a somewhat more prominent role in
+the language now, and built-in collection types like <a class="reference internal" href="../library/stdtypes.html#dict" title="dict"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>
+and <a class="reference internal" href="../library/stdtypes.html#list" title="list"><tt class="xref py py-class docutils literal"><span class="pre">list</span></tt></a> conform to the <tt class="xref py py-class docutils literal"><span class="pre">collections.MutableMapping</span></tt>
+and <tt class="xref py py-class docutils literal"><span class="pre">collections.MutableSequence</span></tt> ABCs, respectively.</li>
+<li><a class="reference internal" href="2.6.html#pep-3127"><em>PEP 3127: Integer Literal Support and Syntax</em></a>.  As mentioned above, the new octal literal
+notation is the only one supported, and binary literals have been
+added.</li>
+<li><a class="reference internal" href="2.6.html#pep-3129"><em>PEP 3129: Class Decorators</em></a>.</li>
+<li><a class="reference internal" href="2.6.html#pep-3141"><em>PEP 3141: A Type Hierarchy for Numbers</em></a>.  The <a class="reference internal" href="../library/numbers.html#module-numbers" title="numbers: Numeric abstract base classes (Complex, Real, Integral, etc.)."><tt class="xref py py-mod docutils literal"><span class="pre">numbers</span></tt></a> module is another new use of
+ABCs, defining Python&#8217;s &#8220;numeric tower&#8221;.  Also note the new
+<a class="reference internal" href="../library/fractions.html#module-fractions" title="fractions: Rational numbers."><tt class="xref py py-mod docutils literal"><span class="pre">fractions</span></tt></a> module which implements <a class="reference internal" href="../library/numbers.html#numbers.Rational" title="numbers.Rational"><tt class="xref py py-class docutils literal"><span class="pre">numbers.Rational</span></tt></a>.</li>
+</ul>
+</div>
+<div class="section" id="library-changes">
+<h2>Library Changes<a class="headerlink" href="#library-changes" title="Permalink to this headline">¶</a></h2>
+<p>Due to time constraints, this document does not exhaustively cover the
+very extensive changes to the standard library.  <span class="target" id="index-17"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3108"><strong>PEP 3108</strong></a> is the
+reference for the major changes to the library.  Here&#8217;s a capsule
+review:</p>
+<ul>
+<li><p class="first">Many old modules were removed.  Some, like <tt class="xref py py-mod docutils literal"><span class="pre">gopherlib</span></tt> (no
+longer used) and <tt class="xref py py-mod docutils literal"><span class="pre">md5</span></tt> (replaced by <a class="reference internal" href="../library/hashlib.html#module-hashlib" title="hashlib: Secure hash and message digest algorithms."><tt class="xref py py-mod docutils literal"><span class="pre">hashlib</span></tt></a>), were
+already deprecated by <span class="target" id="index-18"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0004"><strong>PEP 0004</strong></a>.  Others were removed as a result
+of the removal of support for various platforms such as Irix, BeOS
+and Mac OS 9 (see <span class="target" id="index-19"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0011"><strong>PEP 0011</strong></a>).  Some modules were also selected for
+removal in Python 3.0 due to lack of use or because a better
+replacement exists.  See <span class="target" id="index-20"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3108"><strong>PEP 3108</strong></a> for an exhaustive list.</p>
+</li>
+<li><p class="first">The <tt class="xref py py-mod docutils literal"><span class="pre">bsddb3</span></tt> package was removed because its presence in the
+core standard library has proved over time to be a particular burden
+for the core developers due to testing instability and Berkeley DB&#8217;s
+release schedule.  However, the package is alive and well,
+externally maintained at <a class="reference external" href="http://www.jcea.es/programacion/pybsddb.htm">http://www.jcea.es/programacion/pybsddb.htm</a>.</p>
+</li>
+<li><p class="first">Some modules were renamed because their old name disobeyed
+<span class="target" id="index-21"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0008"><strong>PEP 0008</strong></a>, or for various other reasons.  Here&#8217;s the list:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Old Name</th>
+<th class="head">New Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_winreg</td>
+<td>winreg</td>
+</tr>
+<tr class="row-odd"><td>ConfigParser</td>
+<td>configparser</td>
+</tr>
+<tr class="row-even"><td>copy_reg</td>
+<td>copyreg</td>
+</tr>
+<tr class="row-odd"><td>Queue</td>
+<td>queue</td>
+</tr>
+<tr class="row-even"><td>SocketServer</td>
+<td>socketserver</td>
+</tr>
+<tr class="row-odd"><td>markupbase</td>
+<td>_markupbase</td>
+</tr>
+<tr class="row-even"><td>repr</td>
+<td>reprlib</td>
+</tr>
+<tr class="row-odd"><td>test.test_support</td>
+<td>test.support</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">A common pattern in Python 2.x is to have one version of a module
+implemented in pure Python, with an optional accelerated version
+implemented as a C extension; for example, <a class="reference internal" href="../library/pickle.html#module-pickle" title="pickle: Convert Python objects to streams of bytes and back."><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> and
+<tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt>.  This places the burden of importing the accelerated
+version and falling back on the pure Python version on each user of
+these modules.  In Python 3.0, the accelerated versions are
+considered implementation details of the pure Python versions.
+Users should always import the standard version, which attempts to
+import the accelerated version and falls back to the pure Python
+version.  The <a class="reference internal" href="../library/pickle.html#module-pickle" title="pickle: Convert Python objects to streams of bytes and back."><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> / <tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt> pair received this
+treatment.  The <a class="reference internal" href="../library/profile.html#module-profile" title="profile: Python source profiler."><tt class="xref py py-mod docutils literal"><span class="pre">profile</span></tt></a> module is on the list for 3.1.  The
+<tt class="xref py py-mod docutils literal"><span class="pre">StringIO</span></tt> module has been turned into a class in the <a class="reference internal" href="../library/io.html#module-io" title="io: Core tools for working with streams."><tt class="xref py py-mod docutils literal"><span class="pre">io</span></tt></a>
+module.</p>
+</li>
+<li><p class="first">Some related modules have been grouped into packages, and usually
+the submodule names have been simplified.  The resulting new
+packages are:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../library/dbm.html#module-dbm" title="dbm: Interfaces to various Unix &quot;database&quot; formats."><tt class="xref py py-mod docutils literal"><span class="pre">dbm</span></tt></a> (<tt class="xref py py-mod docutils literal"><span class="pre">anydbm</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">dbhash</span></tt>, <a class="reference internal" href="../library/dbm.html#module-dbm" title="dbm: Interfaces to various Unix &quot;database&quot; formats."><tt class="xref py py-mod docutils literal"><span class="pre">dbm</span></tt></a>,
+<tt class="xref py py-mod docutils literal"><span class="pre">dumbdbm</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">gdbm</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">whichdb</span></tt>).</li>
+<li><a class="reference internal" href="../library/html.html#module-html" title="html: Helpers for manipulating HTML."><tt class="xref py py-mod docutils literal"><span class="pre">html</span></tt></a> (<tt class="xref py py-mod docutils literal"><span class="pre">HTMLParser</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">htmlentitydefs</span></tt>).</li>
+<li><tt class="xref py py-mod docutils literal"><span class="pre">http</span></tt> (<tt class="xref py py-mod docutils literal"><span class="pre">httplib</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">BaseHTTPServer</span></tt>,
+<tt class="xref py py-mod docutils literal"><span class="pre">CGIHTTPServer</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">SimpleHTTPServer</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">Cookie</span></tt>,
+<tt class="xref py py-mod docutils literal"><span class="pre">cookielib</span></tt>).</li>
+<li><a class="reference internal" href="../library/tkinter.html#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><tt class="xref py py-mod docutils literal"><span class="pre">tkinter</span></tt></a> (all <tt class="xref py py-mod docutils literal"><span class="pre">Tkinter</span></tt>-related modules except
+<a class="reference internal" href="../library/turtle.html#module-turtle" title="turtle: An educational framework for simple graphics applications"><tt class="xref py py-mod docutils literal"><span class="pre">turtle</span></tt></a>).  The target audience of <a class="reference internal" href="../library/turtle.html#module-turtle" title="turtle: An educational framework for simple graphics applications"><tt class="xref py py-mod docutils literal"><span class="pre">turtle</span></tt></a> doesn&#8217;t
+really care about <a class="reference internal" href="../library/tkinter.html#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><tt class="xref py py-mod docutils literal"><span class="pre">tkinter</span></tt></a>.  Also note that as of Python
+2.6, the functionality of <a class="reference internal" href="../library/turtle.html#module-turtle" title="turtle: An educational framework for simple graphics applications"><tt class="xref py py-mod docutils literal"><span class="pre">turtle</span></tt></a> has been greatly enhanced.</li>
+<li><a class="reference internal" href="../library/urllib.html#module-urllib" title="urllib"><tt class="xref py py-mod docutils literal"><span class="pre">urllib</span></tt></a> (<a class="reference internal" href="../library/urllib.html#module-urllib" title="urllib"><tt class="xref py py-mod docutils literal"><span class="pre">urllib</span></tt></a>, <tt class="xref py py-mod docutils literal"><span class="pre">urllib2</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">urlparse</span></tt>,
+<tt class="xref py py-mod docutils literal"><span class="pre">robotparse</span></tt>).</li>
+<li><tt class="xref py py-mod docutils literal"><span class="pre">xmlrpc</span></tt> (<tt class="xref py py-mod docutils literal"><span class="pre">xmlrpclib</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">DocXMLRPCServer</span></tt>,
+<tt class="xref py py-mod docutils literal"><span class="pre">SimpleXMLRPCServer</span></tt>).</li>
+</ul>
+</li>
+</ul>
+<p>Some other changes to standard library modules, not covered by
+<span class="target" id="index-22"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3108"><strong>PEP 3108</strong></a>:</p>
+<ul class="simple">
+<li>Killed <tt class="xref py py-mod docutils literal"><span class="pre">sets</span></tt>.  Use the built-in <a class="reference internal" href="../library/stdtypes.html#set" title="set"><tt class="xref py py-func docutils literal"><span class="pre">set()</span></tt></a> class.</li>
+<li>Cleanup of the <a class="reference internal" href="../library/sys.html#module-sys" title="sys: Access system-specific parameters and functions."><tt class="xref py py-mod docutils literal"><span class="pre">sys</span></tt></a> module: removed <tt class="xref py py-func docutils literal"><span class="pre">sys.exitfunc()</span></tt>,
+<tt class="xref py py-func docutils literal"><span class="pre">sys.exc_clear()</span></tt>, <tt class="xref py py-data docutils literal"><span class="pre">sys.exc_type</span></tt>, <tt class="xref py py-data docutils literal"><span class="pre">sys.exc_value</span></tt>,
+<tt class="xref py py-data docutils literal"><span class="pre">sys.exc_traceback</span></tt>.  (Note that <a class="reference internal" href="../library/sys.html#sys.last_type" title="sys.last_type"><tt class="xref py py-data docutils literal"><span class="pre">sys.last_type</span></tt></a>
+etc. remain.)</li>
+<li>Cleanup of the <a class="reference internal" href="../library/array.html#array.array" title="array.array"><tt class="xref py py-class docutils literal"><span class="pre">array.array</span></tt></a> type: the <tt class="xref py py-meth docutils literal"><span class="pre">read()</span></tt> and
+<tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt> methods are gone; use <tt class="xref py py-meth docutils literal"><span class="pre">fromfile()</span></tt> and
+<tt class="xref py py-meth docutils literal"><span class="pre">tofile()</span></tt> instead.  Also, the <tt class="docutils literal"><span class="pre">'c'</span></tt> typecode for array is
+gone &#8211; use either <tt class="docutils literal"><span class="pre">'b'</span></tt> for bytes or <tt class="docutils literal"><span class="pre">'u'</span></tt> for Unicode
+characters.</li>
+<li>Cleanup of the <a class="reference internal" href="../library/operator.html#module-operator" title="operator: Functions corresponding to the standard operators."><tt class="xref py py-mod docutils literal"><span class="pre">operator</span></tt></a> module: removed
+<tt class="xref py py-func docutils literal"><span class="pre">sequenceIncludes()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">isCallable()</span></tt>.</li>
+<li>Cleanup of the <tt class="xref py py-mod docutils literal"><span class="pre">thread</span></tt> module: <tt class="xref py py-func docutils literal"><span class="pre">acquire_lock()</span></tt> and
+<tt class="xref py py-func docutils literal"><span class="pre">release_lock()</span></tt> are gone; use <tt class="xref py py-func docutils literal"><span class="pre">acquire()</span></tt> and
+<tt class="xref py py-func docutils literal"><span class="pre">release()</span></tt> instead.</li>
+<li>Cleanup of the <a class="reference internal" href="../library/random.html#module-random" title="random: Generate pseudo-random numbers with various common distributions."><tt class="xref py py-mod docutils literal"><span class="pre">random</span></tt></a> module: removed the <tt class="xref py py-func docutils literal"><span class="pre">jumpahead()</span></tt> API.</li>
+<li>The <tt class="xref py py-mod docutils literal"><span class="pre">new</span></tt> module is gone.</li>
+<li>The functions <tt class="xref py py-func docutils literal"><span class="pre">os.tmpnam()</span></tt>, <tt class="xref py py-func docutils literal"><span class="pre">os.tempnam()</span></tt> and
+<tt class="xref py py-func docutils literal"><span class="pre">os.tmpfile()</span></tt> have been removed in favor of the <a class="reference internal" href="../library/tempfile.html#module-tempfile" title="tempfile: Generate temporary files and directories."><tt class="xref py py-mod docutils literal"><span class="pre">tempfile</span></tt></a>
+module.</li>
+<li>The <a class="reference internal" href="../library/tokenize.html#module-tokenize" title="tokenize: Lexical scanner for Python source code."><tt class="xref py py-mod docutils literal"><span class="pre">tokenize</span></tt></a> module has been changed to work with bytes.  The
+main entry point is now <a class="reference internal" href="../library/tokenize.html#tokenize.tokenize" title="tokenize.tokenize"><tt class="xref py py-func docutils literal"><span class="pre">tokenize.tokenize()</span></tt></a>, instead of
+generate_tokens.</li>
+<li><tt class="xref py py-data docutils literal"><span class="pre">string.letters</span></tt> and its friends (<tt class="xref py py-data docutils literal"><span class="pre">string.lowercase</span></tt> and
+<tt class="xref py py-data docutils literal"><span class="pre">string.uppercase</span></tt>) are gone.  Use
+<a class="reference internal" href="../library/string.html#string.ascii_letters" title="string.ascii_letters"><tt class="xref py py-data docutils literal"><span class="pre">string.ascii_letters</span></tt></a> etc. instead.  (The reason for the
+removal is that <tt class="xref py py-data docutils literal"><span class="pre">string.letters</span></tt> and friends had
+locale-specific behavior, which is a bad idea for such
+attractively-named global &#8220;constants&#8221;.)</li>
+<li>Renamed module <tt class="xref py py-mod docutils literal"><span class="pre">__builtin__</span></tt> to <a class="reference internal" href="../library/builtins.html#module-builtins" title="builtins: The module that provides the built-in namespace."><tt class="xref py py-mod docutils literal"><span class="pre">builtins</span></tt></a> (removing the
+underscores, adding an &#8216;s&#8217;).  The <tt class="xref py py-data docutils literal"><span class="pre">__builtins__</span></tt> variable
+found in most global namespaces is unchanged.  To modify a builtin,
+you should use <a class="reference internal" href="../library/builtins.html#module-builtins" title="builtins: The module that provides the built-in namespace."><tt class="xref py py-mod docutils literal"><span class="pre">builtins</span></tt></a>, not <tt class="xref py py-data docutils literal"><span class="pre">__builtins__</span></tt>!</li>
+</ul>
+</div>
+<div class="section" id="pep-3101-a-new-approach-to-string-formatting">
+<h2><span class="target" id="index-23"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3101"><strong>PEP 3101</strong></a>: A New Approach To String Formatting<a class="headerlink" href="#pep-3101-a-new-approach-to-string-formatting" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>A new system for  built-in string formatting operations replaces the
+<tt class="docutils literal"><span class="pre">%</span></tt> string  formatting operator.   (However, the <tt class="docutils literal"><span class="pre">%</span></tt>  operator is
+still supported;  it will  be deprecated in  Python 3.1  and removed
+from the language at some later time.)  Read <span class="target" id="index-24"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3101"><strong>PEP 3101</strong></a> for the full
+scoop.</li>
+</ul>
+</div>
+<div class="section" id="changes-to-exceptions">
+<h2>Changes To Exceptions<a class="headerlink" href="#changes-to-exceptions" title="Permalink to this headline">¶</a></h2>
+<p>The APIs for raising and catching exception have been cleaned up and
+new powerful features added:</p>
+<ul>
+<li><p class="first"><span class="target" id="index-25"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0352"><strong>PEP 0352</strong></a>: All exceptions must be derived (directly or indirectly)
+from <a class="reference internal" href="../library/exceptions.html#BaseException" title="BaseException"><tt class="xref py py-exc docutils literal"><span class="pre">BaseException</span></tt></a>.  This is the root of the exception
+hierarchy.  This is not new as a recommendation, but the
+<em>requirement</em> to inherit from <a class="reference internal" href="../library/exceptions.html#BaseException" title="BaseException"><tt class="xref py py-exc docutils literal"><span class="pre">BaseException</span></tt></a> is new.  (Python
+2.6 still allowed classic classes to be raised, and placed no
+restriction on what you can catch.)  As a consequence, string
+exceptions are finally truly and utterly dead.</p>
+</li>
+<li><p class="first">Almost all exceptions should actually derive from <a class="reference internal" href="../library/exceptions.html#Exception" title="Exception"><tt class="xref py py-exc docutils literal"><span class="pre">Exception</span></tt></a>;
+<a class="reference internal" href="../library/exceptions.html#BaseException" title="BaseException"><tt class="xref py py-exc docutils literal"><span class="pre">BaseException</span></tt></a> should only be used as a base class for
+exceptions that should only be handled at the top level, such as
+<a class="reference internal" href="../library/exceptions.html#SystemExit" title="SystemExit"><tt class="xref py py-exc docutils literal"><span class="pre">SystemExit</span></tt></a> or <a class="reference internal" href="../library/exceptions.html#KeyboardInterrupt" title="KeyboardInterrupt"><tt class="xref py py-exc docutils literal"><span class="pre">KeyboardInterrupt</span></tt></a>.  The recommended
+idiom for handling all exceptions except for this latter category is
+to use <a class="reference internal" href="../reference/compound_stmts.html#except"><tt class="xref std std-keyword docutils literal"><span class="pre">except</span></tt></a> <a class="reference internal" href="../library/exceptions.html#Exception" title="Exception"><tt class="xref py py-exc docutils literal"><span class="pre">Exception</span></tt></a>.</p>
+</li>
+<li><p class="first"><tt class="xref py py-exc docutils literal"><span class="pre">StandardError</span></tt> was removed.</p>
+</li>
+<li><p class="first">Exceptions no longer behave as sequences.  Use the <tt class="xref py py-attr docutils literal"><span class="pre">args</span></tt>
+attribute instead.</p>
+</li>
+<li><p class="first"><span class="target" id="index-26"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3109"><strong>PEP 3109</strong></a>: Raising exceptions.  You must now use <tt class="samp docutils literal"><span class="pre">raise</span>
+<em><span class="pre">Exception</span></em><span class="pre">(</span><em><span class="pre">args</span></em><span class="pre">)</span></tt> instead of <tt class="samp docutils literal"><span class="pre">raise</span> <em><span class="pre">Exception</span></em><span class="pre">,</span> <em><span class="pre">args</span></em></tt>.
+Additionally, you can no longer explicitly specify a traceback;
+instead, if you <em>have</em> to do this, you can assign directly to the
+<tt class="xref py py-attr docutils literal"><span class="pre">__traceback__</span></tt> attribute (see below).</p>
+</li>
+<li><p class="first"><span class="target" id="index-27"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3110"><strong>PEP 3110</strong></a>: Catching exceptions.  You must now use
+<tt class="samp docutils literal"><span class="pre">except</span> <em><span class="pre">SomeException</span></em> <span class="pre">as</span> <em><span class="pre">variable</span></em></tt> instead
+of <tt class="samp docutils literal"><span class="pre">except</span> <em><span class="pre">SomeException</span></em><span class="pre">,</span> <em><span class="pre">variable</span></em></tt>.  Moreover, the
+<em>variable</em> is explicitly deleted when the <a class="reference internal" href="../reference/compound_stmts.html#except"><tt class="xref std std-keyword docutils literal"><span class="pre">except</span></tt></a> block
+is left.</p>
+</li>
+<li><p class="first"><span class="target" id="index-28"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3134"><strong>PEP 3134</strong></a>: Exception chaining.  There are two cases: implicit
+chaining and explicit chaining.  Implicit chaining happens when an
+exception is raised in an <a class="reference internal" href="../reference/compound_stmts.html#except"><tt class="xref std std-keyword docutils literal"><span class="pre">except</span></tt></a> or <a class="reference internal" href="../reference/compound_stmts.html#finally"><tt class="xref std std-keyword docutils literal"><span class="pre">finally</span></tt></a>
+handler block.  This usually happens due to a bug in the handler
+block; we call this a <em>secondary</em> exception.  In this case, the
+original exception (that was being handled) is saved as the
+<tt class="xref py py-attr docutils literal"><span class="pre">__context__</span></tt> attribute of the secondary exception.
+Explicit chaining is invoked with this syntax:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="k">raise</span> <span class="n">SecondaryException</span><span class="p">()</span> <span class="kn">from</span> <span class="nn">primary_exception</span>
+</pre></div>
+</div>
+<p>(where <em>primary_exception</em> is any expression that produces an
+exception object, probably an exception that was previously caught).
+In this case, the primary exception is stored on the
+<tt class="xref py py-attr docutils literal"><span class="pre">__cause__</span></tt> attribute of the secondary exception.  The
+traceback printed when an unhandled exception occurs walks the chain
+of <tt class="xref py py-attr docutils literal"><span class="pre">__cause__</span></tt> and <tt class="xref py py-attr docutils literal"><span class="pre">__context__</span></tt> attributes and prints a
+separate traceback for each component of the chain, with the primary
+exception at the top.  (Java users may recognize this behavior.)</p>
+</li>
+<li><p class="first"><span class="target" id="index-29"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3134"><strong>PEP 3134</strong></a>: Exception objects now store their traceback as the
+<tt class="xref py py-attr docutils literal"><span class="pre">__traceback__</span></tt> attribute.  This means that an exception
+object now contains all the information pertaining to an exception,
+and there are fewer reasons to use <a class="reference internal" href="../library/sys.html#sys.exc_info" title="sys.exc_info"><tt class="xref py py-func docutils literal"><span class="pre">sys.exc_info()</span></tt></a> (though the
+latter is not removed).</p>
+</li>
+<li><p class="first">A few exception messages are improved when Windows fails to load an
+extension module.  For example, <tt class="docutils literal"><span class="pre">error</span> <span class="pre">code</span> <span class="pre">193</span></tt> is now <tt class="docutils literal"><span class="pre">%1</span> <span class="pre">is</span>
+<span class="pre">not</span> <span class="pre">a</span> <span class="pre">valid</span> <span class="pre">Win32</span> <span class="pre">application</span></tt>.  Strings now deal with non-English
+locales.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="miscellaneous-other-changes">
+<h2>Miscellaneous Other Changes<a class="headerlink" href="#miscellaneous-other-changes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="operators-and-special-methods">
+<h3>Operators And Special Methods<a class="headerlink" href="#operators-and-special-methods" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">!=</span></tt> now returns the opposite of <tt class="docutils literal"><span class="pre">==</span></tt>, unless <tt class="docutils literal"><span class="pre">==</span></tt> returns
+<a class="reference internal" href="../library/constants.html#NotImplemented" title="NotImplemented"><tt class="xref py py-data docutils literal"><span class="pre">NotImplemented</span></tt></a>.</li>
+<li>The concept of &#8220;unbound methods&#8221; has been removed from the language.
+When referencing a method as a class attribute, you now get a plain
+function object.</li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">__getslice__()</span></tt>, <tt class="xref py py-meth docutils literal"><span class="pre">__setslice__()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">__delslice__()</span></tt>
+were killed.  The syntax <tt class="docutils literal"><span class="pre">a[i:j]</span></tt> now translates to
+<tt class="docutils literal"><span class="pre">a.__getitem__(slice(i,</span> <span class="pre">j))</span></tt> (or <a class="reference internal" href="../reference/datamodel.html#object.__setitem__" title="object.__setitem__"><tt class="xref py py-meth docutils literal"><span class="pre">__setitem__()</span></tt></a> or
+<a class="reference internal" href="../reference/datamodel.html#object.__delitem__" title="object.__delitem__"><tt class="xref py py-meth docutils literal"><span class="pre">__delitem__()</span></tt></a>, when used as an assignment or deletion target,
+respectively).</li>
+<li><span class="target" id="index-30"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3114"><strong>PEP 3114</strong></a>: the standard <a class="reference internal" href="../library/functions.html#next" title="next"><tt class="xref py py-meth docutils literal"><span class="pre">next()</span></tt></a> method has been renamed to
+<a class="reference internal" href="../library/stdtypes.html#iterator.__next__" title="iterator.__next__"><tt class="xref py py-meth docutils literal"><span class="pre">__next__()</span></tt></a>.</li>
+<li>The <tt class="xref py py-meth docutils literal"><span class="pre">__oct__()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">__hex__()</span></tt> special methods are removed
+&#8211; <a class="reference internal" href="../library/functions.html#oct" title="oct"><tt class="xref py py-func docutils literal"><span class="pre">oct()</span></tt></a> and <a class="reference internal" href="../library/functions.html#hex" title="hex"><tt class="xref py py-func docutils literal"><span class="pre">hex()</span></tt></a> use <a class="reference internal" href="../reference/datamodel.html#object.__index__" title="object.__index__"><tt class="xref py py-meth docutils literal"><span class="pre">__index__()</span></tt></a> now to convert
+the argument to an integer.</li>
+<li>Removed support for <tt class="xref py py-attr docutils literal"><span class="pre">__members__</span></tt> and <tt class="xref py py-attr docutils literal"><span class="pre">__methods__</span></tt>.</li>
+<li>The function attributes named <tt class="xref py py-attr docutils literal"><span class="pre">func_X</span></tt> have been renamed to
+use the <tt class="xref py py-data docutils literal"><span class="pre">__X__</span></tt> form, freeing up these names in the function
+attribute namespace for user-defined attributes.  To wit,
+<tt class="xref py py-attr docutils literal"><span class="pre">func_closure</span></tt>, <tt class="xref py py-attr docutils literal"><span class="pre">func_code</span></tt>, <tt class="xref py py-attr docutils literal"><span class="pre">func_defaults</span></tt>,
+<tt class="xref py py-attr docutils literal"><span class="pre">func_dict</span></tt>, <tt class="xref py py-attr docutils literal"><span class="pre">func_doc</span></tt>, <tt class="xref py py-attr docutils literal"><span class="pre">func_globals</span></tt>,
+<tt class="xref py py-attr docutils literal"><span class="pre">func_name</span></tt> were renamed to <tt class="xref py py-attr docutils literal"><span class="pre">__closure__</span></tt>,
+<tt class="xref py py-attr docutils literal"><span class="pre">__code__</span></tt>, <tt class="xref py py-attr docutils literal"><span class="pre">__defaults__</span></tt>, <tt class="xref py py-attr docutils literal"><span class="pre">__dict__</span></tt>,
+<tt class="xref py py-attr docutils literal"><span class="pre">__doc__</span></tt>, <tt class="xref py py-attr docutils literal"><span class="pre">__globals__</span></tt>, <a class="reference internal" href="../reference/import.html#__name__" title="__name__"><tt class="xref py py-attr docutils literal"><span class="pre">__name__</span></tt></a>,
+respectively.</li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">__nonzero__()</span></tt> is now <a class="reference internal" href="../reference/datamodel.html#object.__bool__" title="object.__bool__"><tt class="xref py py-meth docutils literal"><span class="pre">__bool__()</span></tt></a>.</li>
+</ul>
+</div>
+<div class="section" id="builtins">
+<h3>Builtins<a class="headerlink" href="#builtins" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><span class="target" id="index-31"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3135"><strong>PEP 3135</strong></a>: New <a class="reference internal" href="../library/functions.html#super" title="super"><tt class="xref py py-func docutils literal"><span class="pre">super()</span></tt></a>.  You can now invoke <a class="reference internal" href="../library/functions.html#super" title="super"><tt class="xref py py-func docutils literal"><span class="pre">super()</span></tt></a>
+without arguments and (assuming this is in a regular instance method
+defined inside a <a class="reference internal" href="../reference/compound_stmts.html#class"><tt class="xref std std-keyword docutils literal"><span class="pre">class</span></tt></a> statement) the right class and
+instance will automatically be chosen.  With arguments, the behavior
+of <a class="reference internal" href="../library/functions.html#super" title="super"><tt class="xref py py-func docutils literal"><span class="pre">super()</span></tt></a> is unchanged.</li>
+<li><span class="target" id="index-32"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3111"><strong>PEP 3111</strong></a>: <tt class="xref py py-func docutils literal"><span class="pre">raw_input()</span></tt> was renamed to <a class="reference internal" href="../library/functions.html#input" title="input"><tt class="xref py py-func docutils literal"><span class="pre">input()</span></tt></a>.  That
+is, the new <a class="reference internal" href="../library/functions.html#input" title="input"><tt class="xref py py-func docutils literal"><span class="pre">input()</span></tt></a> function reads a line from
+<a class="reference internal" href="../library/sys.html#sys.stdin" title="sys.stdin"><tt class="xref py py-data docutils literal"><span class="pre">sys.stdin</span></tt></a> and returns it with the trailing newline stripped.
+It raises <a class="reference internal" href="../library/exceptions.html#EOFError" title="EOFError"><tt class="xref py py-exc docutils literal"><span class="pre">EOFError</span></tt></a> if the input is terminated prematurely.
+To get the old behavior of <a class="reference internal" href="../library/functions.html#input" title="input"><tt class="xref py py-func docutils literal"><span class="pre">input()</span></tt></a>, use <tt class="docutils literal"><span class="pre">eval(input())</span></tt>.</li>
+<li>A new built-in function <a class="reference internal" href="../library/functions.html#next" title="next"><tt class="xref py py-func docutils literal"><span class="pre">next()</span></tt></a> was added to call the
+<a class="reference internal" href="../library/stdtypes.html#iterator.__next__" title="iterator.__next__"><tt class="xref py py-meth docutils literal"><span class="pre">__next__()</span></tt></a> method on an object.</li>
+<li>The <a class="reference internal" href="../library/functions.html#round" title="round"><tt class="xref py py-func docutils literal"><span class="pre">round()</span></tt></a> function rounding strategy and return type have
+changed.  Exact halfway cases are now rounded to the nearest even
+result instead of away from zero.  (For example, <tt class="docutils literal"><span class="pre">round(2.5)</span></tt> now
+returns <tt class="docutils literal"><span class="pre">2</span></tt> rather than <tt class="docutils literal"><span class="pre">3</span></tt>.)  <tt class="docutils literal"><span class="pre">round(x[,</span> <span class="pre">n])</span></tt> now
+delegates to <tt class="docutils literal"><span class="pre">x.__round__([n])</span></tt> instead of always returning a
+float.  It generally returns an integer when called with a single
+argument and a value of the same type as <tt class="docutils literal"><span class="pre">x</span></tt> when called with two
+arguments.</li>
+<li>Moved <tt class="xref py py-func docutils literal"><span class="pre">intern()</span></tt> to <a class="reference internal" href="../library/sys.html#sys.intern" title="sys.intern"><tt class="xref py py-func docutils literal"><span class="pre">sys.intern()</span></tt></a>.</li>
+<li>Removed: <tt class="xref py py-func docutils literal"><span class="pre">apply()</span></tt>.  Instead of <tt class="docutils literal"><span class="pre">apply(f,</span> <span class="pre">args)</span></tt> use
+<tt class="docutils literal"><span class="pre">f(*args)</span></tt>.</li>
+<li>Removed <a class="reference internal" href="../library/functions.html#callable" title="callable"><tt class="xref py py-func docutils literal"><span class="pre">callable()</span></tt></a>.  Instead of <tt class="docutils literal"><span class="pre">callable(f)</span></tt> you can use
+<tt class="docutils literal"><span class="pre">isinstance(f,</span> <span class="pre">collections.Callable)</span></tt>.  The <tt class="xref py py-func docutils literal"><span class="pre">operator.isCallable()</span></tt>
+function is also gone.</li>
+<li>Removed <tt class="xref py py-func docutils literal"><span class="pre">coerce()</span></tt>.  This function no longer serves a purpose
+now that classic classes are gone.</li>
+<li>Removed <tt class="xref py py-func docutils literal"><span class="pre">execfile()</span></tt>.  Instead of <tt class="docutils literal"><span class="pre">execfile(fn)</span></tt> use
+<tt class="docutils literal"><span class="pre">exec(open(fn).read())</span></tt>.</li>
+<li>Removed the <tt class="xref py py-class docutils literal"><span class="pre">file</span></tt> type.  Use <a class="reference internal" href="../library/functions.html#open" title="open"><tt class="xref py py-func docutils literal"><span class="pre">open()</span></tt></a>.  There are now several
+different kinds of streams that open can return in the <a class="reference internal" href="../library/io.html#module-io" title="io: Core tools for working with streams."><tt class="xref py py-mod docutils literal"><span class="pre">io</span></tt></a> module.</li>
+<li>Removed <tt class="xref py py-func docutils literal"><span class="pre">reduce()</span></tt>.  Use <a class="reference internal" href="../library/functools.html#functools.reduce" title="functools.reduce"><tt class="xref py py-func docutils literal"><span class="pre">functools.reduce()</span></tt></a> if you really
+need it; however, 99 percent of the time an explicit <a class="reference internal" href="../reference/compound_stmts.html#for"><tt class="xref std std-keyword docutils literal"><span class="pre">for</span></tt></a>
+loop is more readable.</li>
+<li>Removed <tt class="xref py py-func docutils literal"><span class="pre">reload()</span></tt>.  Use <a class="reference internal" href="../library/imp.html#imp.reload" title="imp.reload"><tt class="xref py py-func docutils literal"><span class="pre">imp.reload()</span></tt></a>.</li>
+<li>Removed. <tt class="xref py py-meth docutils literal"><span class="pre">dict.has_key()</span></tt> &#8211; use the <a class="reference internal" href="../reference/expressions.html#in"><tt class="xref std std-keyword docutils literal"><span class="pre">in</span></tt></a> operator
+instead.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="build-and-c-api-changes">
+<h2>Build and C API Changes<a class="headerlink" href="#build-and-c-api-changes" title="Permalink to this headline">¶</a></h2>
+<p>Due to time constraints, here is a <em>very</em> incomplete list of changes
+to the C API.</p>
+<ul class="simple">
+<li>Support for several platforms was dropped, including but not limited
+to Mac OS 9, BeOS, RISCOS, Irix, and Tru64.</li>
+<li><span class="target" id="index-33"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3118"><strong>PEP 3118</strong></a>: New Buffer API.</li>
+<li><span class="target" id="index-34"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3121"><strong>PEP 3121</strong></a>: Extension Module Initialization &amp; Finalization.</li>
+<li><span class="target" id="index-35"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3123"><strong>PEP 3123</strong></a>: Making <a class="reference internal" href="../c-api/structures.html#c.PyObject_HEAD" title="PyObject_HEAD"><tt class="xref c c-macro docutils literal"><span class="pre">PyObject_HEAD</span></tt></a> conform to standard C.</li>
+<li>No more C API support for restricted execution.</li>
+<li><tt class="xref c c-func docutils literal"><span class="pre">PyNumber_Coerce()</span></tt>, <tt class="xref c c-func docutils literal"><span class="pre">PyNumber_CoerceEx()</span></tt>,
+<tt class="xref c c-func docutils literal"><span class="pre">PyMember_Get()</span></tt>, and <tt class="xref c c-func docutils literal"><span class="pre">PyMember_Set()</span></tt> C APIs are removed.</li>
+<li>New C API <a class="reference internal" href="../c-api/import.html#c.PyImport_ImportModuleNoBlock" title="PyImport_ImportModuleNoBlock"><tt class="xref c c-func docutils literal"><span class="pre">PyImport_ImportModuleNoBlock()</span></tt></a>, works like
+<a class="reference internal" href="../c-api/import.html#c.PyImport_ImportModule" title="PyImport_ImportModule"><tt class="xref c c-func docutils literal"><span class="pre">PyImport_ImportModule()</span></tt></a> but won&#8217;t block on the import lock
+(returning an error instead).</li>
+<li>Renamed the boolean conversion C-level slot and method:
+<tt class="docutils literal"><span class="pre">nb_nonzero</span></tt> is now <tt class="docutils literal"><span class="pre">nb_bool</span></tt>.</li>
+<li>Removed <tt class="xref c c-macro docutils literal"><span class="pre">METH_OLDARGS</span></tt> and <tt class="xref c c-macro docutils literal"><span class="pre">WITH_CYCLE_GC</span></tt> from the C API.</li>
+</ul>
+</div>
+<div class="section" id="performance">
+<h2>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h2>
+<p>The net result of the 3.0 generalizations is that Python 3.0 runs the
+pystone benchmark around 10% slower than Python 2.5.  Most likely the
+biggest cause is the removal of special-casing for small integers.
+There&#8217;s room for improvement, but it will happen after 3.0 is
+released!</p>
+</div>
+<div class="section" id="porting-to-python-3-0">
+<h2>Porting To Python 3.0<a class="headerlink" href="#porting-to-python-3-0" title="Permalink to this headline">¶</a></h2>
+<p>For porting existing Python 2.5 or 2.6 source code to Python 3.0, the
+best strategy is the following:</p>
+<ol class="arabic simple" start="0">
+<li>(Prerequisite:) Start with excellent test coverage.</li>
+<li>Port to Python 2.6.  This should be no more work than the average
+port from Python 2.x to Python 2.(x+1).  Make sure all your tests
+pass.</li>
+<li>(Still using 2.6:) Turn on the <em class="xref std std-option">-3</em> command line switch.
+This enables warnings about features that will be removed (or
+change) in 3.0.  Run your test suite again, and fix code that you
+get warnings about until there are no warnings left, and all your
+tests still pass.</li>
+<li>Run the <tt class="docutils literal"><span class="pre">2to3</span></tt> source-to-source translator over your source code
+tree.  (See <a class="reference internal" href="../library/2to3.html#to3-reference"><em>2to3 - Automated Python 2 to 3 code translation</em></a> for more on this tool.)  Run the
+result of the translation under Python 3.0.  Manually fix up any
+remaining issues, fixing problems until all tests pass again.</li>
+</ol>
+<p>It is not recommended to try to write source code that runs unchanged
+under both Python 2.6 and 3.0; you&#8217;d have to use a very contorted
+coding style, e.g. avoiding <tt class="docutils literal"><span class="pre">print</span></tt> statements, metaclasses,
+and much more.  If you are maintaining a library that needs to support
+both Python 2.6 and Python 3.0, the best approach is to modify step 3
+above by editing the 2.6 version of the source code and running the
+<tt class="docutils literal"><span class="pre">2to3</span></tt> translator again, rather than editing the 3.0 version of the
+source code.</p>
+<p>For porting C extensions to Python 3.0, please see <a class="reference internal" href="../howto/cporting.html#cporting-howto"><em>Porting Extension Modules to Python 3</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">What&#8217;s New In Python 3.0</a><ul>
+<li><a class="reference internal" href="#common-stumbling-blocks">Common Stumbling Blocks</a><ul>
+<li><a class="reference internal" href="#print-is-a-function">Print Is A Function</a></li>
+<li><a class="reference internal" href="#views-and-iterators-instead-of-lists">Views And Iterators Instead Of Lists</a></li>
+<li><a class="reference internal" href="#ordering-comparisons">Ordering Comparisons</a></li>
+<li><a class="reference internal" href="#integers">Integers</a></li>
+<li><a class="reference internal" href="#text-vs-data-instead-of-unicode-vs-8-bit">Text Vs. Data Instead Of Unicode Vs. 8-bit</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#overview-of-syntax-changes">Overview Of Syntax Changes</a><ul>
+<li><a class="reference internal" href="#new-syntax">New Syntax</a></li>
+<li><a class="reference internal" href="#changed-syntax">Changed Syntax</a></li>
+<li><a class="reference internal" href="#removed-syntax">Removed Syntax</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#changes-already-present-in-python-2-6">Changes Already Present In Python 2.6</a></li>
+<li><a class="reference internal" href="#library-changes">Library Changes</a></li>
+<li><a class="reference internal" href="#pep-3101-a-new-approach-to-string-formatting"><strong>PEP 3101</strong>: A New Approach To String Formatting</a></li>
+<li><a class="reference internal" href="#changes-to-exceptions">Changes To Exceptions</a></li>
+<li><a class="reference internal" href="#miscellaneous-other-changes">Miscellaneous Other Changes</a><ul>
+<li><a class="reference internal" href="#operators-and-special-methods">Operators And Special Methods</a></li>
+<li><a class="reference internal" href="#builtins">Builtins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#build-and-c-api-changes">Build and C API Changes</a></li>
+<li><a class="reference internal" href="#performance">Performance</a></li>
+<li><a class="reference internal" href="#porting-to-python-3-0">Porting To Python 3.0</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="3.1.html"
+                        title="previous chapter">What&#8217;s New In Python 3.1</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="2.7.html"
+                        title="next chapter">What&#8217;s New in Python 2.7</a></p>
+<h3>This Page</h3>
+<ul class="this-page-menu">
+  <li><a href="../bugs.html">Report a Bug</a></li>
+  <li><a href="../_sources/whatsnew/3.0.txt"
+         rel="nofollow">Show Source</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="2.7.html" title="What’s New in Python 2.7"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="3.1.html" title="What’s New In Python 3.1"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" >What&#8217;s New in Python</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 1990-2014, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="http://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jun 03, 2014.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+    </div>
+
+  </body>
+</html>

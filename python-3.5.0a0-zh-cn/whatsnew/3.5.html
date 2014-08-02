@@ -1,0 +1,474 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>What’s New In Python 3.5 &mdash; Python 3.5.0a0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.5.0a0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.5.0a0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="Python 3.5.0a0 documentation" href="../index.html" />
+    <link rel="up" title="What’s New in Python" href="index.html" />
+    <link rel="next" title="What’s New In Python 3.4" href="3.4.html" />
+    <link rel="prev" title="What’s New in Python" href="index.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/version_switch.js"></script>
+    
+ 
+
+  </head>
+  <body>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="3.4.html" title="What’s New In Python 3.4"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="What’s New in Python"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" accesskey="U">What&#8217;s New in Python</a> &raquo;</li> 
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="what-s-new-in-python-3-5">
+<h1>What&#8217;s New In Python 3.5<a class="headerlink" href="#what-s-new-in-python-3-5" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Release:</th><td class="field-body">3.5.0a0</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">July 24, 2014</td>
+</tr>
+</tbody>
+</table>
+<p>This article explains the new features in Python 3.5, compared to 3.4.</p>
+<p>For full details, see the <a class="reference external" href="http://hg.python.org/cpython/file/default/Misc/NEWS">Misc/NEWS</a> file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Prerelease users should be aware that this document is currently in
+draft form. It will be updated substantially as Python 3.5 moves towards
+release, so it&#8217;s worth checking back even after reading earlier versions.</p>
+</div>
+<div class="admonition seealso">
+<p class="first last admonition-title">See also</p>
+</div>
+<div class="section" id="summary-release-highlights">
+<h2>Summary &#8211; Release highlights<a class="headerlink" href="#summary-release-highlights" title="Permalink to this headline">¶</a></h2>
+<p>New syntax features:</p>
+<ul class="simple">
+<li>None yet.</li>
+</ul>
+<p>New library modules:</p>
+<ul class="simple">
+<li>None yet.</li>
+</ul>
+<p>New built-in features:</p>
+<ul class="simple">
+<li>None yet.</li>
+</ul>
+<p>Implementation improvements:</p>
+<ul class="simple">
+<li>When the <tt class="docutils literal"><span class="pre">LC_TYPE</span></tt> locale is the POSIX locale (<tt class="docutils literal"><span class="pre">C</span></tt> locale),
+<a class="reference internal" href="../library/sys.html#sys.stdin" title="sys.stdin"><tt class="xref py py-data docutils literal"><span class="pre">sys.stdin</span></tt></a> and <a class="reference internal" href="../library/sys.html#sys.stdout" title="sys.stdout"><tt class="xref py py-data docutils literal"><span class="pre">sys.stdout</span></tt></a> are now using the
+<tt class="docutils literal"><span class="pre">surrogateescape</span></tt> error handler, instead of the <tt class="docutils literal"><span class="pre">strict</span></tt> error handler
+(<a class="reference external" href="http://bugs.python.org/issue19977">issue 19977</a>).</li>
+</ul>
+<p>Significantly Improved Library Modules:</p>
+<ul class="simple">
+<li>None yet.</li>
+</ul>
+<p>Security improvements:</p>
+<ul class="simple">
+<li>None yet.</li>
+</ul>
+<p>Please read on for a comprehensive list of user-facing changes.</p>
+<span class="target" id="pep-4xx"></span></div>
+<div class="section" id="other-language-changes">
+<h2>Other Language Changes<a class="headerlink" href="#other-language-changes" title="Permalink to this headline">¶</a></h2>
+<p>Some smaller changes made to the core Python language are:</p>
+<ul class="simple">
+<li>None yet.</li>
+</ul>
+</div>
+<div class="section" id="new-modules">
+<h2>New Modules<a class="headerlink" href="#new-modules" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>None yet.</li>
+</ul>
+</div>
+<div class="section" id="improved-modules">
+<h2>Improved Modules<a class="headerlink" href="#improved-modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="doctest">
+<h3>doctest<a class="headerlink" href="#doctest" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../library/doctest.html#doctest.DocTestSuite" title="doctest.DocTestSuite"><tt class="xref py py-func docutils literal"><span class="pre">doctest.DocTestSuite()</span></tt></a> returns an empty <a class="reference internal" href="../library/unittest.html#unittest.TestSuite" title="unittest.TestSuite"><tt class="xref py py-class docutils literal"><span class="pre">unittest.TestSuite</span></tt></a> if
+<em>module</em> contains no docstrings instead of raising <a class="reference internal" href="../library/exceptions.html#ValueError" title="ValueError"><tt class="xref py py-exc docutils literal"><span class="pre">ValueError</span></tt></a>
+(contributed by Glenn Jones in <a class="reference external" href="http://bugs.python.org/issue15916">issue 15916</a>).</li>
+</ul>
+</div>
+<div class="section" id="imghdr">
+<h3>imghdr<a class="headerlink" href="#imghdr" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../library/imghdr.html#imghdr.what" title="imghdr.what"><tt class="xref py py-func docutils literal"><span class="pre">what()</span></tt></a> now recognizes the <a class="reference external" href="http://www.openexr.com">OpenEXR</a>
+format (contributed by Martin vignali and Cladui Popa in <a class="reference external" href="http://bugs.python.org/issue20295">issue 20295</a>).</li>
+</ul>
+</div>
+<div class="section" id="importlib">
+<h3>importlib<a class="headerlink" href="#importlib" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../library/importlib.html#importlib.util.LazyLoader" title="importlib.util.LazyLoader"><tt class="xref py py-class docutils literal"><span class="pre">importlib.util.LazyLoader</span></tt></a> allows for the lazy loading of modules in
+applications where startup time is paramount (contributed by Brett Cannon in
+<a class="reference external" href="http://bugs.python.org/issue17621">issue 17621</a>).</li>
+<li><a class="reference internal" href="../library/importlib.html#importlib.abc.InspectLoader.source_to_code" title="importlib.abc.InspectLoader.source_to_code"><tt class="xref py py-func docutils literal"><span class="pre">importlib.abc.InspectLoader.source_to_code()</span></tt></a> is now a
+static method to make it easier to work with source code in a string.
+With a module object that you want to initialize you can then use
+<tt class="docutils literal"><span class="pre">exec(code,</span> <span class="pre">module.__dict__)</span></tt> to execute the code in the module.</li>
+<li><a class="reference internal" href="../library/importlib.html#importlib.util.module_from_spec" title="importlib.util.module_from_spec"><tt class="xref py py-func docutils literal"><span class="pre">importlib.util.module_from_spec()</span></tt></a> is now the preferred way to create a
+new module. Compared to <a class="reference internal" href="../library/types.html#types.ModuleType" title="types.ModuleType"><tt class="xref py py-class docutils literal"><span class="pre">types.ModuleType</span></tt></a>, this new function will set
+the various import-controlled attributes based on the passed-in spec object.</li>
+</ul>
+</div>
+<div class="section" id="inspect">
+<h3>inspect<a class="headerlink" href="#inspect" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../library/inspect.html#inspect.Signature" title="inspect.Signature"><tt class="xref py py-class docutils literal"><span class="pre">inspect.Signature</span></tt></a> and <a class="reference internal" href="../library/inspect.html#inspect.Parameter" title="inspect.Parameter"><tt class="xref py py-class docutils literal"><span class="pre">inspect.Parameter</span></tt></a> are now
+picklable and hashable (contributed by Yury Selivanov in <a class="reference external" href="http://bugs.python.org/issue20726">issue 20726</a>
+and <a class="reference external" href="http://bugs.python.org/issue20334">issue 20334</a>).</li>
+<li>New class method <a class="reference internal" href="../library/inspect.html#inspect.Signature.from_callable" title="inspect.Signature.from_callable"><tt class="xref py py-meth docutils literal"><span class="pre">inspect.Signature.from_callable()</span></tt></a>, which makes
+subclassing of <a class="reference internal" href="../library/inspect.html#inspect.Signature" title="inspect.Signature"><tt class="xref py py-class docutils literal"><span class="pre">Signature</span></tt></a> easier (contributed
+by Yury Selivanov and Eric Snow in <a class="reference external" href="http://bugs.python.org/issue17373">issue 17373</a>).</li>
+</ul>
+</div>
+<div class="section" id="ipaddress">
+<h3>ipaddress<a class="headerlink" href="#ipaddress" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../library/ipaddress.html#ipaddress.IPv4Network" title="ipaddress.IPv4Network"><tt class="xref py py-class docutils literal"><span class="pre">ipaddress.IPv4Network</span></tt></a> and <a class="reference internal" href="../library/ipaddress.html#ipaddress.IPv6Network" title="ipaddress.IPv6Network"><tt class="xref py py-class docutils literal"><span class="pre">ipaddress.IPv6Network</span></tt></a> now
+accept an <tt class="docutils literal"><span class="pre">(address,</span> <span class="pre">netmask)</span></tt> tuple argument, so as to easily construct
+network objects from existing addresses (contributed by Peter Moody
+and Antoine Pitrou in <a class="reference external" href="http://bugs.python.org/issue16531">issue 16531</a>).</li>
+</ul>
+</div>
+<div class="section" id="os">
+<h3>os<a class="headerlink" href="#os" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../library/os.html#os.stat_result" title="os.stat_result"><tt class="xref py py-class docutils literal"><span class="pre">os.stat_result</span></tt></a> now has a <a class="reference internal" href="../library/os.html#os.stat_result.st_file_attributes" title="os.stat_result.st_file_attributes"><tt class="xref py py-attr docutils literal"><span class="pre">st_file_attributes</span></tt></a>
+attribute on Windows (contributed by Ben Hoyt in <a class="reference external" href="http://bugs.python.org/issue21719">issue 21719</a>).</li>
+</ul>
+</div>
+<div class="section" id="shutil">
+<h3>shutil<a class="headerlink" href="#shutil" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../library/shutil.html#shutil.move" title="shutil.move"><tt class="xref py py-func docutils literal"><span class="pre">move()</span></tt></a> now accepts a <em>copy_function</em> argument, allowing,
+for example, <a class="reference internal" href="../library/shutil.html#shutil.copy" title="shutil.copy"><tt class="xref py py-func docutils literal"><span class="pre">copy()</span></tt></a> to be used instead of the default
+<a class="reference internal" href="../library/shutil.html#shutil.copy2" title="shutil.copy2"><tt class="xref py py-func docutils literal"><span class="pre">copy2()</span></tt></a> if there is a need to ignore metadata.  (Contributed by
+Claudiu Popa in <a class="reference external" href="http://bugs.python.org/issue19840">issue 19840</a>.)</li>
+</ul>
+</div>
+<div class="section" id="signal">
+<h3>signal<a class="headerlink" href="#signal" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Different constants of <a class="reference internal" href="../library/signal.html#module-signal" title="signal: Set handlers for asynchronous events."><tt class="xref py py-mod docutils literal"><span class="pre">signal</span></tt></a> module are now enumeration values using
+the <a class="reference internal" href="../library/enum.html#module-enum" title="enum: Implementation of an enumeration class."><tt class="xref py py-mod docutils literal"><span class="pre">enum</span></tt></a> module. This allows meaningful names to be printed during
+debugging, instead of integer “magic numbers”. (contributed by Giampaolo
+Rodola&#8217; in <a class="reference external" href="http://bugs.python.org/issue21076">issue 21076</a>)</li>
+</ul>
+</div>
+<div class="section" id="smtpd">
+<h3>smtpd<a class="headerlink" href="#smtpd" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Both <a class="reference internal" href="../library/smtpd.html#smtpd.SMTPServer" title="smtpd.SMTPServer"><tt class="xref py py-class docutils literal"><span class="pre">SMTPServer</span></tt></a> and <a class="reference internal" href="../library/smtpd.html#smtpd.SMTPChannel" title="smtpd.SMTPChannel"><tt class="xref py py-class docutils literal"><span class="pre">smtpd.SMTPChannel</span></tt></a> now accept a
+<em>decode_data</em> keyword to determine if the DATA portion of the SMTP
+transaction is decoded using the <tt class="docutils literal"><span class="pre">utf-8</span></tt> codec or is instead provided to
+<a class="reference internal" href="../library/smtpd.html#smtpd.SMTPServer.process_message" title="smtpd.SMTPServer.process_message"><tt class="xref py py-meth docutils literal"><span class="pre">process_message()</span></tt></a> as a byte string.  The default
+is <tt class="docutils literal"><span class="pre">True</span></tt> for backward compatibility reasons, but will change to <tt class="docutils literal"><span class="pre">False</span></tt>
+in Python 3.6.  (Contributed by Maciej Szulik in <a class="reference external" href="http://bugs.python.org/issue19662">issue 19662</a>.)</li>
+<li>It is now possible to provide, directly or via name resolution, IPv6
+addresses in the <a class="reference internal" href="../library/smtpd.html#smtpd.SMTPServer" title="smtpd.SMTPServer"><tt class="xref py py-class docutils literal"><span class="pre">SMTPServer</span></tt></a> constructor, and have it
+successfully connect.  (Contributed by Milan Oberkirch in <a class="reference external" href="http://bugs.python.org/issue14758">issue 14758</a>.)</li>
+</ul>
+</div>
+<div class="section" id="smtplib">
+<h3>smtplib<a class="headerlink" href="#smtplib" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>A new <a class="reference internal" href="../library/smtplib.html#smtplib.SMTP.auth" title="smtplib.SMTP.auth"><tt class="xref py py-meth docutils literal"><span class="pre">auth()</span></tt></a> method provides a convenient way to
+implement custom authentication mechanisms (contributed by Milan Oberkirch in
+<a class="reference external" href="http://bugs.python.org/issue15014">issue 15014</a>).</li>
+</ul>
+</div>
+<div class="section" id="socket">
+<h3>socket<a class="headerlink" href="#socket" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>New <a class="reference internal" href="../library/socket.html#socket.socket.sendfile" title="socket.socket.sendfile"><tt class="xref py py-meth docutils literal"><span class="pre">socket.socket.sendfile()</span></tt></a> method allows to send a file over a socket
+by using high-performance <a class="reference internal" href="../library/os.html#os.sendfile" title="os.sendfile"><tt class="xref py py-func docutils literal"><span class="pre">os.sendfile()</span></tt></a> function on UNIX resulting in
+uploads being from 2x to 3x faster than when using plain
+<a class="reference internal" href="../library/socket.html#socket.socket.send" title="socket.socket.send"><tt class="xref py py-meth docutils literal"><span class="pre">socket.socket.send()</span></tt></a>.
+(contributed by Giampaolo Rodola&#8217; in <a class="reference external" href="http://bugs.python.org/issue17552">issue 17552</a>)</li>
+</ul>
+</div>
+<div class="section" id="wsgiref">
+<h3>wsgiref<a class="headerlink" href="#wsgiref" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><em>headers</em> parameter of <a class="reference internal" href="../library/wsgiref.html#wsgiref.headers.Headers" title="wsgiref.headers.Headers"><tt class="xref py py-class docutils literal"><span class="pre">wsgiref.headers.Headers</span></tt></a> is now optional.
+(Contributed by Pablo Torres Navarrete and SilentGhost in <a class="reference external" href="http://bugs.python.org/issue5800">issue 5800</a>.)</li>
+</ul>
+</div>
+<div class="section" id="xmlrpc">
+<h3>xmlrpc<a class="headerlink" href="#xmlrpc" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../library/xmlrpc.client.html#xmlrpc.client.ServerProxy" title="xmlrpc.client.ServerProxy"><tt class="xref py py-class docutils literal"><span class="pre">xmlrpc.client.ServerProxy</span></tt></a> is now a <a class="reference internal" href="../glossary.html#term-context-manager"><em class="xref std std-term">context manager</em></a>
+(contributed by Claudiu Popa in <a class="reference external" href="http://bugs.python.org/issue20627">issue 20627</a>).</li>
+</ul>
+</div>
+</div>
+<div class="section" id="optimizations">
+<h2>Optimizations<a class="headerlink" href="#optimizations" title="Permalink to this headline">¶</a></h2>
+<p>The following performance enhancements have been added:</p>
+<ul class="simple">
+<li>Construction of <tt class="docutils literal"><span class="pre">bytes(int)</span></tt> (filled by zero bytes) is faster and use less
+memory for large objects. <tt class="docutils literal"><span class="pre">calloc()</span></tt> is used instead of <tt class="docutils literal"><span class="pre">malloc()</span></tt> to
+allocate memory for these objects.</li>
+<li>Some operations on <a class="reference internal" href="../library/ipaddress.html#ipaddress.IPv4Network" title="ipaddress.IPv4Network"><tt class="xref py py-class docutils literal"><span class="pre">IPv4Network</span></tt></a> and
+<a class="reference internal" href="../library/ipaddress.html#ipaddress.IPv6Network" title="ipaddress.IPv6Network"><tt class="xref py py-class docutils literal"><span class="pre">IPv6Network</span></tt></a> have been massively sped up, such as
+<a class="reference internal" href="../library/ipaddress.html#ipaddress.IPv4Network.subnets" title="ipaddress.IPv4Network.subnets"><tt class="xref py py-meth docutils literal"><span class="pre">subnets()</span></tt></a>, <a class="reference internal" href="../library/ipaddress.html#ipaddress.IPv4Network.supernet" title="ipaddress.IPv4Network.supernet"><tt class="xref py py-meth docutils literal"><span class="pre">supernet()</span></tt></a>,
+<a class="reference internal" href="../library/ipaddress.html#ipaddress.summarize_address_range" title="ipaddress.summarize_address_range"><tt class="xref py py-func docutils literal"><span class="pre">summarize_address_range()</span></tt></a>, <a class="reference internal" href="../library/ipaddress.html#ipaddress.collapse_addresses" title="ipaddress.collapse_addresses"><tt class="xref py py-func docutils literal"><span class="pre">collapse_addresses()</span></tt></a>.
+The speed up can range from 3x to 15x.
+(<a class="reference external" href="http://bugs.python.org/issue21486">issue 21486</a>, <a class="reference external" href="http://bugs.python.org/issue21487">issue 21487</a>, <a class="reference external" href="http://bugs.python.org/issue20826">issue 20826</a>)</li>
+</ul>
+</div>
+<div class="section" id="build-and-c-api-changes">
+<h2>Build and C API Changes<a class="headerlink" href="#build-and-c-api-changes" title="Permalink to this headline">¶</a></h2>
+<p>Changes to Python&#8217;s build process and to the C API include:</p>
+<ul class="simple">
+<li>New <tt class="docutils literal"><span class="pre">calloc</span></tt> functions:<ul>
+<li><a class="reference internal" href="../c-api/memory.html#c.PyMem_RawCalloc" title="PyMem_RawCalloc"><tt class="xref c c-func docutils literal"><span class="pre">PyMem_RawCalloc()</span></tt></a></li>
+<li><a class="reference internal" href="../c-api/memory.html#c.PyMem_Calloc" title="PyMem_Calloc"><tt class="xref c c-func docutils literal"><span class="pre">PyMem_Calloc()</span></tt></a></li>
+<li><tt class="xref c c-func docutils literal"><span class="pre">PyObject_Calloc()</span></tt></li>
+<li><tt class="xref c c-func docutils literal"><span class="pre">_PyObject_GC_Calloc()</span></tt></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="deprecated">
+<h2>Deprecated<a class="headerlink" href="#deprecated" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="unsupported-operating-systems">
+<h3>Unsupported Operating Systems<a class="headerlink" href="#unsupported-operating-systems" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>None yet.</li>
+</ul>
+</div>
+<div class="section" id="deprecated-python-modules-functions-and-methods">
+<h3>Deprecated Python modules, functions and methods<a class="headerlink" href="#deprecated-python-modules-functions-and-methods" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>The <a class="reference internal" href="../library/formatter.html#module-formatter" title="formatter: Generic output formatter and device interface. (deprecated)"><tt class="xref py py-mod docutils literal"><span class="pre">formatter</span></tt></a> module has now graduated to full deprecation and is still
+slated for removal in Python 3.6.</li>
+<li><a class="reference internal" href="../library/smtpd.html#module-smtpd" title="smtpd: A SMTP server implementation in Python."><tt class="xref py py-mod docutils literal"><span class="pre">smtpd</span></tt></a> has in the past always decoded the DATA portion of email
+messages using the <tt class="docutils literal"><span class="pre">utf-8</span></tt> codec.  This can now be controlled by the new
+<em>decode_data</em> keyword to <a class="reference internal" href="../library/smtpd.html#smtpd.SMTPServer" title="smtpd.SMTPServer"><tt class="xref py py-class docutils literal"><span class="pre">SMTPServer</span></tt></a>.  The default value is
+<tt class="docutils literal"><span class="pre">True</span></tt>, but this default is deprecated.  Specify the <em>decode_data</em> keyword
+with an appropriate value to avoid the deprecation warning.</li>
+</ul>
+</div>
+<div class="section" id="deprecated-functions-and-types-of-the-c-api">
+<h3>Deprecated functions and types of the C API<a class="headerlink" href="#deprecated-functions-and-types-of-the-c-api" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>None yet.</li>
+</ul>
+</div>
+<div class="section" id="deprecated-features">
+<h3>Deprecated features<a class="headerlink" href="#deprecated-features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>None yet.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="porting-to-python-3-5">
+<h2>Porting to Python 3.5<a class="headerlink" href="#porting-to-python-3-5" title="Permalink to this headline">¶</a></h2>
+<p>This section lists previously described changes and other bugfixes
+that may require changes to your code.</p>
+<div class="section" id="changes-in-the-python-api">
+<h3>Changes in the Python API<a class="headerlink" href="#changes-in-the-python-api" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Before Python 3.5, a <a class="reference internal" href="../library/datetime.html#datetime.time" title="datetime.time"><tt class="xref py py-class docutils literal"><span class="pre">datetime.time</span></tt></a> object was considered to be false
+if it represented midnight in UTC.  This behavior was considered obscure and
+error-prone and has been removed in Python 3.5.  See <a class="reference external" href="http://bugs.python.org/issue13936">issue 13936</a> for full
+details.</li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">ssl.SSLSocket.send()</span></tt> now raises either <a class="reference internal" href="../library/ssl.html#ssl.SSLWantReadError" title="ssl.SSLWantReadError"><tt class="xref py py-exc docutils literal"><span class="pre">ssl.SSLWantReadError</span></tt></a>
+or <a class="reference internal" href="../library/ssl.html#ssl.SSLWantWriteError" title="ssl.SSLWantWriteError"><tt class="xref py py-exc docutils literal"><span class="pre">ssl.SSLWantWriteError</span></tt></a> on a non-blocking socket if the operation
+would block. Previously, it would return 0.  See <a class="reference external" href="http://bugs.python.org/issue20951">issue 20951</a>.</li>
+<li>The <tt class="docutils literal"><span class="pre">__name__</span></tt> attribute of generator is now set from the function name,
+instead of being set from the code name. Use <tt class="docutils literal"><span class="pre">gen.gi_code.co_name</span></tt> to
+retrieve the code name. Generators also have a new <tt class="docutils literal"><span class="pre">__qualname__</span></tt>
+attribute, the qualified name, which is now used for the representation
+of a generator (<tt class="docutils literal"><span class="pre">repr(gen)</span></tt>). See <a class="reference external" href="http://bugs.python.org/issue21205">issue 21205</a>.</li>
+</ul>
+</div>
+<div class="section" id="changes-in-the-c-api">
+<h3>Changes in the C API<a class="headerlink" href="#changes-in-the-c-api" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>The <tt class="xref c c-type docutils literal"><span class="pre">PyMemAllocator</span></tt> structure was renamed to
+<a class="reference internal" href="../c-api/memory.html#c.PyMemAllocatorEx" title="PyMemAllocatorEx"><tt class="xref c c-type docutils literal"><span class="pre">PyMemAllocatorEx</span></tt></a> and a new <tt class="docutils literal"><span class="pre">calloc</span></tt> field was added.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">What&#8217;s New In Python 3.5</a><ul>
+<li><a class="reference internal" href="#summary-release-highlights">Summary &#8211; Release highlights</a></li>
+<li><a class="reference internal" href="#other-language-changes">Other Language Changes</a></li>
+<li><a class="reference internal" href="#new-modules">New Modules</a></li>
+<li><a class="reference internal" href="#improved-modules">Improved Modules</a><ul>
+<li><a class="reference internal" href="#doctest">doctest</a></li>
+<li><a class="reference internal" href="#imghdr">imghdr</a></li>
+<li><a class="reference internal" href="#importlib">importlib</a></li>
+<li><a class="reference internal" href="#inspect">inspect</a></li>
+<li><a class="reference internal" href="#ipaddress">ipaddress</a></li>
+<li><a class="reference internal" href="#os">os</a></li>
+<li><a class="reference internal" href="#shutil">shutil</a></li>
+<li><a class="reference internal" href="#signal">signal</a></li>
+<li><a class="reference internal" href="#smtpd">smtpd</a></li>
+<li><a class="reference internal" href="#smtplib">smtplib</a></li>
+<li><a class="reference internal" href="#socket">socket</a></li>
+<li><a class="reference internal" href="#wsgiref">wsgiref</a></li>
+<li><a class="reference internal" href="#xmlrpc">xmlrpc</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#optimizations">Optimizations</a></li>
+<li><a class="reference internal" href="#build-and-c-api-changes">Build and C API Changes</a></li>
+<li><a class="reference internal" href="#deprecated">Deprecated</a><ul>
+<li><a class="reference internal" href="#unsupported-operating-systems">Unsupported Operating Systems</a></li>
+<li><a class="reference internal" href="#deprecated-python-modules-functions-and-methods">Deprecated Python modules, functions and methods</a></li>
+<li><a class="reference internal" href="#deprecated-functions-and-types-of-the-c-api">Deprecated functions and types of the C API</a></li>
+<li><a class="reference internal" href="#deprecated-features">Deprecated features</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#porting-to-python-3-5">Porting to Python 3.5</a><ul>
+<li><a class="reference internal" href="#changes-in-the-python-api">Changes in the Python API</a></li>
+<li><a class="reference internal" href="#changes-in-the-c-api">Changes in the C API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">What&#8217;s New in Python</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="3.4.html"
+                        title="next chapter">What&#8217;s New In Python 3.4</a></p>
+<h3>This Page</h3>
+<ul class="this-page-menu">
+  <li><a href="../bugs.html">Report a Bug</a></li>
+  <li><a href="../_sources/whatsnew/3.5.txt"
+         rel="nofollow">Show Source</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="3.4.html" title="What’s New In Python 3.4"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="What’s New in Python"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="http://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.0a0</span>
+          <a href="../index.html">Documentation</a> &raquo;
+        </li>
+
+          <li><a href="index.html" >What&#8217;s New in Python</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 1990-2014, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="http://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jul 24, 2014.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+    </div>
+
+  </body>
+</html>
