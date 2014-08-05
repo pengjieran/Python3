@@ -113,16 +113,16 @@
 <li class="toctree-l2"><a class="reference internal" href="3.3.html#pep-412-key-sharing-dictionary">PEP 412: Key-Sharing 字典</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3.3.html#pep-362-function-signature-object">PEP 362: 函数 鉴权 对象</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3.3.html#pep-421-adding-sys-implementation">PEP 421: 新增 sys.implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3.3.html#using-importlib-as-the-implementation-of-import">Using importlib as the Implementation of Import</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3.3.html#other-language-changes">Other Language Changes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3.3.html#a-finer-grained-import-lock">A Finer-Grained Import Lock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3.3.html#builtin-functions-and-types">Builtin functions and types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3.3.html#new-modules">New Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3.3.html#improved-modules">Improved Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3.3.html#optimizations">Optimizations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3.3.html#build-and-c-api-changes">Build and C API Changes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3.3.html#deprecated">Deprecated</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3.3.html#porting-to-python-3-3">Porting to Python 3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3.3.html#using-importlib-as-the-implementation-of-import">使用import扩展实现inport导入</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3.3.html#other-language-changes">其它语言的变化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3.3.html#a-finer-grained-import-lock">细化的import导入锁机制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3.3.html#builtin-functions-and-types">内建的函数和类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3.3.html#new-modules">新的模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3.3.html#improved-modules">改进后的模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3.3.html#optimizations">优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3.3.html#build-and-c-api-changes">与C语言API有关的构建变化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3.3.html#deprecated">已弃用的</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3.3.html#porting-to-python-3-3">进入Python 3.3</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="3.2.html">What&#8217;s New In Python 3.2</a><ul>
@@ -361,21 +361,21 @@ contains <em>all</em> nontrivial changes to Python for the current version.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
+  <h4>上一页</h4>
   <p class="topless"><a href="../contents.html"
-                        title="previous chapter">Python Documentation contents</a></p>
-  <h4>Next topic</h4>
+                        title="previous chapter">Python 文档内容</a></p>
+  <h4>下一页</h4>
   <p class="topless"><a href="3.5.html"
-                        title="next chapter">What&#8217;s New In Python 3.5</a></p>
-<h3>This Page</h3>
+                        title="next chapter">Python 3.5尝鲜</a></p>
+<h3>当前页</h3>
 <ul class="this-page-menu">
-  <li><a href="../bugs.html">Report a Bug</a></li>
+  <li><a href="../bugs.html">反馈bug</a></li>
   <li><a href="../_sources/whatsnew/index.txt"
-         rel="nofollow">Show Source</a></li>
+         rel="nofollow">显示源</a></li>
 </ul>
 
 <div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
+  <h3>快速查询</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
@@ -383,8 +383,7 @@ contains <em>all</em> nontrivial changes to Python for the current version.</p>
       <input type="hidden" name="area" value="default" />
     </form>
     <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    输入表达式或者模块，类和函数的名字.</p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -392,26 +391,26 @@ contains <em>all</em> nontrivial changes to Python for the current version.</p>
       <div class="clearer"></div>
     </div>  
     <div class="related">
-      <h3>Navigation</h3>
+      <h3>导航</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
-             >index</a></li>
+             >首页</a></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
+             >模块</a> |</li>
         <li class="right" >
           <a href="3.5.html" title="What’s New In Python 3.5"
-             >next</a> |</li>
+             >下一个</a> |</li>
         <li class="right" >
           <a href="../contents.html" title="Python Documentation contents"
-             >previous</a> |</li>
+             >上一个</a> |</li>
         <li><img src="../_static/py.png" alt=""
                  style="vertical-align: middle; margin-top: -1px"/></li>
         <li><a href="http://www.python.org/">Python</a> &raquo;</li>
         <li>
           <span class="version_switcher_placeholder">3.5.0a0</span>
-          <a href="../index.html">Documentation</a> &raquo;
+          <a href="../index.html">文档</a> &raquo;
         </li>
  
       </ul>
