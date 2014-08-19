@@ -154,8 +154,8 @@
 <div class="section" id="imghdr">
 <h3>imghdr<a class="headerlink" href="#imghdr" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><a class="reference internal" href="../library/imghdr.html#imghdr.what" title="imghdr.what"><tt class="xref py py-func docutils literal"><span class="pre">what()</span></tt></a> now recognizes the <a class="reference external" href="http://www.openexr.com">OpenEXR</a>
-format (contributed by Martin vignali and Cladui Popa in <a class="reference external" href="http://bugs.python.org/issue20295">issue 20295</a>).</li>
+<li><a class="reference internal" href="../library/imghdr.html#imghdr.what" title="imghdr.what"><tt class="xref py py-func docutils literal"><span class="pre">what()</span></tt></a> 现在可以识别 <a class="reference external" href="http://www.openexr.com">OpenEXR</a>
+格式 (contributed by Martin vignali and Cladui Popa in <a class="reference external" href="http://bugs.python.org/issue20295">issue 20295</a>).</li>
 </ul>
 </div>
 <div class="section" id="importlib">
@@ -163,10 +163,8 @@ format (contributed by Martin vignali and Cladui Popa in <a class="reference ext
 <ul class="simple">
 <li><a class="reference internal" href="../library/importlib.html#importlib.util.LazyLoader" title="importlib.util.LazyLoader"><tt class="xref py py-class docutils literal"><span class="pre">importlib.util.LazyLoader</span></tt></a> 当启动时间很重要的时候，该方法允许在应用中延迟加载模块 (contributed by Brett Cannon in
 <a class="reference external" href="http://bugs.python.org/issue17621">issue 17621</a>).</li>
-<li><a class="reference internal" href="../library/importlib.html#importlib.abc.InspectLoader.source_to_code" title="importlib.abc.InspectLoader.source_to_code"><tt class="xref py py-func docutils literal"><span class="pre">importlib.abc.InspectLoader.source_to_code()</span></tt></a> is now a
-static method to make it easier to work with source code in a string.
-With a module object that you want to initialize you can then use
-<tt class="docutils literal"><span class="pre">exec(code,</span> <span class="pre">module.__dict__)</span></tt> to execute the code in the module.</li>
+<li><a class="reference internal" href="../library/importlib.html#importlib.abc.InspectLoader.source_to_code" title="importlib.abc.InspectLoader.source_to_code"><tt class="xref py py-func docutils literal"><span class="pre">importlib.abc.InspectLoader.source_to_code()</span></tt></a>现在是一个静态方法，使得它能够在任何你希望初始化的地方去使用使得它能够在源码中更好的工作。当使用
+<tt class="docutils literal"><span class="pre">exec(code,</span> <span class="pre">module.__dict__)</span></tt> 在模块中执行代码的时候.</li>
 <li><a class="reference internal" href="../library/importlib.html#importlib.util.module_from_spec" title="importlib.util.module_from_spec"><tt class="xref py py-func docutils literal"><span class="pre">importlib.util.module_from_spec()</span></tt></a> is now the preferred way to create a
 new module. Compared to <a class="reference internal" href="../library/types.html#types.ModuleType" title="types.ModuleType"><tt class="xref py py-class docutils literal"><span class="pre">types.ModuleType</span></tt></a>, this new function will set
 the various import-controlled attributes based on the passed-in spec object.</li>
@@ -368,11 +366,11 @@ of a generator (<tt class="docutils literal"><span class="pre">repr(gen)</span><
 <li><a class="reference internal" href="#summary-release-highlights">Summary &#8211; Release highlights</a></li>
 <li><a class="reference internal" href="#other-language-changes">其它语言的改变</a></li>
 <li><a class="reference internal" href="#new-modules">新的模块</a></li>
-<li><a class="reference internal" href="#improved-modules">Improved Modules</a><ul>
-<li><a class="reference internal" href="#doctest">doctest</a></li>
+<li><a class="reference internal" href="#improved-modules">已经改进的模块</a><ul>
+<li><a class="reference internal" href="#doctest">文档测试</a></li>
 <li><a class="reference internal" href="#imghdr">imghdr</a></li>
 <li><a class="reference internal" href="#importlib">importlib</a></li>
-<li><a class="reference internal" href="#inspect">inspect</a></li>
+<li><a class="reference internal" href="#inspect">检查</a></li>
 <li><a class="reference internal" href="#ipaddress">ipaddress</a></li>
 <li><a class="reference internal" href="#os">os</a></li>
 <li><a class="reference internal" href="#shutil">shutil</a></li>
@@ -384,7 +382,7 @@ of a generator (<tt class="docutils literal"><span class="pre">repr(gen)</span><
 <li><a class="reference internal" href="#xmlrpc">xmlrpc</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#optimizations">Optimizations</a></li>
+<li><a class="reference internal" href="#optimizations">优化</a></li>
 <li><a class="reference internal" href="#build-and-c-api-changes">Build and C API Changes</a></li>
 <li><a class="reference internal" href="#deprecated">Deprecated</a><ul>
 <li><a class="reference internal" href="#unsupported-operating-systems">Unsupported Operating Systems</a></li>
