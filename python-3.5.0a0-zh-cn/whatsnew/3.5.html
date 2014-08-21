@@ -114,9 +114,9 @@
 </ul>
 <p>实现改进:</p>
 <ul class="simple">
-<li>When the <tt class="docutils literal"><span class="pre">LC_TYPE</span></tt> locale is the POSIX locale (<tt class="docutils literal"><span class="pre">C</span></tt> locale),
-<a class="reference internal" href="../library/sys.html#sys.stdin" title="sys.stdin"><tt class="xref py py-data docutils literal"><span class="pre">sys.stdin</span></tt></a> and <a class="reference internal" href="../library/sys.html#sys.stdout" title="sys.stdout"><tt class="xref py py-data docutils literal"><span class="pre">sys.stdout</span></tt></a> are now using the
-<tt class="docutils literal"><span class="pre">surrogateescape</span></tt> error handler, instead of the <tt class="docutils literal"><span class="pre">strict</span></tt> error handler
+<li>当 <tt class="docutils literal"><span class="pre">LC_TYPE</span></tt> 标识 是POSIX 标识的时候 (<tt class="docutils literal"><span class="pre">C</span></tt> locale),
+<a class="reference internal" href="../library/sys.html#sys.stdin" title="sys.stdin"><tt class="xref py py-data docutils literal"><span class="pre">sys.stdin</span></tt></a> 和 <a class="reference internal" href="../library/sys.html#sys.stdout" title="sys.stdout"><tt class="xref py py-data docutils literal"><span class="pre">sys.stdout</span></tt></a> 使用
+<tt class="docutils literal"><span class="pre">surrogateescape</span></tt> 异常捕获机制, 而不是使用 <tt class="docutils literal"><span class="pre">strict</span></tt> 异常捕获
 (<a class="reference external" href="http://bugs.python.org/issue19977">issue 19977</a>).</li>
 </ul>
 <p>意义重大的类库模块改进:</p>
@@ -165,19 +165,15 @@
 <a class="reference external" href="http://bugs.python.org/issue17621">issue 17621</a>).</li>
 <li><a class="reference internal" href="../library/importlib.html#importlib.abc.InspectLoader.source_to_code" title="importlib.abc.InspectLoader.source_to_code"><tt class="xref py py-func docutils literal"><span class="pre">importlib.abc.InspectLoader.source_to_code()</span></tt></a>现在是一个静态方法，使得它能够在任何你希望初始化的地方去使用使得它能够在源码中更好的工作。当使用
 <tt class="docutils literal"><span class="pre">exec(code,</span> <span class="pre">module.__dict__)</span></tt> 在模块中执行代码的时候.</li>
-<li><a class="reference internal" href="../library/importlib.html#importlib.util.module_from_spec" title="importlib.util.module_from_spec"><tt class="xref py py-func docutils literal"><span class="pre">importlib.util.module_from_spec()</span></tt></a> is now the preferred way to create a
-new module. Compared to <a class="reference internal" href="../library/types.html#types.ModuleType" title="types.ModuleType"><tt class="xref py py-class docutils literal"><span class="pre">types.ModuleType</span></tt></a>, this new function will set
-the various import-controlled attributes based on the passed-in spec object.</li>
+<li><a class="reference internal" href="../library/importlib.html#importlib.util.module_from_spec" title="importlib.util.module_from_spec"><tt class="xref py py-func docutils literal"><span class="pre">importlib.util.module_from_spec()</span></tt></a> 现在是一个更好的创建模块的选择. 与 <a class="reference internal" href="../library/types.html#types.ModuleType" title="types.ModuleType"><tt class="xref py py-class docutils literal"><span class="pre">types.ModuleType</span></tt></a>相比, 该新函数能够设置各种各样的从外部对象中传递进来的受控的导入属性.</li>
 </ul>
 </div>
 <div class="section" id="inspect">
 <h3>检查<a class="headerlink" href="#inspect" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><a class="reference internal" href="../library/inspect.html#inspect.Signature" title="inspect.Signature"><tt class="xref py py-class docutils literal"><span class="pre">inspect.Signature</span></tt></a> and <a class="reference internal" href="../library/inspect.html#inspect.Parameter" title="inspect.Parameter"><tt class="xref py py-class docutils literal"><span class="pre">inspect.Parameter</span></tt></a> are now
-picklable and hashable (contributed by Yury Selivanov in <a class="reference external" href="http://bugs.python.org/issue20726">issue 20726</a>
+<li><a class="reference internal" href="../library/inspect.html#inspect.Signature" title="inspect.Signature"><tt class="xref py py-class docutils literal"><span class="pre">inspect.Signature</span></tt></a> 和 <a class="reference internal" href="../library/inspect.html#inspect.Parameter" title="inspect.Parameter"><tt class="xref py py-class docutils literal"><span class="pre">inspect.Parameter</span></tt></a> 现在是可打包的和可hash的 (contributed by Yury Selivanov in <a class="reference external" href="http://bugs.python.org/issue20726">issue 20726</a>
 and <a class="reference external" href="http://bugs.python.org/issue20334">issue 20334</a>).</li>
-<li>New class method <a class="reference internal" href="../library/inspect.html#inspect.Signature.from_callable" title="inspect.Signature.from_callable"><tt class="xref py py-meth docutils literal"><span class="pre">inspect.Signature.from_callable()</span></tt></a>, which makes
-subclassing of <a class="reference internal" href="../library/inspect.html#inspect.Signature" title="inspect.Signature"><tt class="xref py py-class docutils literal"><span class="pre">Signature</span></tt></a> easier (contributed
+<li>新的类方法 <a class="reference internal" href="../library/inspect.html#inspect.Signature.from_callable" title="inspect.Signature.from_callable"><tt class="xref py py-meth docutils literal"><span class="pre">inspect.Signature.from_callable()</span></tt></a>, 使继承<a class="reference internal" href="../library/inspect.html#inspect.Signature" title="inspect.Signature"><tt class="xref py py-class docutils literal"><span class="pre">Signature</span></tt></a>更加简单 (contributed
 by Yury Selivanov and Eric Snow in <a class="reference external" href="http://bugs.python.org/issue17373">issue 17373</a>).</li>
 </ul>
 </div>
