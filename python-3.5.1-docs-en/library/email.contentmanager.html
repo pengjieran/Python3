@@ -1,0 +1,594 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>19.1.6. email.contentmanager: Managing MIME Content &mdash; Python 3.5.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.5.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.5.1 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="Python 3.5.1 documentation" href="../contents.html" />
+    <link rel="up" title="19.1. email — An email and MIME handling package" href="email.html" />
+    <link rel="next" title="19.1.7. email.mime: Creating email and MIME objects from scratch" href="email.mime.html" />
+    <link rel="prev" title="19.1.5. email.headerregistry: Custom Header Objects" href="email.headerregistry.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/version_switch.js"></script>
+    
+ 
+
+  </head>
+  <body role="document">  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="email.mime.html" title="19.1.7. email.mime: Creating email and MIME objects from scratch"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="email.headerregistry.html" title="19.1.5. email.headerregistry: Custom Header Objects"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.1</span>
+          <a href="../index.html">Documentation </a> &raquo;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="netdata.html" >19. Internet Data Handling</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="email.html" accesskey="U">19.1. <code class="docutils literal"><span class="pre">email</span></code> &#8212; An email and MIME handling package</a> &raquo;</li> 
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-email.contentmanager">
+<span id="email-contentmanager-managing-mime-content"></span><h1>19.1.6. <a class="reference internal" href="#module-email.contentmanager" title="email.contentmanager: Storing and Retrieving Content from MIME Parts"><code class="xref py py-mod docutils literal"><span class="pre">email.contentmanager</span></code></a>: Managing MIME Content<a class="headerlink" href="#module-email.contentmanager" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The contentmanager module has been included in the standard library on a
+<a class="reference internal" href="../glossary.html#term-provisional-package"><span class="xref std std-term">provisional basis</span></a>. Backwards incompatible
+changes (up to and including removal of the module) may occur if deemed
+necessary by the core developers.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4: </span>as a <a class="reference internal" href="../glossary.html#term-provisional-package"><span class="xref std std-term">provisional module</span></a>.</p>
+</div>
+<p>The <a class="reference internal" href="email.message.html#module-email.message" title="email.message: The base class representing email messages."><code class="xref py py-mod docutils literal"><span class="pre">message</span></code></a> module provides a class that can represent an
+arbitrary email message.  That basic message model has a useful and flexible
+API, but it provides only a lower-level API for interacting with the generic
+parts of a message (the headers, generic header parameters, and the payload,
+which may be a list of sub-parts).  This module provides classes and tools
+that provide an enhanced and extensible API for dealing with various specific
+types of content, including the ability to retrieve the content of the message
+as a specialized object type rather than as a simple bytes object.  The module
+automatically takes care of the RFC-specified MIME details (required headers
+and parameters, etc.) for the certain common content types content properties,
+and support for additional types can be added by an application using the
+extension mechanisms.</p>
+<p>This module defines the eponymous &#8220;Content Manager&#8221; classes.  The base
+<a class="reference internal" href="#email.contentmanager.ContentManager" title="email.contentmanager.ContentManager"><code class="xref py py-class docutils literal"><span class="pre">ContentManager</span></code></a> class defines an API for registering content
+management functions which extract data from <code class="docutils literal"><span class="pre">Message</span></code> objects or insert data
+and headers into <code class="docutils literal"><span class="pre">Message</span></code> objects, thus providing a way of converting
+between <code class="docutils literal"><span class="pre">Message</span></code> objects containing data and other representations of that
+data (Python data types, specialized Python objects, external files, etc).  The
+module also defines one concrete content manager: <a class="reference internal" href="#email.contentmanager.raw_data_manager" title="email.contentmanager.raw_data_manager"><code class="xref py py-data docutils literal"><span class="pre">raw_data_manager</span></code></a>
+converts between MIME content types and <code class="docutils literal"><span class="pre">str</span></code> or <code class="docutils literal"><span class="pre">bytes</span></code> data.  It also
+provides a convenient API for managing the MIME parameters when inserting
+content into <code class="docutils literal"><span class="pre">Message</span></code>s.  It also handles inserting and extracting
+<code class="docutils literal"><span class="pre">Message</span></code> objects when dealing with the <code class="docutils literal"><span class="pre">message/rfc822</span></code> content type.</p>
+<p>Another part of the enhanced interface is subclasses of
+<a class="reference internal" href="email.message.html#email.message.Message" title="email.message.Message"><code class="xref py py-class docutils literal"><span class="pre">Message</span></code></a> that provide new convenience API functions,
+including convenience methods for calling the Content Managers derived from
+this module.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Although <a class="reference internal" href="#email.message.EmailMessage" title="email.message.EmailMessage"><code class="xref py py-class docutils literal"><span class="pre">EmailMessage</span></code></a> and <a class="reference internal" href="#email.message.MIMEPart" title="email.message.MIMEPart"><code class="xref py py-class docutils literal"><span class="pre">MIMEPart</span></code></a> are currently
+documented in this module because of the provisional nature of the code, the
+implementation lives in the <a class="reference internal" href="email.message.html#module-email.message" title="email.message: The base class representing email messages."><code class="xref py py-mod docutils literal"><span class="pre">email.message</span></code></a> module.</p>
+</div>
+<dl class="class">
+<dt id="email.message.EmailMessage">
+<em class="property">class </em><code class="descclassname">email.message.</code><code class="descname">EmailMessage</code><span class="sig-paren">(</span><em>policy=default</em><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <em>policy</em> is specified (it must be an instance of a <a class="reference internal" href="email.policy.html#module-email.policy" title="email.policy: Controlling the parsing and generating of messages"><code class="xref py py-mod docutils literal"><span class="pre">policy</span></code></a>
+class) use the rules it specifies to udpate and serialize the representation
+of the message.  If <em>policy</em> is not set, use the
+<a class="reference internal" href="email.policy.html#email.policy.default" title="email.policy.default"><code class="xref py py-class docutils literal"><span class="pre">default</span></code></a> policy, which follows the rules of the email
+RFCs except for line endings (instead of the RFC mandated <code class="docutils literal"><span class="pre">\r\n</span></code>, it uses
+the Python standard <code class="docutils literal"><span class="pre">\n</span></code> line endings).  For more information see the
+<a class="reference internal" href="email.policy.html#module-email.policy" title="email.policy: Controlling the parsing and generating of messages"><code class="xref py py-mod docutils literal"><span class="pre">policy</span></code></a> documentation.</p>
+<p>This class is a subclass of <a class="reference internal" href="email.message.html#email.message.Message" title="email.message.Message"><code class="xref py py-class docutils literal"><span class="pre">Message</span></code></a>.  It adds
+the following methods:</p>
+<dl class="method">
+<dt id="email.message.EmailMessage.is_attachment">
+<code class="descname">is_attachment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.is_attachment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal"><span class="pre">True</span></code> if there is a <em class="mailheader">Content-Disposition</em> header
+and its (case insensitive) value is <code class="docutils literal"><span class="pre">attachment</span></code>, <code class="docutils literal"><span class="pre">False</span></code> otherwise.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4.2: </span>is_attachment is now a method instead of a property, for consistency
+with <a class="reference internal" href="email.message.html#email.message.Message.is_multipart" title="email.message.Message.is_multipart"><code class="xref py py-meth docutils literal"><span class="pre">is_multipart()</span></code></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.get_body">
+<code class="descname">get_body</code><span class="sig-paren">(</span><em>preferencelist=('related'</em>, <em>'html'</em>, <em>'plain')</em><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.get_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the MIME part that is the best candidate to be the &#8220;body&#8221; of the
+message.</p>
+<p><em>preferencelist</em> must be a sequence of strings from the set <code class="docutils literal"><span class="pre">related</span></code>,
+<code class="docutils literal"><span class="pre">html</span></code>, and <code class="docutils literal"><span class="pre">plain</span></code>, and indicates the order of preference for the
+content type of the part returned.</p>
+<p>Start looking for candidate matches with the object on which the
+<code class="docutils literal"><span class="pre">get_body</span></code> method is called.</p>
+<p>If <code class="docutils literal"><span class="pre">related</span></code> is not included in <em>preferencelist</em>, consider the root
+part (or subpart of the root part) of any related encountered as a
+candidate if the (sub-)part matches a preference.</p>
+<p>When encountering a <code class="docutils literal"><span class="pre">multipart/related</span></code>, check the <code class="docutils literal"><span class="pre">start</span></code> parameter
+and if a part with a matching <em class="mailheader">Content-ID</em> is found, consider
+only it when looking for candidate matches.  Otherwise consider only the
+first (default root) part of the <code class="docutils literal"><span class="pre">multipart/related</span></code>.</p>
+<p>If a part has a <em class="mailheader">Content-Disposition</em> header, only consider
+the part a candidate match if the value of the header is <code class="docutils literal"><span class="pre">inline</span></code>.</p>
+<p>If none of the candidates matches any of the preferences in
+<em>preferneclist</em>, return <code class="docutils literal"><span class="pre">None</span></code>.</p>
+<p>Notes: (1) For most applications the only <em>preferencelist</em> combinations
+that really make sense are <code class="docutils literal"><span class="pre">('plain',)</span></code>, <code class="docutils literal"><span class="pre">('html',</span> <span class="pre">'plain')</span></code>, and the
+default, <code class="docutils literal"><span class="pre">('related',</span> <span class="pre">'html',</span> <span class="pre">'plain')</span></code>.  (2) Because matching starts
+with the object on which <code class="docutils literal"><span class="pre">get_body</span></code> is called, calling <code class="docutils literal"><span class="pre">get_body</span></code> on
+a <code class="docutils literal"><span class="pre">multipart/related</span></code> will return the object itself unless
+<em>preferencelist</em> has a non-default value. (3) Messages (or message parts)
+that do not specify a <em class="mailheader">Content-Type</em> or whose
+<em class="mailheader">Content-Type</em> header is invalid will be treated as if they
+are of type <code class="docutils literal"><span class="pre">text/plain</span></code>, which may occasionally cause <code class="docutils literal"><span class="pre">get_body</span></code> to
+return unexpected results.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.iter_attachments">
+<code class="descname">iter_attachments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.iter_attachments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over all of the parts of the message that are not
+candidate &#8220;body&#8221; parts.  That is, skip the first occurrence of each of
+<code class="docutils literal"><span class="pre">text/plain</span></code>, <code class="docutils literal"><span class="pre">text/html</span></code>, <code class="docutils literal"><span class="pre">multipart/related</span></code>, or
+<code class="docutils literal"><span class="pre">multipart/alternative</span></code> (unless they are explicitly marked as
+attachments via <em class="mailheader">Content-Disposition: attachment</em>), and
+return all remaining parts.  When applied directly to a
+<code class="docutils literal"><span class="pre">multipart/related</span></code>, return an iterator over the all the related parts
+except the root part (ie: the part pointed to by the <code class="docutils literal"><span class="pre">start</span></code> parameter,
+or the first part if there is no <code class="docutils literal"><span class="pre">start</span></code> parameter or the <code class="docutils literal"><span class="pre">start</span></code>
+parameter doesn&#8217;t match the <em class="mailheader">Content-ID</em> of any of the
+parts).  When applied directly to a <code class="docutils literal"><span class="pre">multipart/alternative</span></code> or a
+non-<code class="docutils literal"><span class="pre">multipart</span></code>, return an empty iterator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.iter_parts">
+<code class="descname">iter_parts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.iter_parts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over all of the immediate sub-parts of the message,
+which will be empty for a non-<code class="docutils literal"><span class="pre">multipart</span></code>.  (See also
+<code class="xref py py-meth docutils literal"><span class="pre">walk()</span></code>.)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.get_content">
+<code class="descname">get_content</code><span class="sig-paren">(</span><em>*args</em>, <em>content_manager=None</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.get_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the <code class="docutils literal"><span class="pre">get_content</span></code> method of the <em>content_manager</em>, passing self
+as the message object, and passing along any other arguments or keywords
+as additional arguments.  If <em>content_manager</em> is not specified, use
+the <code class="docutils literal"><span class="pre">content_manager</span></code> specified by the current <a class="reference internal" href="email.policy.html#module-email.policy" title="email.policy: Controlling the parsing and generating of messages"><code class="xref py py-mod docutils literal"><span class="pre">policy</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.set_content">
+<code class="descname">set_content</code><span class="sig-paren">(</span><em>*args</em>, <em>content_manager=None</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.set_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the <code class="docutils literal"><span class="pre">set_content</span></code> method of the <em>content_manager</em>, passing self
+as the message object, and passing along any other arguments or keywords
+as additional arguments.  If <em>content_manager</em> is not specified, use
+the <code class="docutils literal"><span class="pre">content_manager</span></code> specified by the current <a class="reference internal" href="email.policy.html#module-email.policy" title="email.policy: Controlling the parsing and generating of messages"><code class="xref py py-mod docutils literal"><span class="pre">policy</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.make_related">
+<code class="descname">make_related</code><span class="sig-paren">(</span><em>boundary=None</em><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.make_related" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a non-<code class="docutils literal"><span class="pre">multipart</span></code> message into a <code class="docutils literal"><span class="pre">multipart/related</span></code> message,
+moving any existing <em class="mailheader">Content-</em> headers and payload into a
+(new) first part of the <code class="docutils literal"><span class="pre">multipart</span></code>.  If <em>boundary</em> is specified, use
+it as the boundary string in the multipart, otherwise leave the boundary
+to be automatically created when it is needed (for example, when the
+message is serialized).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.make_alternative">
+<code class="descname">make_alternative</code><span class="sig-paren">(</span><em>boundary=None</em><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.make_alternative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a non-<code class="docutils literal"><span class="pre">multipart</span></code> or a <code class="docutils literal"><span class="pre">multipart/related</span></code> into a
+<code class="docutils literal"><span class="pre">multipart/alternative</span></code>, moving any existing <em class="mailheader">Content-</em>
+headers and payload into a (new) first part of the <code class="docutils literal"><span class="pre">multipart</span></code>.  If
+<em>boundary</em> is specified, use it as the boundary string in the multipart,
+otherwise leave the boundary to be automatically created when it is
+needed (for example, when the message is serialized).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.make_mixed">
+<code class="descname">make_mixed</code><span class="sig-paren">(</span><em>boundary=None</em><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.make_mixed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a non-<code class="docutils literal"><span class="pre">multipart</span></code>, a <code class="docutils literal"><span class="pre">multipart/related</span></code>, or a
+<code class="docutils literal"><span class="pre">multipart-alternative</span></code> into a <code class="docutils literal"><span class="pre">multipart/mixed</span></code>, moving any existing
+<em class="mailheader">Content-</em> headers and payload into a (new) first part of the
+<code class="docutils literal"><span class="pre">multipart</span></code>.  If <em>boundary</em> is specified, use it as the boundary string
+in the multipart, otherwise leave the boundary to be automatically
+created when it is needed (for example, when the message is serialized).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.add_related">
+<code class="descname">add_related</code><span class="sig-paren">(</span><em>*args</em>, <em>content_manager=None</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.add_related" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the message is a <code class="docutils literal"><span class="pre">multipart/related</span></code>, create a new message
+object, pass all of the arguments to its <a class="reference internal" href="#email.message.EmailMessage.set_content" title="email.message.EmailMessage.set_content"><code class="xref py py-meth docutils literal"><span class="pre">set_content()</span></code></a> method,
+and <a class="reference internal" href="email.message.html#email.message.Message.attach" title="email.message.Message.attach"><code class="xref py py-meth docutils literal"><span class="pre">attach()</span></code></a> it to the <code class="docutils literal"><span class="pre">multipart</span></code>.  If
+the message is a non-<code class="docutils literal"><span class="pre">multipart</span></code>, call <a class="reference internal" href="#email.message.EmailMessage.make_related" title="email.message.EmailMessage.make_related"><code class="xref py py-meth docutils literal"><span class="pre">make_related()</span></code></a> and then
+proceed as above.  If the message is any other type of <code class="docutils literal"><span class="pre">multipart</span></code>,
+raise a <a class="reference internal" href="exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code></a>. If <em>content_manager</em> is not specified, use
+the <code class="docutils literal"><span class="pre">content_manager</span></code> specified by the current <a class="reference internal" href="email.policy.html#module-email.policy" title="email.policy: Controlling the parsing and generating of messages"><code class="xref py py-mod docutils literal"><span class="pre">policy</span></code></a>.
+If the added part has no <em class="mailheader">Content-Disposition</em> header,
+add one with the value <code class="docutils literal"><span class="pre">inline</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.add_alternative">
+<code class="descname">add_alternative</code><span class="sig-paren">(</span><em>*args</em>, <em>content_manager=None</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.add_alternative" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the message is a <code class="docutils literal"><span class="pre">multipart/alternative</span></code>, create a new message
+object, pass all of the arguments to its <a class="reference internal" href="#email.message.EmailMessage.set_content" title="email.message.EmailMessage.set_content"><code class="xref py py-meth docutils literal"><span class="pre">set_content()</span></code></a> method, and
+<a class="reference internal" href="email.message.html#email.message.Message.attach" title="email.message.Message.attach"><code class="xref py py-meth docutils literal"><span class="pre">attach()</span></code></a> it to the <code class="docutils literal"><span class="pre">multipart</span></code>.  If the
+message is a non-<code class="docutils literal"><span class="pre">multipart</span></code> or <code class="docutils literal"><span class="pre">multipart/related</span></code>, call
+<a class="reference internal" href="#email.message.EmailMessage.make_alternative" title="email.message.EmailMessage.make_alternative"><code class="xref py py-meth docutils literal"><span class="pre">make_alternative()</span></code></a> and then proceed as above.  If the message is
+any other type of <code class="docutils literal"><span class="pre">multipart</span></code>, raise a <a class="reference internal" href="exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code></a>. If
+<em>content_manager</em> is not specified, use the <code class="docutils literal"><span class="pre">content_manager</span></code> specified
+by the current <a class="reference internal" href="email.policy.html#module-email.policy" title="email.policy: Controlling the parsing and generating of messages"><code class="xref py py-mod docutils literal"><span class="pre">policy</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.add_attachment">
+<code class="descname">add_attachment</code><span class="sig-paren">(</span><em>*args</em>, <em>content_manager=None</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.add_attachment" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the message is a <code class="docutils literal"><span class="pre">multipart/mixed</span></code>, create a new message object,
+pass all of the arguments to its <a class="reference internal" href="#email.message.EmailMessage.set_content" title="email.message.EmailMessage.set_content"><code class="xref py py-meth docutils literal"><span class="pre">set_content()</span></code></a> method, and
+<a class="reference internal" href="email.message.html#email.message.Message.attach" title="email.message.Message.attach"><code class="xref py py-meth docutils literal"><span class="pre">attach()</span></code></a> it to the <code class="docutils literal"><span class="pre">multipart</span></code>.  If the
+message is a non-<code class="docutils literal"><span class="pre">multipart</span></code>, <code class="docutils literal"><span class="pre">multipart/related</span></code>, or
+<code class="docutils literal"><span class="pre">multipart/alternative</span></code>, call <a class="reference internal" href="#email.message.EmailMessage.make_mixed" title="email.message.EmailMessage.make_mixed"><code class="xref py py-meth docutils literal"><span class="pre">make_mixed()</span></code></a> and then proceed as
+above. If <em>content_manager</em> is not specified, use the <code class="docutils literal"><span class="pre">content_manager</span></code>
+specified by the current <a class="reference internal" href="email.policy.html#module-email.policy" title="email.policy: Controlling the parsing and generating of messages"><code class="xref py py-mod docutils literal"><span class="pre">policy</span></code></a>.  If the added part
+has no <em class="mailheader">Content-Disposition</em> header, add one with the value
+<code class="docutils literal"><span class="pre">attachment</span></code>.  This method can be used both for explicit attachments
+(<em class="mailheader">Content-Disposition: attachment</em> and <code class="docutils literal"><span class="pre">inline</span></code> attachments
+(<em class="mailheader">Content-Disposition: inline</em>), by passing appropriate
+options to the <code class="docutils literal"><span class="pre">content_manager</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the payload and all of the headers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.message.EmailMessage.clear_content">
+<code class="descname">clear_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#email.message.EmailMessage.clear_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the payload and all of the <code class="xref py py-exc docutils literal"><span class="pre">Content-</span></code> headers, leaving
+all other headers intact and in their original order.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="email.message.MIMEPart">
+<em class="property">class </em><code class="descclassname">email.message.</code><code class="descname">MIMEPart</code><span class="sig-paren">(</span><em>policy=default</em><span class="sig-paren">)</span><a class="headerlink" href="#email.message.MIMEPart" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class represents a subpart of a MIME message.  It is identical to
+<a class="reference internal" href="#email.message.EmailMessage" title="email.message.EmailMessage"><code class="xref py py-class docutils literal"><span class="pre">EmailMessage</span></code></a>, except that no <em class="mailheader">MIME-Version</em> headers are
+added when <a class="reference internal" href="#email.message.EmailMessage.set_content" title="email.message.EmailMessage.set_content"><code class="xref py py-meth docutils literal"><span class="pre">set_content()</span></code></a> is called, since sub-parts do
+not need their own <em class="mailheader">MIME-Version</em> headers.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="email.contentmanager.ContentManager">
+<em class="property">class </em><code class="descclassname">email.contentmanager.</code><code class="descname">ContentManager</code><a class="headerlink" href="#email.contentmanager.ContentManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for content managers.  Provides the standard registry mechanisms
+to register converters between MIME content and other representations, as
+well as the <code class="docutils literal"><span class="pre">get_content</span></code> and <code class="docutils literal"><span class="pre">set_content</span></code> dispatch methods.</p>
+<dl class="method">
+<dt id="email.contentmanager.ContentManager.get_content">
+<code class="descname">get_content</code><span class="sig-paren">(</span><em>msg</em>, <em>*args</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#email.contentmanager.ContentManager.get_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Look up a handler function based on the <code class="docutils literal"><span class="pre">mimetype</span></code> of <em>msg</em> (see next
+paragraph), call it, passing through all arguments, and return the result
+of the call.  The expectation is that the handler will extract the
+payload from <em>msg</em> and return an object that encodes information about
+the extracted data.</p>
+<p>To find the handler, look for the following keys in the registry,
+stopping with the first one found:</p>
+<blockquote>
+<div><ul class="simple">
+<li>the string representing the full MIME type (<code class="docutils literal"><span class="pre">maintype/subtype</span></code>)</li>
+<li>the string representing the <code class="docutils literal"><span class="pre">maintype</span></code></li>
+<li>the empty string</li>
+</ul>
+</div></blockquote>
+<p>If none of these keys produce a handler, raise a <a class="reference internal" href="exceptions.html#KeyError" title="KeyError"><code class="xref py py-exc docutils literal"><span class="pre">KeyError</span></code></a> for the
+full MIME type.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.contentmanager.ContentManager.set_content">
+<code class="descname">set_content</code><span class="sig-paren">(</span><em>msg</em>, <em>obj</em>, <em>*args</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#email.contentmanager.ContentManager.set_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the <code class="docutils literal"><span class="pre">maintype</span></code> is <code class="docutils literal"><span class="pre">multipart</span></code>, raise a <a class="reference internal" href="exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code></a>; otherwise
+look up a handler function based on the type of <em>obj</em> (see next
+paragraph), call <a class="reference internal" href="#email.message.EmailMessage.clear_content" title="email.message.EmailMessage.clear_content"><code class="xref py py-meth docutils literal"><span class="pre">clear_content()</span></code></a> on the
+<em>msg</em>, and call the handler function, passing through all arguments.  The
+expectation is that the handler will transform and store <em>obj</em> into
+<em>msg</em>, possibly making other changes to <em>msg</em> as well, such as adding
+various MIME headers to encode information needed to interpret the stored
+data.</p>
+<p>To find the handler, obtain the type of <em>obj</em> (<code class="docutils literal"><span class="pre">typ</span> <span class="pre">=</span> <span class="pre">type(obj)</span></code>), and
+look for the following keys in the registry, stopping with the first one
+found:</p>
+<blockquote>
+<div><ul class="simple">
+<li>the type itself (<code class="docutils literal"><span class="pre">typ</span></code>)</li>
+<li>the type&#8217;s fully qualified name (<code class="docutils literal"><span class="pre">typ.__module__</span> <span class="pre">+</span> <span class="pre">'.'</span> <span class="pre">+</span>
+<span class="pre">typ.__qualname__</span></code>).</li>
+<li>the type&#8217;s qualname (<code class="docutils literal"><span class="pre">typ.__qualname__</span></code>)</li>
+<li>the type&#8217;s name (<code class="docutils literal"><span class="pre">typ.__name__</span></code>).</li>
+</ul>
+</div></blockquote>
+<p>If none of the above match, repeat all of the checks above for each of
+the types in the <a class="reference internal" href="../glossary.html#term-mro"><span class="xref std std-term">MRO</span></a> (<code class="docutils literal"><span class="pre">typ.__mro__</span></code>).  Finally, if no other key
+yields a handler, check for a handler for the key <code class="docutils literal"><span class="pre">None</span></code>.  If there is
+no handler for <code class="docutils literal"><span class="pre">None</span></code>, raise a <a class="reference internal" href="exceptions.html#KeyError" title="KeyError"><code class="xref py py-exc docutils literal"><span class="pre">KeyError</span></code></a> for the fully
+qualified name of the type.</p>
+<p>Also add a <em class="mailheader">MIME-Version</em> header if one is not present (see
+also <a class="reference internal" href="#email.message.MIMEPart" title="email.message.MIMEPart"><code class="xref py py-class docutils literal"><span class="pre">MIMEPart</span></code></a>).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.contentmanager.ContentManager.add_get_handler">
+<code class="descname">add_get_handler</code><span class="sig-paren">(</span><em>key</em>, <em>handler</em><span class="sig-paren">)</span><a class="headerlink" href="#email.contentmanager.ContentManager.add_get_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Record the function <em>handler</em> as the handler for <em>key</em>.  For the possible
+values of <em>key</em>, see <a class="reference internal" href="#email.contentmanager.get_content" title="email.contentmanager.get_content"><code class="xref py py-meth docutils literal"><span class="pre">get_content()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.contentmanager.ContentManager.add_set_handler">
+<code class="descname">add_set_handler</code><span class="sig-paren">(</span><em>typekey</em>, <em>handler</em><span class="sig-paren">)</span><a class="headerlink" href="#email.contentmanager.ContentManager.add_set_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Record <em>handler</em> as the function to call when an object of a type
+matching <em>typekey</em> is passed to <a class="reference internal" href="#email.contentmanager.set_content" title="email.contentmanager.set_content"><code class="xref py py-meth docutils literal"><span class="pre">set_content()</span></code></a>.  For the possible
+values of <em>typekey</em>, see <a class="reference internal" href="#email.contentmanager.set_content" title="email.contentmanager.set_content"><code class="xref py py-meth docutils literal"><span class="pre">set_content()</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="content-manager-instances">
+<h2>19.1.6.1. Content Manager Instances<a class="headerlink" href="#content-manager-instances" title="Permalink to this headline">¶</a></h2>
+<p>Currently the email package provides only one concrete content manager,
+<a class="reference internal" href="#email.contentmanager.raw_data_manager" title="email.contentmanager.raw_data_manager"><code class="xref py py-data docutils literal"><span class="pre">raw_data_manager</span></code></a>, although more may be added in the future.
+<a class="reference internal" href="#email.contentmanager.raw_data_manager" title="email.contentmanager.raw_data_manager"><code class="xref py py-data docutils literal"><span class="pre">raw_data_manager</span></code></a> is the
+<a class="reference internal" href="email.policy.html#email.policy.EmailPolicy.content_manager" title="email.policy.EmailPolicy.content_manager"><code class="xref py py-attr docutils literal"><span class="pre">content_manager</span></code></a> provided by
+<a class="reference internal" href="email.policy.html#email.policy.EmailPolicy" title="email.policy.EmailPolicy"><code class="xref py py-attr docutils literal"><span class="pre">EmailPolicy</span></code></a> and its derivatives.</p>
+<dl class="data">
+<dt id="email.contentmanager.raw_data_manager">
+<code class="descclassname">email.contentmanager.</code><code class="descname">raw_data_manager</code><a class="headerlink" href="#email.contentmanager.raw_data_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>This content manager provides only a minimum interface beyond that provided
+by <a class="reference internal" href="email.message.html#email.message.Message" title="email.message.Message"><code class="xref py py-class docutils literal"><span class="pre">Message</span></code></a> itself:  it deals only with text, raw
+byte strings, and <a class="reference internal" href="email.message.html#email.message.Message" title="email.message.Message"><code class="xref py py-class docutils literal"><span class="pre">Message</span></code></a> objects.  Nevertheless, it
+provides significant advantages compared to the base API: <code class="docutils literal"><span class="pre">get_content</span></code> on
+a text part will return a unicode string without the application needing to
+manually decode it, <code class="docutils literal"><span class="pre">set_content</span></code> provides a rich set of options for
+controlling the headers added to a part and controlling the content transfer
+encoding, and it enables the use of the various <code class="docutils literal"><span class="pre">add_</span></code> methods, thereby
+simplifying the creation of multipart messages.</p>
+<dl class="method">
+<dt id="email.contentmanager.get_content">
+<code class="descclassname">email.contentmanager.</code><code class="descname">get_content</code><span class="sig-paren">(</span><em>msg</em>, <em>errors='replace'</em><span class="sig-paren">)</span><a class="headerlink" href="#email.contentmanager.get_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the payload of the part as either a string (for <code class="docutils literal"><span class="pre">text</span></code> parts), a
+<a class="reference internal" href="#email.message.EmailMessage" title="email.message.EmailMessage"><code class="xref py py-class docutils literal"><span class="pre">EmailMessage</span></code></a> object (for <code class="docutils literal"><span class="pre">message/rfc822</span></code>
+parts), or a <code class="docutils literal"><span class="pre">bytes</span></code> object (for all other non-multipart types).  Raise
+a <a class="reference internal" href="exceptions.html#KeyError" title="KeyError"><code class="xref py py-exc docutils literal"><span class="pre">KeyError</span></code></a> if called on a <code class="docutils literal"><span class="pre">multipart</span></code>.  If the part is a
+<code class="docutils literal"><span class="pre">text</span></code> part and <em>errors</em> is specified, use it as the error handler when
+decoding the payload to unicode.  The default error handler is
+<code class="docutils literal"><span class="pre">replace</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="email.contentmanager.set_content">
+<code class="descclassname">email.contentmanager.</code><code class="descname">set_content</code><span class="sig-paren">(</span><em>msg</em>, <em>&lt;'str'&gt;</em>, <em>subtype=&quot;plain&quot;</em>, <em>charset='utf-8'                     cte=None</em>, <em>disposition=None</em>, <em>filename=None</em>, <em>cid=None</em>, <em>params=None</em>, <em>headers=None</em><span class="sig-paren">)</span><a class="headerlink" href="#email.contentmanager.set_content" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">email.contentmanager.</code><code class="descname">set_content</code><span class="sig-paren">(</span><em>msg</em>, <em>&lt;'bytes'&gt;</em>, <em>maintype</em>, <em>subtype</em>, <em>cte=&quot;base64&quot;</em>, <em>disposition=None</em>, <em>filename=None</em>, <em>cid=None</em>, <em>params=None</em>, <em>headers=None</em><span class="sig-paren">)</span></dt>
+<dt>
+<code class="descclassname">email.contentmanager.</code><code class="descname">set_content</code><span class="sig-paren">(</span><em>msg</em>, <em>&lt;'Message'&gt;</em>, <em>cte=None</em>, <em>disposition=None</em>, <em>filename=None</em>, <em>cid=None</em>, <em>params=None</em>, <em>headers=None</em><span class="sig-paren">)</span></dt>
+<dt>
+<code class="descclassname">email.contentmanager.</code><code class="descname">set_content</code><span class="sig-paren">(</span><em>msg</em>, <em>&lt;'list'&gt;</em>, <em>subtype='mixed'</em>, <em>disposition=None</em>, <em>filename=None</em>, <em>cid=None</em>, <em>params=None</em>, <em>headers=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Add headers and payload to <em>msg</em>:</p>
+<p>Add a <em class="mailheader">Content-Type</em> header with a <code class="docutils literal"><span class="pre">maintype/subtype</span></code>
+value.</p>
+<blockquote>
+<div><ul class="simple">
+<li>For <code class="docutils literal"><span class="pre">str</span></code>, set the MIME <code class="docutils literal"><span class="pre">maintype</span></code> to <code class="docutils literal"><span class="pre">text</span></code>, and set the
+subtype to <em>subtype</em> if it is specified, or <code class="docutils literal"><span class="pre">plain</span></code> if it is not.</li>
+<li>For <code class="docutils literal"><span class="pre">bytes</span></code>, use the specified <em>maintype</em> and <em>subtype</em>, or
+raise a <a class="reference internal" href="exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code></a> if they are not specified.</li>
+<li>For <a class="reference internal" href="email.message.html#email.message.Message" title="email.message.Message"><code class="xref py py-class docutils literal"><span class="pre">Message</span></code></a> objects, set the maintype to
+<code class="docutils literal"><span class="pre">message</span></code>, and set the subtype to <em>subtype</em> if it is specified
+or <code class="docutils literal"><span class="pre">rfc822</span></code> if it is not.  If <em>subtype</em> is <code class="docutils literal"><span class="pre">partial</span></code>, raise an
+error (<code class="docutils literal"><span class="pre">bytes</span></code> objects must be used to construct
+<code class="docutils literal"><span class="pre">message/partial</span></code> parts).</li>
+<li>For <em>&lt;&#8217;list&#8217;&gt;</em>, which should be a list of
+<a class="reference internal" href="email.message.html#email.message.Message" title="email.message.Message"><code class="xref py py-class docutils literal"><span class="pre">Message</span></code></a> objects, set the <code class="docutils literal"><span class="pre">maintype</span></code> to
+<code class="docutils literal"><span class="pre">multipart</span></code>, and the <code class="docutils literal"><span class="pre">subtype</span></code> to <em>subtype</em> if it is
+specified, and <code class="docutils literal"><span class="pre">mixed</span></code> if it is not.  If the message parts in
+the <em>&lt;&#8217;list&#8217;&gt;</em> have <em class="mailheader">MIME-Version</em> headers, remove
+them.</li>
+</ul>
+</div></blockquote>
+<p>If <em>charset</em> is provided (which is valid only for <code class="docutils literal"><span class="pre">str</span></code>), encode the
+string to bytes using the specified character set.  The default is
+<code class="docutils literal"><span class="pre">utf-8</span></code>.  If the specified <em>charset</em> is a known alias for a standard
+MIME charset name, use the standard charset instead.</p>
+<p>If <em>cte</em> is set, encode the payload using the specified content transfer
+encoding, and set the <em class="mailheader">Content-Transfer-Endcoding</em> header to
+that value.  For <code class="docutils literal"><span class="pre">str</span></code> objects, if it is not set use heuristics to
+determine the most compact encoding.  Possible values for <em>cte</em> are
+<code class="docutils literal"><span class="pre">quoted-printable</span></code>, <code class="docutils literal"><span class="pre">base64</span></code>, <code class="docutils literal"><span class="pre">7bit</span></code>, <code class="docutils literal"><span class="pre">8bit</span></code>, and <code class="docutils literal"><span class="pre">binary</span></code>.
+If the input cannot be encoded in the specified encoding (eg: <code class="docutils literal"><span class="pre">7bit</span></code>),
+raise a <a class="reference internal" href="exceptions.html#ValueError" title="ValueError"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code></a>.  For <a class="reference internal" href="email.message.html#email.message.Message" title="email.message.Message"><code class="xref py py-class docutils literal"><span class="pre">Message</span></code></a>, per
+<span class="target" id="index-0"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc2046.html"><strong>RFC 2046</strong></a>, raise an error if a <em>cte</em> of <code class="docutils literal"><span class="pre">quoted-printable</span></code> or
+<code class="docutils literal"><span class="pre">base64</span></code> is requested for <em>subtype</em> <code class="docutils literal"><span class="pre">rfc822</span></code>, and for any <em>cte</em>
+other than <code class="docutils literal"><span class="pre">7bit</span></code> for <em>subtype</em> <code class="docutils literal"><span class="pre">external-body</span></code>.  For
+<code class="docutils literal"><span class="pre">message/rfc822</span></code>, use <code class="docutils literal"><span class="pre">8bit</span></code> if <em>cte</em> is not specified.  For all
+other values of <em>subtype</em>, use <code class="docutils literal"><span class="pre">7bit</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A <em>cte</em> of <code class="docutils literal"><span class="pre">binary</span></code> does not actually work correctly yet.
+The <code class="docutils literal"><span class="pre">Message</span></code> object as modified by <code class="docutils literal"><span class="pre">set_content</span></code> is correct, but
+<a class="reference internal" href="email.generator.html#email.generator.BytesGenerator" title="email.generator.BytesGenerator"><code class="xref py py-class docutils literal"><span class="pre">BytesGenerator</span></code></a> does not serialize it
+correctly.</p>
+</div>
+<p>If <em>disposition</em> is set, use it as the value of the
+<em class="mailheader">Content-Disposition</em> header.  If not specified, and
+<em>filename</em> is specified, add the header with the value <code class="docutils literal"><span class="pre">attachment</span></code>.
+If it is not specified and <em>filename</em> is also not specified, do not add
+the header.  The only valid values for <em>disposition</em> are <code class="docutils literal"><span class="pre">attachment</span></code>
+and <code class="docutils literal"><span class="pre">inline</span></code>.</p>
+<p>If <em>filename</em> is specified, use it as the value of the <code class="docutils literal"><span class="pre">filename</span></code>
+parameter of the <em class="mailheader">Content-Disposition</em> header.  There is no
+default.</p>
+<p>If <em>cid</em> is specified, add a <em class="mailheader">Content-ID</em> header with
+<em>cid</em> as its value.</p>
+<p>If <em>params</em> is specified, iterate its <code class="docutils literal"><span class="pre">items</span></code> method and use the
+resulting <code class="docutils literal"><span class="pre">(key,</span> <span class="pre">value)</span></code> pairs to set additional parameters on the
+<em class="mailheader">Content-Type</em> header.</p>
+<p>If <em>headers</em> is specified and is a list of strings of the form
+<code class="docutils literal"><span class="pre">headername:</span> <span class="pre">headervalue</span></code> or a list of <code class="docutils literal"><span class="pre">header</span></code> objects
+(distinguised from strings by having a <code class="docutils literal"><span class="pre">name</span></code> attribute), add the
+headers to <em>msg</em>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">19.1.6. <code class="docutils literal"><span class="pre">email.contentmanager</span></code>: Managing MIME Content</a><ul>
+<li><a class="reference internal" href="#content-manager-instances">19.1.6.1. Content Manager Instances</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="email.headerregistry.html"
+                        title="previous chapter">19.1.5. <code class="docutils literal"><span class="pre">email.headerregistry</span></code>: Custom Header Objects</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="email.mime.html"
+                        title="next chapter">19.1.7. <code class="docutils literal"><span class="pre">email.mime</span></code>: Creating email and MIME objects from scratch</a></p>
+<h3>This Page</h3>
+<ul class="this-page-menu">
+  <li><a href="../bugs.html">Report a Bug</a></li>
+  <li><a href="../_sources/library/email.contentmanager.txt"
+         rel="nofollow">Show Source</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="email.mime.html" title="19.1.7. email.mime: Creating email and MIME objects from scratch"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="email.headerregistry.html" title="19.1.5. email.headerregistry: Custom Header Objects"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.5.1</span>
+          <a href="../index.html">Documentation </a> &raquo;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="netdata.html" >19. Internet Data Handling</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="email.html" >19.1. <code class="docutils literal"><span class="pre">email</span></code> &#8212; An email and MIME handling package</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 1990-2016, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 22, 2016.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
+    </div>
+
+  </body>
+</html>
