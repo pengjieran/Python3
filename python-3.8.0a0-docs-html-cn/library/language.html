@@ -1,0 +1,258 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>33. Python Language Services &#8212; Python 3.8.0a0 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.8.0a0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.8.0a0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="33.1. parser — Access Python parse trees" href="parser.html" />
+    <link rel="prev" title="32.5. importlib — The implementation of import" href="importlib.html" />
+    <link rel="canonical" href="https://docs.python.org/3/library/language.html" />
+    
+      
+      <script type="text/javascript" src="../_static/switchers.js"></script>
+      
+    
+
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+
+  </head>
+  <body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="parser.html" title="33.1. parser — Access Python parse trees"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="importlib.html" title="32.5. importlib — The implementation of import"
+             accesskey="P">previous</a> |</li>
+
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://www.python.org/">Python</a> &#187;</li>
+    
+
+    <li>
+      <span class="language_switcher_placeholder">en</span>
+      <span class="version_switcher_placeholder">3.8.0a0</span>
+      <a href="../index.html">Documentation </a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">The Python Standard Library</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python-language-services">
+<span id="language"></span><h1>33. Python Language Services<a class="headerlink" href="#python-language-services" title="Permalink to this headline">¶</a></h1>
+<p>Python provides a number of modules to assist in working with the Python
+language.  These modules support tokenizing, parsing, syntax analysis, bytecode
+disassembly, and various other facilities.</p>
+<p>These modules include:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">33.1. <code class="docutils literal"><span class="pre">parser</span></code> — Access Python parse trees</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#creating-st-objects">33.1.1. Creating ST Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#converting-st-objects">33.1.2. Converting ST Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#queries-on-st-objects">33.1.3. Queries on ST Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#exceptions-and-error-handling">33.1.4. Exceptions and Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#st-objects">33.1.5. ST Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#example-emulation-of-compile">33.1.6. Example: Emulation of <code class="docutils literal"><span class="pre">compile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ast.html">33.2. <code class="docutils literal"><span class="pre">ast</span></code> — Abstract Syntax Trees</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ast.html#node-classes">33.2.1. Node classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ast.html#abstract-grammar">33.2.2. Abstract Grammar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ast.html#ast-helpers">33.2.3. <code class="docutils literal"><span class="pre">ast</span></code> Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="symtable.html">33.3. <code class="docutils literal"><span class="pre">symtable</span></code> — Access to the compiler’s symbol tables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="symtable.html#generating-symbol-tables">33.3.1. Generating Symbol Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symtable.html#examining-symbol-tables">33.3.2. Examining Symbol Tables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="symbol.html">33.4. <code class="docutils literal"><span class="pre">symbol</span></code> — Constants used with Python parse trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="token.html">33.5. <code class="docutils literal"><span class="pre">token</span></code> — Constants used with Python parse trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyword.html">33.6. <code class="docutils literal"><span class="pre">keyword</span></code> — Testing for Python keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tokenize.html">33.7. <code class="docutils literal"><span class="pre">tokenize</span></code> — Tokenizer for Python source</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tokenize.html#tokenizing-input">33.7.1. Tokenizing Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tokenize.html#command-line-usage">33.7.2. Command-Line Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tokenize.html#examples">33.7.3. Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tabnanny.html">33.8. <code class="docutils literal"><span class="pre">tabnanny</span></code> — Detection of ambiguous indentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyclbr.html">33.9. <code class="docutils literal"><span class="pre">pyclbr</span></code> — Python class browser support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyclbr.html#function-objects">33.9.1. Function Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyclbr.html#class-objects">33.9.2. Class Objects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py_compile.html">33.10. <code class="docutils literal"><span class="pre">py_compile</span></code> — Compile Python source files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compileall.html">33.11. <code class="docutils literal"><span class="pre">compileall</span></code> — Byte-compile Python libraries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compileall.html#command-line-use">33.11.1. Command-line use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compileall.html#public-functions">33.11.2. Public functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dis.html">33.12. <code class="docutils literal"><span class="pre">dis</span></code> — Disassembler for Python bytecode</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dis.html#bytecode-analysis">33.12.1. Bytecode analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dis.html#analysis-functions">33.12.2. Analysis functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dis.html#python-bytecode-instructions">33.12.3. Python Bytecode Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dis.html#opcode-collections">33.12.4. Opcode collections</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pickletools.html">33.13. <code class="docutils literal"><span class="pre">pickletools</span></code> — Tools for pickle developers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pickletools.html#command-line-usage">33.13.1. Command line usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pickletools.html#command-line-options">33.13.1.1. Command line options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pickletools.html#programmatic-interface">33.13.2. Programmatic Interface</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="importlib.html"
+                        title="previous chapter">32.5. <code class="docutils literal"><span class="pre">importlib</span></code> — The implementation of <code class="docutils literal"><span class="pre">import</span></code></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="parser.html"
+                        title="next chapter">33.1. <code class="docutils literal"><span class="pre">parser</span></code> — Access Python parse trees</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/master/Doc/library/language.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="parser.html" title="33.1. parser — Access Python parse trees"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="importlib.html" title="32.5. importlib — The implementation of import"
+             >previous</a> |</li>
+
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://www.python.org/">Python</a> &#187;</li>
+    
+
+    <li>
+      <span class="language_switcher_placeholder">en</span>
+      <span class="version_switcher_placeholder">3.8.0a0</span>
+      <a href="../index.html">Documentation </a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2018, Python Software Foundation.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Mar 27, 2018.
+    <a href="https://docs.python.org/3/bugs.html">Found a bug</a>?
+    <br />
+
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.4.
+    </div>
+
+  </body>
+</html>
